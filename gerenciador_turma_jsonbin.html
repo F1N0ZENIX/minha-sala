@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Gerenciador da Turma</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+:root{--primary:#6366f1;--primary-dark:#4f46e5;--secondary:#8b5cf6;--success:#10b981;--danger:#ef4444;--warning:#f59e0b;--bg:#0f172a;--bg-card:#1e293b;--bg-hover:#334155;--text:#f1f5f9;--text-muted:#94a3b8;--border:#334155;}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.bg-pattern{position:fixed;inset:0;background:radial-gradient(circle at 20% 50%,rgba(99,102,241,0.06) 0%,transparent 50%),radial-gradient(circle at 80% 20%,rgba(139,92,246,0.06) 0%,transparent 50%);pointer-events:none;z-index:0}
+.container{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:16px}
+.screen{display:none;min-height:100vh;align-items:center;justify-content:center;padding:20px}
+.screen.active{display:flex}
+.box{background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:32px;width:100%;max-width:480px;box-shadow:0 25px 50px -12px rgba(0,0,0,0.5);animation:slideUp .5s ease}
+@keyframes slideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+.box .logo{text-align:center;margin-bottom:20px}
+.box .logo i{font-size:2.5rem;color:var(--primary)}
+.box h1{font-size:1.5rem;text-align:center;margin-bottom:6px;background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.box p.subtitle{text-align:center;color:var(--text-muted);margin-bottom:24px;font-size:.9rem}
+.box h2{font-size:1.3rem;margin-bottom:8px;background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.box p{color:var(--text-muted);font-size:.9rem;margin-bottom:16px;line-height:1.5}
+.step{background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.2);border-radius:12px;padding:12px;margin-bottom:10px;font-size:.85rem}
+.step strong{color:var(--primary)}
+.input-group{margin-bottom:14px}
+.input-group label{display:block;margin-bottom:6px;font-size:.8rem;font-weight:500;color:var(--text-muted)}
+.input-group input,.input-group textarea{width:100%;padding:12px;background:var(--bg);border:1px solid var(--border);border-radius:12px;color:var(--text);font-size:.9rem;transition:all .2s;font-family:inherit}
+.input-group input:focus,.input-group textarea:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(99,102,241,0.15)}
+.input-group textarea{min-height:80px;resize:vertical;font-size:.8rem}
+.btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--primary),var(--secondary));border:none;border-radius:12px;color:white;font-size:1rem;font-weight:600;cursor:pointer;transition:all .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 25px -5px rgba(99,102,241,0.4)}
+.btn-secondary{background:var(--bg-hover);margin-top:10px}
+.btn-secondary:hover{box-shadow:none;transform:none}
+.btn-danger{background:var(--danger)}
+.btn-danger:hover{box-shadow:0 10px 25px -5px rgba(239,68,68,0.4)}
+.btn-success{background:var(--success)}
+.error-msg{color:var(--danger);font-size:.85rem;margin-top:12px;text-align:center;display:none}
+.hint{margin-top:16px;padding:12px;background:rgba(99,102,241,0.08);border-radius:10px;font-size:.8rem;color:var(--text-muted);text-align:center;line-height:1.5}
+.hint code{color:var(--primary);font-weight:600;background:rgba(99,102,241,0.1);padding:2px 6px;border-radius:4px}
+
+.dashboard{display:none;animation:fadeIn .4s ease}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:10px}
+.header h1{font-size:1.2rem}
+.header .user-info{display:flex;align-items:center;gap:10px}
+.badge{background:linear-gradient(135deg,var(--primary),var(--secondary));padding:5px 12px;border-radius:20px;font-size:.75rem;font-weight:600}
+.badge-visitor{background:var(--bg-hover);color:var(--text-muted)}
+.logout-btn{background:var(--bg-card);border:1px solid var(--border);color:var(--text-muted);padding:8px 14px;border-radius:10px;cursor:pointer;font-size:.8rem;transition:all .2s}
+.logout-btn:hover{background:var(--danger);color:white;border-color:var(--danger)}
+
+.tabs{display:flex;gap:6px;margin-bottom:20px;border-bottom:1px solid var(--border);padding-bottom:8px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:10px 16px;border-radius:10px;cursor:pointer;font-size:.85rem;font-weight:500;color:var(--text-muted);transition:all .2s;border:none;background:transparent;white-space:nowrap;flex-shrink:0}
+.tab:hover{color:var(--text);background:var(--bg-hover)}
+.tab.active{color:var(--primary);background:rgba(99,102,241,0.1)}
+.section{display:none}
+.section.active{display:block;animation:fadeIn .3s ease}
+.card{background:var(--bg-card);border:1px solid var(--border);border-radius:16px;padding:20px;margin-bottom:16px}
+.card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:10px}
+.card-header h2{font-size:1.1rem}
+.btn-add{background:var(--success);color:white;border:none;padding:10px 16px;border-radius:10px;cursor:pointer;font-size:.8rem;font-weight:600;display:flex;align-items:center;gap:6px;transition:all .2s;flex-shrink:0}
+.btn-add:hover{background:#059669;transform:translateY(-1px)}
+
+.schedule-desktop{display:block}
+.schedule-grid{display:grid;grid-template-columns:70px repeat(5,1fr);gap:1px;background:var(--border);border-radius:12px;overflow:hidden}
+.schedule-cell{background:var(--bg-card);padding:10px 4px;text-align:center;font-size:.78rem;min-height:52px;display:flex;align-items:center;justify-content:center;flex-direction:column}
+.schedule-cell.header-cell{background:var(--bg-hover);font-weight:600;color:var(--text-muted);font-size:.72rem}
+.schedule-cell.time-cell{background:var(--bg-hover);font-weight:500;font-size:.72rem;color:var(--text-muted)}
+.schedule-cell.class-cell{cursor:pointer;transition:all .2s;position:relative}
+.schedule-cell.class-cell:hover{background:var(--bg-hover)}
+.schedule-cell.class-cell .subject{font-weight:600;color:var(--primary);font-size:.78rem}
+.schedule-cell.class-cell .room{font-size:.68rem;color:var(--text-muted);margin-top:2px}
+.schedule-cell.empty{color:var(--text-muted);font-style:italic}
+.admin-actions{position:absolute;top:3px;right:3px;display:none;gap:3px}
+.schedule-cell.class-cell:hover .admin-actions{display:flex}
+.admin-actions button{background:var(--bg);border:none;width:18px;height:18px;border-radius:4px;cursor:pointer;color:var(--text-muted);font-size:.6rem;display:flex;align-items:center;justify-content:center}
+.admin-actions button:hover{background:var(--danger);color:white}
+.admin-actions button.edit:hover{background:var(--warning);color:white}
+
+.schedule-mobile{display:none}
+.day-card{background:var(--bg-card);border:1px solid var(--border);border-radius:14px;margin-bottom:12px;overflow:hidden}
+.day-card-header{background:linear-gradient(135deg,var(--primary),var(--secondary));padding:12px 16px;font-weight:700;font-size:.95rem;display:flex;justify-content:space-between;align-items:center}
+.day-card-header .day-badge{background:rgba(255,255,255,0.15);padding:2px 10px;border-radius:20px;font-size:.7rem;font-weight:500}
+.day-classes{padding:8px}
+.mobile-class{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:10px;margin-bottom:6px;background:var(--bg);border:1px solid transparent;transition:all .2s}
+.mobile-class:last-child{margin-bottom:0}
+.mobile-class:active{background:var(--bg-hover)}
+.mobile-class .class-time{background:var(--bg-hover);color:var(--primary);width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;flex-shrink:0}
+.mobile-class .class-info{flex:1}
+.mobile-class .class-info .subject{font-weight:600;font-size:.9rem}
+.mobile-class .class-info .room{font-size:.8rem;color:var(--text-muted);margin-top:2px}
+.mobile-class .class-actions{display:flex;gap:6px}
+.mobile-class .class-actions button{width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:var(--bg-card);color:var(--text-muted);cursor:pointer;font-size:.8rem}
+.mobile-class .class-actions button:hover{background:var(--primary);color:white;border-color:var(--primary)}
+.mobile-class .class-actions button.delete:hover{background:var(--danger);border-color:var(--danger)}
+.mobile-empty{text-align:center;padding:20px;color:var(--text-muted);font-size:.85rem}
+.mobile-add-btn{width:100%;padding:10px;margin-top:8px;background:transparent;border:1px dashed var(--border);border-radius:10px;color:var(--text-muted);font-size:.85rem;cursor:pointer;transition:all .2s}
+.mobile-add-btn:hover{border-color:var(--primary);color:var(--primary)}
+@media(max-width:768px){.schedule-desktop{display:none}.schedule-mobile{display:block}.container{padding:12px}.header h1{font-size:1.1rem}.card{padding:16px}.box{padding:24px}}
+
+.work-list{display:flex;flex-direction:column;gap:10px}
+.work-item{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:14px 16px;display:flex;justify-content:space-between;align-items:flex-start;transition:all .2s;gap:12px}
+.work-item:hover{border-color:var(--primary);transform:translateX(3px)}
+.work-item .work-info{flex:1;min-width:0}
+.work-item .work-info h4{font-size:.95rem;margin-bottom:4px;word-break:break-word}
+.work-item .work-info p{font-size:.8rem;color:var(--text-muted)}
+.work-item .work-info .tag{display:inline-block;padding:2px 10px;border-radius:20px;font-size:.7rem;font-weight:600;margin-top:6px}
+.tag-urgent{background:rgba(239,68,68,0.15);color:var(--danger)}
+.tag-normal{background:rgba(16,185,129,0.15);color:var(--success)}
+.tag-pending{background:rgba(245,158,11,0.15);color:var(--warning)}
+.work-actions{display:flex;gap:6px;flex-shrink:0}
+.work-actions button{background:var(--bg-card);border:1px solid var(--border);color:var(--text-muted);width:32px;height:32px;border-radius:8px;cursor:pointer;transition:all .2s}
+.work-actions button:hover{background:var(--primary);color:white;border-color:var(--primary)}
+.work-actions button.delete:hover{background:var(--danger);border-color:var(--danger)}
+.empty-state{text-align:center;padding:40px 20px;color:var(--text-muted)}
+.empty-state i{font-size:2.5rem;margin-bottom:12px;opacity:.5}
+
+.info-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.info-card{background:linear-gradient(135deg,var(--bg-card),var(--bg));border:1px solid var(--border);border-radius:14px;padding:20px}
+.info-card h3{font-size:.85rem;margin-bottom:10px;color:var(--primary)}
+.info-card p{font-size:.8rem;color:var(--text-muted);line-height:1.5}
+.info-card .stat{font-size:1.8rem;font-weight:700;color:var(--text);margin:6px 0}
+.aviso-item{padding:14px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.aviso-item:last-child{border-bottom:none}
+.aviso-item p{font-size:.9rem;word-break:break-word;flex:1}
+.aviso-item .aviso-date{font-size:.75rem;color:var(--text-muted);margin-top:4px}
+
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);display:none;align-items:flex-end;justify-content:center;z-index:100}
+.modal-overlay.active{display:flex;animation:fadeIn .2s ease}
+.modal{background:var(--bg-card);border:1px solid var(--border);border-radius:20px 20px 0 0;padding:24px;width:100%;max-width:500px;box-shadow:0 -10px 40px rgba(0,0,0,0.5);animation:slideUpModal .3s ease;max-height:90vh;overflow-y:auto}
+@keyframes slideUpModal{from{opacity:0;transform:translateY(100%)}to{opacity:1;transform:translateY(0)}}
+.modal h3{margin-bottom:18px;font-size:1.1rem}
+.modal .input-group{margin-bottom:14px}
+.modal-actions{display:flex;gap:10px;margin-top:20px}
+.modal-actions .btn{width:auto;flex:1}
+.modal-actions .btn-cancel{background:var(--bg-hover);color:var(--text)}
+.modal-actions .btn-cancel:hover{background:var(--border);transform:none;box-shadow:none}
+
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--bg-card);border:1px solid var(--border);color:var(--text);padding:12px 24px;border-radius:12px;font-size:.9rem;z-index:200;box-shadow:0 10px 30px rgba(0,0,0,0.4);opacity:0;transition:all .3s ease;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.success{border-color:var(--success)}
+.toast.error{border-color:var(--danger)}
+
+.sync-status{display:inline-flex;align-items:center;gap:6px;font-size:.75rem;color:var(--text-muted)}
+.sync-dot{width:8px;height:8px;border-radius:50%;background:var(--success);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.sync-dot.offline{background:var(--danger);animation:none}
+
+.danger-zone{margin-top:24px;padding-top:20px;border-top:1px solid var(--border)}
+.danger-zone h3{margin-bottom:12px;color:var(--danger);font-size:1rem}
+
+.spinner-inline{width:14px;height:14px;border:2px solid var(--border);border-top-color:var(--primary);border-radius:50%;animation:spin .8s linear infinite;display:inline-block;margin-left:8px;vertical-align:middle}
+</style>
+</head>
+<body>
+<div class="bg-pattern"></div>
+<div class="toast" id="toast"></div>
+
+<!-- TELA DE CONFIGURAÇÃO JSONBIN -->
+<div class="screen active" id="setupScreen">
+<div class="box">
+<div class="logo"><i class="fas fa-cloud" style="color:var(--info)"></i></div>
+<h2>Configurar JSONBin</h2>
+<p>Forma mais simples de sincronizar dados. Siga os passos:</p>
+<div class="step"><strong>1.</strong> Acesse <strong>jsonbin.io</strong> e crie uma conta (grátis, pode usar Google)</div>
+<div class="step"><strong>2.</strong> Clique em <strong>"Create Bin"</strong> (canto superior direito)</div>
+<div class="step"><strong>3.</strong> No campo de texto, cole este JSON inicial:<br><code style="font-size:.75rem;display:block;margin-top:6px;padding:8px;background:var(--bg);border-radius:6px;word-break:break-all">{"horarios":{},"trabalhos":{},"avisos":{},"config":{"adminHash":"5c78d3ec19affa0da4901605b93b7e9e427f15ef07b25de893b75d33570a0be0"}}</code></div>
+<div class="step"><strong>4.</strong> Clique <strong>"Create"</strong>. Copie o <strong>Bin ID</strong> (ex: <code>66a1b2c3d4e5f6g7h8i9j0k1</code>)</div>
+<div class="step"><strong>5.</strong> Vá em <strong>API Keys</strong> no menu → copie sua <strong>$2b$10... Master Key</strong></div>
+<div class="input-group"><label>Bin ID</label><input type="text" id="binId" placeholder="Cole o Bin ID aqui"></div>
+<div class="input-group"><label>X-Master-Key</label><input type="password" id="masterKey" placeholder="Cole a Master Key aqui"></div>
+<button class="btn" onclick="connectJsonBin()">Conectar</button>
+<p class="error-msg" id="setupError"></p>
+<div class="hint">A senha de admin padrão é <code>Lajota20</code>.<br>Pode mudar depois nas configurações.</div>
+</div>
+</div>
+
+<!-- LOGIN -->
+<div class="screen" id="loginScreen">
+<div class="box">
+<div class="logo"><i class="fas fa-graduation-cap"></i></div>
+<h1>Gerenciador da Turma</h1>
+<p class="subtitle">Dados sincronizados via JSONBin</p>
+<div class="input-group"><label><i class="fas fa-user" style="margin-right:6px"></i>Usuário</label><input type="text" value="admin" readonly style="opacity:.6"></div>
+<div class="input-group"><label><i class="fas fa-lock" style="margin-right:6px"></i>Senha</label><input type="password" id="password" placeholder="Senha de admin"></div>
+<button class="btn" onclick="login()"><i class="fas fa-sign-in-alt" style="margin-right:8px"></i>Entrar como Admin</button>
+<button class="btn btn-secondary" onclick="enterPublic()"><i class="fas fa-eye" style="margin-right:8px"></i>Modo Visitante</button>
+<div class="error-msg" id="errorMsg">Senha incorreta!</div>
+<div class="hint">Edições no seu celular aparecem nos colegas em segundos.</div>
+</div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dashboard" id="dashboard">
+<div class="container">
+<div class="header">
+<div>
+<h1><i class="fas fa-chalkboard-teacher" style="margin-right:8px;color:var(--primary)"></i>Painel da Turma</h1>
+<p style="color:var(--text-muted);font-size:.8rem;margin-top:4px"><span class="sync-status"><span class="sync-dot" id="syncDot"></span><span id="syncText">Sincronizado</span></span></p>
+</div>
+<div class="user-info">
+<span class="badge" id="userBadge">Admin</span>
+<button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Sair</button>
+</div>
+</div>
+
+<div class="tabs">
+<button class="tab active" onclick="switchTab('horarios')"><i class="fas fa-clock" style="margin-right:6px"></i>Horários</button>
+<button class="tab" onclick="switchTab('trabalhos')"><i class="fas fa-tasks" style="margin-right:6px"></i>Trabalhos</button>
+<button class="tab" onclick="switchTab('info')"><i class="fas fa-info-circle" style="margin-right:6px"></i>Info</button>
+<button class="tab" onclick="switchTab('config')" id="tabConfig" style="display:none"><i class="fas fa-cog" style="margin-right:6px"></i>Config</button>
+</div>
+
+<div class="section active" id="sec-horarios">
+<div class="card">
+<div class="card-header">
+<h2><i class="fas fa-calendar-alt" style="margin-right:8px;color:var(--primary)"></i>Grade Horária</h2>
+<button class="btn-add" id="btnAddHorario" onclick="openModal('horario')" style="display:none"><i class="fas fa-plus"></i>Adicionar</button>
+</div>
+<div class="schedule-desktop" id="scheduleDesktop"></div>
+<div class="schedule-mobile" id="scheduleMobile"></div>
+</div>
+</div>
+
+<div class="section" id="sec-trabalhos">
+<div class="card">
+<div class="card-header">
+<h2><i class="fas fa-clipboard-list" style="margin-right:8px;color:var(--secondary)"></i>Trabalhos & Provas</h2>
+<button class="btn-add" id="btnAddTrabalho" onclick="openModal('trabalho')" style="display:none"><i class="fas fa-plus"></i>Novo</button>
+</div>
+<div class="work-list" id="workList"></div>
+</div>
+</div>
+
+<div class="section" id="sec-info">
+<div class="info-grid">
+<div class="info-card"><h3><i class="fas fa-clock" style="margin-right:6px"></i>Próximo Trabalho</h3><div class="stat" style="font-size:1.1rem" id="statProximo">--</div><p id="statProximoDesc">--</p></div>
+<div class="info-card"><h3><i class="fas fa-calendar" style="margin-right:6px"></i>Hoje</h3><div class="stat" style="font-size:1.1rem" id="statDia">--</div><p id="statData">--</p></div>
+</div>
+<div class="card" style="margin-top:16px">
+<div class="card-header">
+<h2><i class="fas fa-bullhorn" style="margin-right:8px;color:var(--warning)"></i>Avisos da Turma</h2>
+<button class="btn-add" id="btnAddAviso" onclick="openModal('aviso')" style="display:none"><i class="fas fa-plus"></i>Novo</button>
+</div>
+<div id="avisosList"></div>
+</div>
+</div>
+
+<div class="section" id="sec-config">
+<div class="card">
+<div class="card-header"><h2><i class="fas fa-shield-alt" style="margin-right:8px;color:var(--danger)"></i>Configurações</h2></div>
+<div class="input-group"><label>Nova Senha de Admin</label><input type="password" id="newPassword" placeholder="Deixe em branco para não alterar"></div>
+<div class="input-group"><label>Confirmar Nova Senha</label><input type="password" id="confirmPassword" placeholder="Confirme"></div>
+<button class="btn" onclick="updateConfig()" style="max-width:300px"><i class="fas fa-save" style="margin-right:8px"></i>Salvar</button>
+<div class="danger-zone">
+<h3><i class="fas fa-exclamation-triangle" style="margin-right:8px"></i>Zona de Perigo</h3>
+<button class="btn btn-danger" style="max-width:300px;margin-top:10px" onclick="resetAll()"><i class="fas fa-trash" style="margin-right:8px"></i>Resetar Dados</button>
+<p style="color:var(--text-muted);font-size:.8rem;margin-top:8px">Apaga tudo do JSONBin. A senha permanece.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+<div class="modal" id="modalContent"></div>
+</div>
+
+<script>
+const diasSemana=["Segunda","Terça","Quarta","Quinta","Sexta"];
+const horasAula=["1ª Aula","2ª Aula","3ª Aula","4ª Aula","5ª Aula"];
+let isAdmin=false,currentData={horarios:{},trabalhos:{},avisos:{},config:{adminHash:""}},binId="",masterKey="",pollInterval=null;
+
+async function sha256(str){const buf=new TextEncoder().encode(str);const hash=await crypto.subtle.digest('SHA-256',buf);return Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,'0')).join('');}
+
+function showScreen(name){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById('dashboard').style.display='none';if(name==='setup')document.getElementById('setupScreen').classList.add('active');if(name==='login')document.getElementById('loginScreen').classList.add('active');if(name==='dashboard')document.getElementById('dashboard').style.display='block';}
+
+async function connectJsonBin(){
+const bid=document.getElementById('binId').value.trim();
+const mk=document.getElementById('masterKey').value.trim();
+const err=document.getElementById('setupError');
+if(!bid||!mk){err.textContent='Preencha os dois campos!';err.style.display='block';return}
+try{
+const res=await fetch(`https://api.jsonbin.io/v3/b/${bid}/latest`,{headers:{'X-Master-Key':mk}});
+if(!res.ok){err.textContent='Bin ID ou Master Key incorretos!';err.style.display='block';return}
+const json=await res.json();
+const data=json.record||{};
+if(!data.config||!data.config.adminHash){
+const hash=await sha256("Lajota20");
+await fetch(`https://api.jsonbin.io/v3/b/${bid}`,{method:'PUT',headers:{'Content-Type':'application/json','X-Master-Key':mk},body:JSON.stringify({horarios:{},trabalhos:{},avisos:{},config:{adminHash:hash}})});
+}
+binId=bid;masterKey=mk;localStorage.setItem('jsonbin_cfg',JSON.stringify({binId,masterKey}));
+showScreen('login');startPolling();
+}catch(e){err.textContent='Erro: '+e.message;err.style.display='block';}
+}
+
+async function loadData(){
+if(!binId||!masterKey)return;
+try{
+const res=await fetch(`https://api.jsonbin.io/v3/b/${binId}/latest`,{headers:{'X-Master-Key':masterKey}});
+if(!res.ok)return;
+const json=await res.json();
+const data=json.record||{};
+currentData={horarios:data.horarios||{},trabalhos:data.trabalhos||{},avisos:data.avisos||{},config:data.config||{adminHash:""}};
+const dot=document.getElementById('syncDot'),txt=document.getElementById('syncText');
+if(dot&&txt){dot.classList.remove('offline');txt.textContent='Sincronizado';}
+if(document.getElementById('dashboard').style.display==='block')renderAll();
+}catch(e){const dot=document.getElementById('syncDot'),txt=document.getElementById('syncText');if(dot&&txt){dot.classList.add('offline');txt.textContent='Offline';}}
+}
+
+async function saveData(){
+if(!binId||!masterKey)return;
+try{
+await fetch(`https://api.jsonbin.io/v3/b/${binId}`,{method:'PUT',headers:{'Content-Type':'application/json','X-Master-Key':masterKey},body:JSON.stringify(currentData)});
+}catch(e){showToast('Erro ao salvar','error');}
+}
+
+function startPolling(){loadData();pollInterval=setInterval(loadData,5000);}
+
+async function init(){
+const saved=localStorage.getItem('jsonbin_cfg');
+if(saved){const cfg=JSON.parse(saved);binId=cfg.binId;masterKey=cfg.masterKey;showScreen('login');startPolling();}
+else showScreen('setup');
+}
+
+async function login(){
+const pass=document.getElementById('password').value;
+const hash=await sha256(pass);
+if(hash===currentData.config.adminHash){isAdmin=true;showScreen('dashboard');document.getElementById('userBadge').textContent='Admin';document.getElementById('tabConfig').style.display='block';showAdminControls();renderAll();showToast('Bem-vindo, Admin!','success');}
+else{document.getElementById('errorMsg').style.display='block';setTimeout(()=>document.getElementById('errorMsg').style.display='none',3000);}
+}
+
+function enterPublic(){isAdmin=false;showScreen('dashboard');document.getElementById('userBadge').textContent='Visitante';document.getElementById('userBadge').classList.add('badge-visitor');document.getElementById('tabConfig').style.display='none';hideAdminControls();renderAll();}
+function logout(){isAdmin=false;showScreen('login');document.getElementById('password').value='';document.getElementById('userBadge').classList.remove('badge-visitor');}
+function showAdminControls(){document.getElementById('btnAddHorario').style.display='flex';document.getElementById('btnAddTrabalho').style.display='flex';document.getElementById('btnAddAviso').style.display='flex';}
+function hideAdminControls(){document.getElementById('btnAddHorario').style.display='none';document.getElementById('btnAddTrabalho').style.display='none';document.getElementById('btnAddAviso').style.display='none';}
+
+function switchTab(tab){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));event.target.classList.add('active');document.getElementById('sec-'+tab).classList.add('active');}
+
+function renderHorariosDesktop(){
+const grid=document.getElementById('scheduleDesktop');
+let html='<div class="schedule-grid"><div class="schedule-cell header-cell">Hora</div>';
+diasSemana.forEach(d=>html+=`<div class="schedule-cell header-cell">${d}</div>`);
+horasAula.forEach((hora,hIdx)=>{
+html+=`<div class="schedule-cell time-cell">${hora}</div>`;
+for(let d=0;d<5;d++){
+const key=`${d}_${hIdx}`;
+const aula=currentData.horarios[key];
+if(aula){html+=`<div class="schedule-cell class-cell" onclick="${isAdmin?`editHorario('${key}')`:''}"><div class="subject">${aula.materia}</div><div class="room">${aula.sala}</div>${isAdmin?`<div class="admin-actions"><button class="edit" onclick="event.stopPropagation();editHorario('${key}')" title="Editar"><i class="fas fa-pen"></i></button><button onclick="event.stopPropagation();deleteHorario('${key}')" title="Remover"><i class="fas fa-trash"></i></button></div>`:''}</div>`;}
+else{html+=`<div class="schedule-cell empty" onclick="${isAdmin?`openModal('horario',${d},${hIdx})`:''}">${isAdmin?'<i class="fas fa-plus" style="opacity:.3"></i>':'-'}</div>`;}
+}
+});
+html+='</div>';grid.innerHTML=html;
+}
+
+function renderHorariosMobile(){
+const container=document.getElementById('scheduleMobile');
+let html='';const hoje=new Date().getDay();
+diasSemana.forEach((dia,d)=>{
+const isToday=(hoje===d+1);
+html+=`<div class="day-card"><div class="day-card-header">${dia}${isToday?'<span class="day-badge">HOJE</span>':''}</div><div class="day-classes">`;
+let hasClass=false;
+horasAula.forEach((hora,hIdx)=>{
+const key=`${d}_${hIdx}`;
+const aula=currentData.horarios[key];
+if(aula){hasClass=true;html+=`<div class="mobile-class" onclick="${isAdmin?`editHorario('${key}')`:''}"><div class="class-time">${hIdx+1}ª</div><div class="class-info"><div class="subject">${aula.materia}</div><div class="room"><i class="fas fa-map-marker-alt" style="margin-right:4px;font-size:.7rem"></i>${aula.sala}</div></div>${isAdmin?`<div class="class-actions"><button onclick="event.stopPropagation();editHorario('${key}')" title="Editar"><i class="fas fa-pen"></i></button><button class="delete" onclick="event.stopPropagation();deleteHorario('${key}')" title="Remover"><i class="fas fa-trash"></i></button></div>`:''}</div>`;}
+});
+if(!hasClass)html+='<div class="mobile-empty"><i class="fas fa-coffee" style="margin-right:6px"></i>Sem aulas</div>';
+if(isAdmin)html+=`<button class="mobile-add-btn" onclick="openModal('horario',${d})"><i class="fas fa-plus"></i> Adicionar aula em ${dia}</button>`;
+html+='</div></div>';
+});
+container.innerHTML=html;
+}
+
+function renderTrabalhos(){
+const list=document.getElementById('workList');
+const trabalhos=Object.entries(currentData.trabalhos||{});
+if(trabalhos.length===0){list.innerHTML='<div class="empty-state"><i class="fas fa-clipboard-check"></i><p>Nenhum trabalho cadastrado</p></div>';return}
+const sorted=trabalhos.sort((a,b)=>new Date(a[1].data)-new Date(b[1].data));
+const hoje=new Date().toISOString().split('T')[0];
+list.innerHTML=sorted.map(([id,t])=>{
+const diasRestantes=Math.ceil((new Date(t.data)-new Date(hoje))/(1000*60*60*24));
+let tagClass='tag-normal';if(t.status==='urgent')tagClass='tag-urgent';if(t.status==='pending')tagClass='tag-pending';
+return `<div class="work-item"><div class="work-info"><h4>${t.titulo}</h4><p>${t.desc||''} • Entrega: ${formatDate(t.data)} ${diasRestantes>=0?`(${diasRestantes}d)`:'(atrasado)'}</p><span class="tag ${tagClass}">${t.tipo==='prova'?'Prova':'Trabalho'} • ${t.status==='urgent'?'Urgente':t.status==='pending'?'Pendente':'Normal'}</span></div>${isAdmin?`<div class="work-actions"><button onclick="editTrabalho('${id}')" title="Editar"><i class="fas fa-pen"></i></button><button class="delete" onclick="deleteTrabalho('${id}')" title="Excluir"><i class="fas fa-trash"></i></button></div>`:''}</div>`;
+}).join('');
+}
+
+function renderInfo(){
+const trabalhos=Object.values(currentData.trabalhos||{});
+const sorted=[...trabalhos].sort((a,b)=>new Date(a.data)-new Date(b.data));
+const hoje=new Date().toISOString().split('T')[0];
+const proximo=sorted.find(t=>t.data>=hoje);
+if(proximo){document.getElementById('statProximo').textContent=proximo.titulo;document.getElementById('statProximoDesc').textContent=`Entrega: ${formatDate(proximo.data)}`}
+else{document.getElementById('statProximo').textContent='Nenhum';document.getElementById('statProximoDesc').textContent='Todos entregues!'}
+const dias=['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
+const agora=new Date();
+document.getElementById('statDia').textContent=dias[agora.getDay()];
+document.getElementById('statData').textContent=agora.toLocaleDateString('pt-BR',{day:'numeric',month:'short'});
+const avisos=Object.entries(currentData.avisos||{});
+const avisosList=document.getElementById('avisosList');
+if(avisos.length===0){avisosList.innerHTML='<p style="color:var(--text-muted);text-align:center;padding:20px">Nenhum aviso.</p>'}
+else{avisosList.innerHTML=avisos.map(([id,a])=>`<div class="aviso-item"><div style="flex:1"><p>${a.texto}</p><p class="aviso-date">${formatDate(a.data)}</p></div>${isAdmin?`<button class="logout-btn" onclick="deleteAviso('${id}')"><i class="fas fa-trash"></i></button>`:''}</div>`).join('')}
+}
+
+function formatDate(dateStr){if(!dateStr)return'--';const[y,m,d]=dateStr.split('-');return`${d}/${m}/${y}`}
+
+function openModal(type,dia,hora){
+if(!isAdmin&&type!=='public')return;
+const overlay=document.getElementById('modalOverlay');
+const content=document.getElementById('modalContent');
+if(type==='horario'){
+let existing=null,editKey='';
+if(typeof dia==='string'){editKey=dia;existing=currentData.horarios[dia];[dia,hora]=dia.split('_').map(Number)}
+content.innerHTML=`<h3>${existing?'Editar':'Adicionar'} Aula</h3><div class="input-group"><label>Dia</label><select id="mDia">${diasSemana.map((d,i)=>`<option value="${i}" ${i===dia?'selected':''}>${d}</option>`).join('')}</select></div><div class="input-group"><label>Horário</label><select id="mHora">${horasAula.map((h,i)=>`<option value="${i}" ${i===hora?'selected':''}>${h}</option>`).join('')}</select></div><div class="input-group"><label>Matéria</label><input type="text" id="mMateria" placeholder="Ex: Matemática" value="${existing?existing.materia:''}"></div><div class="input-group"><label>Sala</label><input type="text" id="mSala" placeholder="Ex: Sala 101" value="${existing?existing.sala:''}"></div><div class="modal-actions"><button class="btn btn-cancel" onclick="closeModal()">Cancelar</button><button class="btn" onclick="saveHorario('${editKey}')">Salvar</button></div>`;
+}else if(type==='trabalho'){
+content.innerHTML=`<h3>Novo Trabalho / Prova</h3><div class="input-group"><label>Título</label><input type="text" id="mTitulo" placeholder="Ex: Redação..."></div><div class="input-group"><label>Descrição</label><textarea id="mDesc" placeholder="Detalhes..."></textarea></div><div class="input-group"><label>Data</label><input type="date" id="mData"></div><div class="input-group"><label>Tipo</label><select id="mTipo"><option value="trabalho">Trabalho</option><option value="prova">Prova</option></select></div><div class="input-group"><label>Prioridade</label><select id="mStatus"><option value="normal">Normal</option><option value="pending">Pendente</option><option value="urgent">Urgente</option></select></div><div class="modal-actions"><button class="btn btn-cancel" onclick="closeModal()">Cancelar</button><button class="btn" onclick="saveTrabalho()">Salvar</button></div>`;
+}else if(type==='aviso'){
+content.innerHTML=`<h3>Novo Aviso</h3><div class="input-group"><label>Texto</label><textarea id="mAviso" placeholder="Digite o aviso..."></textarea></div><div class="modal-actions"><button class="btn btn-cancel" onclick="closeModal()">Cancelar</button><button class="btn" onclick="saveAviso()">Publicar</button></div>`;
+}
+overlay.classList.add('active');document.body.style.overflow='hidden';
+}
+
+function closeModal(){document.getElementById('modalOverlay').classList.remove('active');document.body.style.overflow=''}
+
+async function saveHorario(oldKey){
+const dia=document.getElementById('mDia').value;
+const hora=document.getElementById('mHora').value;
+const materia=document.getElementById('mMateria').value.trim();
+const sala=document.getElementById('mSala').value.trim();
+if(!materia)return showToast('Digite a matéria!','error');
+const newKey=`${dia}_${hora}`;
+if(oldKey&&oldKey!==newKey)delete currentData.horarios[oldKey];
+currentData.horarios[newKey]={materia,sala};
+await saveData();closeModal();showToast('Aula salva!','success');renderAll();
+}
+
+function editHorario(key){openModal('horario',key)}
+
+async function deleteHorario(key){
+if(!confirm('Remover esta aula?'))return;
+delete currentData.horarios[key];
+await saveData();showToast('Aula removida','success');renderAll();
+}
+
+async function saveTrabalho(){
+const titulo=document.getElementById('mTitulo').value.trim();
+const desc=document.getElementById('mDesc').value.trim();
+const data=document.getElementById('mData').value;
+const tipo=document.getElementById('mTipo').value;
+const status=document.getElementById('mStatus').value;
+if(!titulo||!data)return showToast('Preencha título e data!','error');
+const id='t'+Date.now();
+currentData.trabalhos[id]={titulo,desc,data,tipo,status};
+await saveData();closeModal();showToast('Trabalho salvo!','success');renderAll();
+}
+
+async function editTrabalho(id){
+const t=currentData.trabalhos[id];if(!t)return;
+openModal('trabalho');
+setTimeout(()=>{
+document.getElementById('mTitulo').value=t.titulo;
+document.getElementById('mDesc').value=t.desc||'';
+document.getElementById('mData').value=t.data;
+document.getElementById('mTipo').value=t.tipo;
+document.getElementById('mStatus').value=t.status;
+document.querySelector('.modal-actions .btn:last-child').onclick=async function(){
+t.titulo=document.getElementById('mTitulo').value.trim();
+t.desc=document.getElementById('mDesc').value.trim();
+t.data=document.getElementById('mData').value;
+t.tipo=document.getElementById('mTipo').value;
+t.status=document.getElementById('mStatus').value;
+await saveData();closeModal();showToast('Atualizado!','success');renderAll();
+};
+},50);
+}
+
+async function deleteTrabalho(id){
+if(!confirm('Excluir?'))return;
+delete currentData.trabalhos[id];
+await saveData();showToast('Removido','success');renderAll();
+}
+
+async function saveAviso(){
+const texto=document.getElementById('mAviso').value.trim();
+if(!texto)return showToast('Digite o aviso!','error');
+const id='a'+Date.now();
+currentData.avisos[id]={texto,data:new Date().toISOString().split('T')[0]};
+await saveData();closeModal();showToast('Aviso publicado!','success');renderAll();
+}
+
+async function deleteAviso(id){
+if(!confirm('Remover aviso?'))return;
+delete currentData.avisos[id];
+await saveData();showToast('Aviso removido','success');renderAll();
+}
+
+async function updateConfig(){
+const newPass=document.getElementById('newPassword').value;
+const confirmPass=document.getElementById('confirmPassword').value;
+if(newPass){if(newPass!==confirmPass)return showToast('Senhas não coincidem!','error');currentData.config.adminHash=await sha256(newPass)}
+await saveData();
+showToast('Configurações salvas!','success');
+document.getElementById('newPassword').value='';
+document.getElementById('confirmPassword').value='';
+}
+
+async function resetAll(){
+if(!confirm('ATENÇÃO: Apagar TODOS os dados?'))return;
+if(!confirm('ÚLTIMO AVISO: Tudo será perdido. Confirmar?'))return;
+currentData.horarios={};currentData.trabalhos={};currentData.avisos={};
+await saveData();showToast('Dados resetados','success');renderAll();
+}
+
+function renderAll(){renderHorariosDesktop();renderHorariosMobile();renderTrabalhos();renderInfo();}
+
+function showToast(msg,type){
+const t=document.getElementById('toast');
+t.textContent=msg;t.className='toast '+(type||'');t.classList.add('show');
+setTimeout(()=>t.classList.remove('show'),3000);
+}
+
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&document.getElementById('loginScreen').classList.contains('active'))login()});
+init();
+</script>
+</body>
+</html>
