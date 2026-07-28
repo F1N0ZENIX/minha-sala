@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel 2º B-V - Tema Escuro</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --card-border: #334155;
+            --primary: #38bdf8;
+            --primary-hover: #0284c7;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --danger-bg: rgba(239, 68, 68, 0.15);
+            --danger-border: #ef4444;
+            --danger-text: #fca5a5;
+            --warning-bg: rgba(245, 158, 11, 0.15);
+            --warning-border: #f59e0b;
+            --warning-text: #fde047;
+            --info-bg: rgba(59, 130, 246, 0.15);
+            --info-border: #3b82f6;
+            --badge-urgent: #ef4444;
+            --badge-warning: #f59e0b;
+            --badge-info: #3b82f6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-main);
+            padding: 24px 20px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+
+        header p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        .main-container {
+            flex: 1;
+        }
+
+        /* SISTEMA DE ABAS (TABS) COM RADIO BUTTONS (SEM JS) */
+        .tab-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tab-nav {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--card-border);
+            padding-bottom: 8px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px 16px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-muted);
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .tab-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Ocultar os radio inputs */
+        input[type="radio"] {
+            display: none;
+        }
+
+        /* Ativar estilos das abas com CSS puro */
+        #tab-horario:checked ~ .tab-nav label[for="tab-horario"],
+        #tab-trabalhos:checked ~ .tab-nav label[for="tab-trabalhos"] {
+            background-color: var(--primary);
+            color: #0f172a;
+            border-color: var(--primary);
+            font-weight: 700;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        #tab-horario:checked ~ .tab-content-horario {
+            display: block;
+        }
+
+        #tab-trabalhos:checked ~ .tab-content-trabalhos {
+            display: block;
+        }
+
+        /* CARDS E CONTEÚDO */
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--card-border);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            margin-bottom: 24px;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            color: var(--primary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--card-border);
+            padding-bottom: 8px;
+            font-weight: 700;
+        }
+
+        /* AVISOS / TRABALHOS */
+        .notice-card {
+            padding: 18px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+            border: 1px solid;
+        }
+
+        .notice-card.urgent {
+            background-color: var(--danger-bg);
+            border-color: var(--danger-border);
+            border-left: 5px solid var(--danger-border);
+        }
+
+        .notice-card.warning {
+            background-color: var(--warning-bg);
+            border-color: var(--warning-border);
+            border-left: 5px solid var(--warning-border);
+        }
+
+        .notice-card.info {
+            background-color: var(--info-bg);
+            border-color: var(--info-border);
+            border-left: 5px solid var(--info-border);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+
+        .badge-urgent {
+            background-color: var(--badge-urgent);
+            color: white;
+        }
+
+        .badge-warning {
+            background-color: var(--badge-warning);
+            color: #0f172a;
+        }
+
+        .badge-info {
+            background-color: var(--badge-info);
+            color: white;
+        }
+
+        .badge-subject {
+            background-color: #0284c7;
+            color: white;
+            margin-right: 6px;
+        }
+
+        .notice-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .notice-title {
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: var(--text-main);
+        }
+
+        .notice-desc {
+            font-size: 0.95rem;
+            color: #cbd5e1;
+            margin-top: 6px;
+        }
+
+        .notice-date {
+            font-size: 0.85rem;
+            margin-top: 10px;
+            display: block;
+            font-weight: 600;
+        }
+
+        .urgent .notice-date { color: var(--danger-text); }
+        .warning .notice-date { color: var(--warning-text); }
+        .info .notice-date { color: #93c5fd; }
+
+        /* DIAS DA SEMANA & HORÁRIOS */
+        .day-block {
+            margin-bottom: 20px;
+            border: 1px solid var(--card-border);
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #111827;
+        }
+
+        .day-header {
+            background-color: #1e293b;
+            color: var(--primary);
+            font-weight: 700;
+            padding: 12px 16px;
+            font-size: 1.05rem;
+            border-bottom: 1px solid var(--card-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background-color: #1f2937;
+        }
+
+        .slot-num {
+            width: 45px;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .subject {
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .teacher {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-left: 6px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 24px 0 10px 0;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--card-border);
+            margin-top: auto;
+        }
+
+        footer strong {
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Painel 2º B-V (Sala 07)</h1>
+        <p>Horário Vespertino - 2026</p>
+    </header>
+
+    <div class="main-container">
+        <div class="tab-container">
+            <!-- Radio inputs para controlar as abas -->
+            <input type="radio" id="tab-trabalhos" name="painel-tabs" checked>
+            <input type="radio" id="tab-horario" name="painel-tabs">
+
+            <!-- Botões de Navegação -->
+            <div class="tab-nav">
+                <label for="tab-trabalhos" class="tab-btn">📌 Trabalhos & Avaliações</label>
+                <label for="tab-horario" class="tab-btn">📅 Horário das Aulas</label>
+            </div>
+
+            <!-- ABA 1: TRABALHOS E AVISOS -->
+            <div class="tab-content tab-content-trabalhos">
+                <div class="card">
+                    <div class="card-title">
+                        <span>📌 Trabalhos & Avaliações Pendentes</span>
+                    </div>
+
+                    <!-- 1. HISTÓRIA DA BAHIA -->
+                    <div class="notice-card urgent">
+                        <div class="notice-header">
+                            <span class="badge badge-subject">História da Bahia</span>
+                            <span class="badge badge-urgent">Amanhã</span>
+                        </div>
+                        <div class="notice-title">Redação de História da Bahia</div>
+                        <div class="notice-desc">
+                            Criar uma redação com base nos assuntos e temas discutidos em sala de aula.
+                        </div>
+                        <span class="notice-date">⏰ Entrega: Amanhã</span>
+                    </div>
+
+                    <!-- 2. ETNOMATEMÁTICA -->
+                    <div class="notice-card urgent">
+                        <div class="notice-header">
+                            <span class="badge badge-subject">Etnomatemática</span>
+                            <span class="badge badge-urgent">Amanhã</span>
+                        </div>
+                        <div class="notice-title">Mapa Conceitual sobre Geometria Plana</div>
+                        <div class="notice-desc">
+                            Trabalho de mapa conceitual sobre Geometria Plana (destinado para quem ainda não fez).
+                        </div>
+                        <span class="notice-date">⏰ Entrega: Amanhã</span>
+                    </div>
+
+                    <!-- 3. INGLÊS -->
+                    <div class="notice-card warning">
+                        <div class="notice-header">
+                            <span class="badge badge-subject">Inglês</span>
+                            <span class="badge badge-warning">Esta Quinta</span>
+                        </div>
+                        <div class="notice-title">Trabalho sobre a Copa do Mundo</div>
+                        <div class="notice-desc">
+                            Elaboração e entrega do trabalho sobre a Copa do Mundo.
+                        </div>
+                        <span class="notice-date">📅 Entrega: Quinta-feira</span>
+                    </div>
+
+                    <!-- 4. QUÍMICA -->
+                    <div class="notice-card warning">
+                        <div class="notice-header">
+                            <span class="badge badge-subject">Química</span>
+                            <span class="badge badge-warning">Esta Sexta</span>
+                        </div>
+                        <div class="notice-title">Avaliação de Química</div>
+                        <div class="notice-desc">
+                            Avaliação/Prova da disciplina de Química.
+                        </div>
+                        <span class="notice-date">📅 Data: Sexta-feira</span>
+                    </div>
+
+                    <!-- 5. LINGUAGENS E CULTURA -->
+                    <div class="notice-card info">
+                        <div class="notice-header">
+                            <span class="badge badge-subject">Linguagens e Cultura</span>
+                            <span class="badge badge-info">Próxima Segunda</span>
+                        </div>
+                        <div class="notice-title">Avaliação do Livro "Torto Arado"</div>
+                        <div class="notice-desc">
+                            Avaliação sobre a leitura e análise do livro "Torto Arado".
+                        </div>
+                        <span class="notice-date">📅 Data: Próxima segunda</span>
+                    </div>
+
+                    <!-- 6. BIOLOGIA -->
+                    <div class="notice-card info">
+                        <div class="notice-header">
+                            <span class="badge badge-subject">Biologia</span>
+                            <span class="badge badge-info">Próxima Terça</span>
+                        </div>
+                        <div class="notice-title">Avaliação de Biologia</div>
+                        <div class="notice-desc">
+                            Avaliação/Prova da disciplina de Biologia.
+                        </div>
+                        <span class="notice-date">📅 Data: Terça-feira (Próxima semana)</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ABA 2: HORÁRIO DAS AULAS -->
+            <div class="tab-content tab-content-horario">
+                <div class="card">
+                    <div class="card-title">
+                        <span>📅 Horário Semanal</span>
+                    </div>
+
+                    <!-- SEGUNDA-FEIRA -->
+                    <div class="day-block">
+                        <div class="day-header">
+                            <span>Segunda-feira</span>
+                            <span style="font-size:0.8rem; font-weight:normal; color:var(--text-muted);">5 Aulas</span>
+                        </div>
+                        <table>
+                            <tr>
+                                <td class="slot-num">1ª</td>
+                                <td><span class="subject">Educação Sóciocientífica e Ambiental</span> <span class="teacher">(Prof. Ray)</span></td>
+                            </tr>
+                            <tr>
+                                <td class="slot-num">2ª</td>
+                                <td><span class="subject">Linguagens</span> <span class="teacher">(Profª. Rafaela)</span></td>
+                            </tr>
+                            <tr>
+                                <td class="slot-num">3ª</td>
+                                <td><span class="subject">Etnomatemática</span> <span class="teacher">(Profª. Thainara)</span></td>
+                            </tr>
+                            <tr>
+                                <td class="slot-num">4ª</td>
+                                <td><span class="subject">Matemática</span> <span class="teacher">(Profª. Thainara)</span></td>
+                            </tr>
+                            <tr>
+                                <td class="slot-num">5ª</td>
+                                <td><span class="subject">Matemática</span> <span class="teacher">(Profª. Thainara)</span></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- TERÇA-FEIRA -->
+                    <div class="day-block">
+                        <div class="day-header">
+                            <span>Terça-feira</span>
+                            <span style="font-size:0.8rem; font-weight:normal; color:var(--text-muted);">5 Aulas</span>
+                        </div>
+                        <table>
+                            <tr>
+                                <td class="slot-num">1ª</td>
+                                <td><span class="subject">Química</span> <span class="teacher">(Prof. Antonio Carlos)</span></td>
+                            </tr>
+                            <tr>
+                                <td class="slot-num">2ª</td>
+                                <td><span class="subject">Biologia</span> <span class="teacher">(Profª. Fernanda Ramos)</span></td>
+                            </tr>
+                            <tr>
+                                <td class="slot-num">3ª</td>
+                                <td><span class="subject">Biologia</span> <span class="teacher">(Profª. Fernanda Ramos)</span></td>
+                            </tr>
+                            <tr>
+                                <td class="slot-num">4ª</td>
+                                <td><span class="subject">Língua Portuguesa</span> <span class="teacher">(Profª. Edjane)</span></td>
+                            </tr>
+                            <tr>
+                                <td class="slot-num">5ª</td>
+                                <td><span class="subject">Língua Portuguesa</span> <span class="teacher">(Profª. Edjane)</span></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- QUARTA-FEIRA -->
+                    <div class="day-block">
+                        <div class="day-header">
+                            <span>Quarta-feira</span>
+                            <span style="font-size:0.8rem; font-weight:normal; color:var(--text-muted);">5 Aulas</span>
+                        </div>
+                        <table>
+                            <tr>
+                                <td class="slot-num">1ª</td>
+                                <td><span class="subject">Física</span> <span class="teacher">(Prof. Daniel)</span></td>
+                            </tr>
+                            <tr>
+                                <td class="slot-num">2ª</td>
+                                <td><span class="subject">Física</span> <span class="teacher">(Prof. Daniel)</span></td>
+                            </tr>
+                            <tr>
+                                <td class="slot-num">3ª</td>
+                                <td><span class="subject">História da Bahia</span> <span class="teacher">(Prof. Edson)</span></td>
+                            </tr>
+                            <tr>
+                                <td class="slot-num">4ª</td>
+                                <td><span class="subject">Educação Sóciocientífica e Ambiental</span> <span class="teacher">(Prof. Ray)</span></td>
+                            </tr>
+                            <tr>
+                                <td class="slot-num">5ª</td>
+                                <td><span class="subject">Sociologia</span> <span class="teacher">(Profª. Akatia)</span></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- QUINTA-FEIRA -->
+                    <div class="day-block">
+                        <div class="day-header">
+                            <span>Quinta-feira</span>
+                            <span style="font-size:0.8rem; font-weight:normal; color:var(--text-muted);">5 Aulas</span>
+                        </div>
+                        <table>
+                            <tr>
+                                <td class="slot-num">1ª</td>
+                                <td><span class="subject">Inglês</span> <span class="teacher">(Prof. Joacy)</span></td>
+                            </tr>
+                            <tr>
+                                <td class="slot-num">2ª</td>
+                                <td><span class="subject">Arte</span> <span class="teacher">(Profª. Fernanda Oliveira)</span></td>
+                            </tr>
+                            <tr>
+                                <td class="slot-num">3ª</td>
+                                <td><span class="subject">Filosofia</span> <span class="teacher">(Profª. Fernanda Oliveira)</span></td>
+                            </tr>
+                            <tr>
+                                <td class="slot-num">4ª</td>
+                                <td><span class="subject">História</span> <span class="teacher">(Profª. Sandra)</span></td>
+                            </tr>
+                            <tr>
+                                <td class="slot-num">5ª</td>
+                                <td><span class="subject">História</span> <span class="teacher">(Profª. Sandra)</span></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <!-- SEXTA-FEIRA -->
+                    <div class="day-block">
+                        <div class="day-header">
+                            <span>Sexta-feira</span>
+                            <span style="font-size:0.8rem; font-weight:normal; color:var(--text-muted);">5 Aulas</span>
+                        </div>
+                        <table>
+                            <tr>
+                                <td class="slot-num">1ª</td>
+                                <td><span class="subject">Geografia</span> <span class="teacher">(Prof. Marcos Antonio)</span></td>
+                            </tr>
+                            <tr>
+                                <td class="slot-num">2ª</td>
+                                <td><span class="subject">Geografia</span> <span class="teacher">(Prof. Marcos Antonio)</span></td>
+                            </tr>
+                            <tr>
+                                <td class="slot-num">3ª</td>
+                                <td><span class="subject">Química</span> <span class="teacher">(Prof. Antonio Carlos)</span></td>
+                            </tr>
+                            <tr>
+                                <td class="slot-num">4ª</td>
+                                <td><span class="subject">Educação Física</span> <span class="teacher">(Profª. Telma)</span></td>
+                            </tr>
+                            <tr>
+                                <td><span class="slot-num">5ª</span></td>
+                                <td><span class="subject">Educação Física</span> <span class="teacher">(Profª. Telma)</span></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        <p>Painel de Horários e Avisos - 2º B-V (2026)</p>
+        <p style="margin-top: 4px; font-size: 0.8rem;">Feito por <strong>Antenor Neto</strong></p>
+    </footer>
+
+</body>
+</html>
