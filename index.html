@@ -3,106 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel 2º B-V - V6</title>
+    <title>Painel 2º B-V - Wanted Edition V7.5</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #0f172a;
-            --card-bg: #1e293b;
-            --card-border: #334155;
-            --primary: #38bdf8;
-            --primary-hover: #0284c7;
+            --bg: #0d0e12;
+            --card-bg: #16181e;
+            --poster-bg: #221c17;
+            --poster-border: #3d3126;
+            --primary: #f39c12;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
-            
-            --danger-bg: rgba(239, 68, 68, 0.15);
-            --danger-border: #ef4444;
-            --danger-text: #fca5a5;
-            
-            --warning-bg: rgba(245, 158, 11, 0.15);
-            --warning-border: #f59e0b;
-            --warning-text: #fde047;
-            
-            --info-bg: rgba(59, 130, 246, 0.15);
-            --info-border: #3b82f6;
-            --info-text: #93c5fd;
-
-            --expired-bg: rgba(51, 65, 85, 0.4);
-            --expired-border: #475569;
-            --expired-text: #64748b;
-
-            --badge-urgent: #ef4444;
-            --badge-warning: #f59e0b;
-            --badge-info: #3b82f6;
-            --badge-expired: #475569;
+            --urgent: #ef4444;
+            --this-week: #f59e0b;
+            --prepare: #3b82f6;
+            --expired: #475569;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
             background-color: var(--bg);
             color: var(--text-main);
-            line-height: 1.6;
             padding: 20px;
-            max-width: 900px;
+            max-width: 950px;
             margin: 0 auto;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
         }
 
         header {
-            background-color: var(--card-bg);
-            border: 1px solid var(--card-border);
-            color: var(--text-main);
-            padding: 24px 20px;
-            border-radius: 12px;
-            margin-bottom: 24px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
             text-align: center;
+            margin-bottom: 24px;
+            padding: 24px 20px;
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            background: linear-gradient(180deg, #1e1b18 0%, #12100e 100%);
+            box-shadow: 0 4px 20px rgba(243, 156, 18, 0.15);
         }
 
         header h1 {
-            font-size: 1.8rem;
+            font-family: 'Bebas Neue', cursive;
+            font-size: 3.5rem;
+            letter-spacing: 3px;
             color: var(--primary);
-            margin-bottom: 4px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+            line-height: 1;
         }
 
         header p {
-            font-size: 0.95rem;
             color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-top: 6px;
         }
 
-        .main-container {
-            flex: 1;
-        }
-
-        /* SISTEMA DE ABAS (TABS) COM RADIO BUTTONS */
-        .tab-container {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .tab-nav {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 20px;
-            border-bottom: 2px solid var(--card-border);
-            padding-bottom: 8px;
-        }
-
+        .tab-container { display: flex; flex-direction: column; }
+        .tab-nav { display: flex; gap: 10px; margin-bottom: 24px; }
+        
         .tab-btn {
             flex: 1;
-            padding: 12px 16px;
+            padding: 14px;
             background-color: var(--card-bg);
-            border: 1px solid var(--card-border);
+            border: 2px solid #2a2e39;
             color: var(--text-muted);
-            font-size: 1rem;
-            font-weight: 600;
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.4rem;
+            letter-spacing: 1px;
             border-radius: 8px;
             cursor: pointer;
             text-align: center;
@@ -115,197 +85,169 @@
             color: var(--primary);
         }
 
-        input[type="radio"] {
-            display: none;
-        }
+        input[type="radio"] { display: none; }
 
         #tab-trabalhos:checked ~ .tab-nav label[for="tab-trabalhos"],
         #tab-horario:checked ~ .tab-nav label[for="tab-horario"] {
-            background-color: var(--primary);
-            color: #0f172a;
             border-color: var(--primary);
+            color: #0d0e12;
+            background-color: var(--primary);
             font-weight: 700;
         }
 
-        .tab-content {
-            display: none;
+        .tab-content { display: none; }
+        #tab-trabalhos:checked ~ .tab-content-trabalhos { display: grid; }
+        #tab-horario:checked ~ .tab-content-horario { display: block; }
+
+        /* GRID DE CARTAZES (WANTED POSTERS) */
+        .poster-grid {
+            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+            gap: 20px;
         }
 
-        #tab-trabalhos:checked ~ .tab-content-trabalhos {
-            display: block;
-        }
-
-        #tab-horario:checked ~ .tab-content-horario {
-            display: block;
-        }
-
-        /* CARDS E CONTEÚDO */
-        .card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 20px;
-            border: 1px solid var(--card-border);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            margin-bottom: 24px;
-        }
-
-        .card-title {
-            font-size: 1.25rem;
-            color: var(--primary);
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid var(--card-border);
-            padding-bottom: 8px;
-            font-weight: 700;
-        }
-
-        /* AVISOS / TRABALHOS */
-        .notice-card {
-            padding: 18px;
+        .wanted-poster {
+            background-color: var(--poster-bg);
+            border: 8px solid var(--poster-border);
             border-radius: 10px;
-            margin-bottom: 16px;
-            border: 1px solid;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
             position: relative;
-            transition: all 0.3s ease;
+            transition: transform 0.2s ease;
         }
 
-        /* ESTILOS DE URGÊNCIA (DINÂMICOS VIA JS) */
-        .notice-card.status-urgent {
-            background-color: var(--danger-bg);
-            border-color: var(--danger-border);
-            border-left: 5px solid var(--danger-border);
+        .wanted-poster:hover {
+            transform: translateY(-4px);
         }
 
-        .notice-card.status-warning {
-            background-color: var(--warning-bg);
-            border-color: var(--warning-border);
-            border-left: 5px solid var(--warning-border);
+        .wanted-header {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 3rem;
+            color: #e2c08d;
+            letter-spacing: 4px;
+            line-height: 1;
+            margin-bottom: 6px;
+            text-shadow: 2px 2px 0px #000;
         }
 
-        .notice-card.status-info {
-            background-color: var(--info-bg);
-            border-color: var(--info-border);
-            border-left: 5px solid var(--info-border);
-        }
-
-        /* ESTADO CINZA QUANDO ESPIRADO */
-        .notice-card.status-expired {
-            background-color: var(--expired-bg) !important;
-            border-color: var(--expired-border) !important;
-            border-left: 5px solid var(--expired-border) !important;
-            opacity: 0.65;
-            filter: grayscale(0.8);
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 4px 10px;
-            font-size: 0.75rem;
-            font-weight: bold;
-            border-radius: 6px;
+        .wanted-status {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            padding: 2px 12px;
+            border-radius: 4px;
+            margin-bottom: 12px;
             text-transform: uppercase;
         }
 
-        .badge-status {
-            color: white;
-            transition: all 0.3s ease;
-        }
-
-        .badge-status.bg-urgent { background-color: var(--badge-urgent); color: white; }
-        .badge-status.bg-warning { background-color: var(--badge-warning); color: #0f172a; }
-        .badge-status.bg-info { background-color: var(--badge-info); color: white; }
-        .badge-status.bg-expired { background-color: var(--badge-expired); color: #cbd5e1; }
-
-        .badge-subject {
-            background-color: #0284c7;
-            color: white;
-            margin-right: 6px;
-        }
-
-        .notice-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-
-        .notice-title {
-            font-weight: 700;
-            font-size: 1.15rem;
-            color: var(--text-main);
-        }
-
-        .status-expired .notice-title {
-            text-decoration: line-through;
-            color: #94a3b8;
-        }
-
-        .notice-desc {
-            font-size: 0.95rem;
-            color: #cbd5e1;
-            margin-top: 6px;
-        }
-
-        .status-expired .notice-desc {
-            color: #64748b;
-        }
-
-        .notice-footer-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 14px;
-            padding-top: 10px;
-            border-top: 1px dashed rgba(255, 255, 255, 0.1);
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .notice-date {
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .status-urgent .notice-date { color: var(--danger-text); }
-        .status-warning .notice-date { color: var(--warning-text); }
-        .status-info .notice-date { color: var(--info-text); }
-        .status-expired .notice-date { color: var(--expired-text); }
-
-        .timer-box {
-            font-family: monospace;
-            font-size: 0.9rem;
-            font-weight: 700;
-            padding: 4px 10px;
+        .photo-area {
+            width: 100%;
+            background-color: #120e0b;
+            border: 3px solid #3d3126;
             border-radius: 6px;
-            background-color: rgba(0, 0, 0, 0.4);
-            letter-spacing: 0.5px;
+            padding: 14px 8px;
+            text-align: center;
+            margin-bottom: 12px;
         }
 
-        .status-urgent .timer-box { color: #fca5a5; border: 1px solid var(--danger-border); }
-        .status-warning .timer-box { color: #fde047; border: 1px solid var(--warning-border); }
-        .status-info .timer-box { color: #93c5fd; border: 1px solid var(--info-border); }
-        .status-expired .timer-box { color: #94a3b8; border: 1px solid var(--expired-border); background-color: rgba(0,0,0,0.2); }
+        .subject-name {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.8rem;
+            color: var(--primary);
+            letter-spacing: 1px;
+            line-height: 1.1;
+        }
 
-        /* DIAS DA SEMANA & HORÁRIOS */
+        .subject-teacher {
+            font-size: 0.8rem;
+            color: #a89274;
+            margin-top: 2px;
+        }
+
+        .wanted-desc {
+            font-size: 0.85rem;
+            color: #d1c2a5;
+            text-align: center;
+            min-height: 42px;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .reward-box {
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            border: 1px dashed #524233;
+            border-radius: 6px;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .reward-label {
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1rem;
+            color: #a89274;
+            letter-spacing: 1px;
+        }
+
+        .timer-val {
+            font-family: monospace;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-top: 2px;
+        }
+
+        /* CORES DE STATUS */
+        .status-urgent { border-color: #7f1d1d; }
+        .status-urgent .wanted-status { background-color: var(--urgent); color: #fff; }
+        .status-urgent .timer-val { color: #fca5a5; }
+
+        .status-warning { border-color: #78350f; }
+        .status-warning .wanted-status { background-color: var(--this-week); color: #000; }
+        .status-warning .timer-val { color: #fde047; }
+
+        .status-info { border-color: #1e3a8a; }
+        .status-info .wanted-status { background-color: var(--prepare); color: #fff; }
+        .status-info .timer-val { color: #93c5fd; }
+
+        /* STATUS CAPTURADO / EXPIRADO */
+        .status-expired {
+            background-color: #18191d !important;
+            border-color: #334155 !important;
+            opacity: 0.65;
+            filter: grayscale(0.85);
+        }
+        .status-expired .wanted-header { color: #64748b; text-shadow: none; }
+        .status-expired .wanted-status { background-color: var(--expired); color: #cbd5e1; }
+        .status-expired .subject-name { text-decoration: line-through; color: #94a3b8; }
+        .status-expired .timer-val { color: #94a3b8; }
+
+        /* TABELA DE HORÁRIOS COMPLETA */
+        .horario-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #2a2e39;
+        }
+
         .day-block {
             margin-bottom: 20px;
-            border: 1px solid var(--card-border);
+            border: 1px solid #2a2e39;
             border-radius: 8px;
             overflow: hidden;
-            background-color: #111827;
+            background-color: #111318;
         }
 
         .day-header {
-            background-color: #1e293b;
+            background-color: #1c202b;
             color: var(--primary);
-            font-weight: 700;
-            padding: 12px 16px;
-            font-size: 1.05rem;
-            border-bottom: 1px solid var(--card-border);
+            font-family: 'Bebas Neue', cursive;
+            font-size: 1.4rem;
+            letter-spacing: 1px;
+            padding: 10px 16px;
+            border-bottom: 1px solid #2a2e39;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -319,11 +261,11 @@
 
         td {
             padding: 12px 16px;
-            border-bottom: 1px solid #1e293b;
+            border-bottom: 1px solid #1c202b;
         }
 
         tr:last-child td { border-bottom: none; }
-        tr:hover { background-color: #1f2937; }
+        tr:hover { background-color: #181c26; }
 
         .slot-num {
             width: 45px;
@@ -331,23 +273,15 @@
             color: var(--primary);
         }
 
-        .subject {
-            font-weight: 600;
-            color: var(--text-main);
-        }
-
-        .teacher {
-            color: var(--text-muted);
-            font-size: 0.85rem;
-            margin-left: 6px;
-        }
+        .subject { font-weight: 600; color: var(--text-main); }
+        .teacher { color: var(--text-muted); font-size: 0.85rem; margin-left: 6px; }
 
         footer {
             text-align: center;
             padding: 24px 0 10px 0;
             font-size: 0.9rem;
             color: var(--text-muted);
-            border-top: 1px solid var(--card-border);
+            border-top: 1px solid #2a2e39;
             margin-top: auto;
         }
 
@@ -357,287 +291,194 @@
 <body>
 
     <header>
-        <h1>Painel 2º B-V (Sala 07)</h1>
-        <p>Horário Vespertino - 2026</p>
+        <h1>PAINEL 2º B-V (Sala 07)</h1>
+        <p>RECOMPENSAS ACADÊMICAS & HORÁRIOS - V7.5</p>
     </header>
 
-    <div class="main-container">
-        <div class="tab-container">
-            <!-- Controladores de Abas -->
-            <input type="radio" id="tab-trabalhos" name="painel-tabs" checked>
-            <input type="radio" id="tab-horario" name="painel-tabs">
+    <div class="tab-container">
+        <input type="radio" id="tab-trabalhos" name="main-tabs" checked>
+        <input type="radio" id="tab-horario" name="main-tabs">
 
-            <!-- Botões de Navegação -->
-            <div class="tab-nav">
-                <label for="tab-trabalhos" class="tab-btn">📌 Trabalhos & Avaliações</label>
-                <label for="tab-horario" class="tab-btn">📅 Horário das Aulas</label>
-            </div>
+        <div class="tab-nav">
+            <label for="tab-trabalhos" class="tab-btn">🏴‍☠️ PROCURADOS (AVISOS & TRABALHOS)</label>
+            <label for="tab-horario" class="tab-btn">📅 LOG POSE (HORÁRIOS)</label>
+        </div>
 
-            <!-- ABA 1: TRABALHOS E AVISOS -->
-            <div class="tab-content tab-content-trabalhos">
-                <div class="card">
-                    <div class="card-title">
-                        <span>📌 Trabalhos & Avaliações Pendentes</span>
-                    </div>
+        <!-- ABA 1: CARTAZES DE PROCURADO (REMOVIDOS OS QUE JÁ ACABARAM) -->
+        <div class="tab-content tab-content-trabalhos poster-grid">
 
-                    <!-- 1. HISTÓRIA DA BAHIA -->
-                    <div class="notice-card" data-deadline="2026-07-29T13:00:00">
-                        <div class="notice-header">
-                            <span class="badge badge-subject">História da Bahia</span>
-                            <span class="badge badge-status">--</span>
-                        </div>
-                        <div class="notice-title">Redação de História da Bahia</div>
-                        <div class="notice-desc">
-                            Criar uma redação com base nos assuntos e temas discutidos em sala de aula.
-                        </div>
-                        <div class="notice-footer-info">
-                            <span class="notice-date">⏰ Entrega: 29/07 às 13:00</span>
-                            <div class="timer-box countdown">Carregando...</div>
-                        </div>
-                    </div>
-
-                    <!-- 2. ETNOMATEMÁTICA -->
-                    <div class="notice-card" data-deadline="2026-07-29T13:00:00">
-                        <div class="notice-header">
-                            <span class="badge badge-subject">Etnomatemática</span>
-                            <span class="badge badge-status">--</span>
-                        </div>
-                        <div class="notice-title">Mapa Conceitual sobre Geometria Plana</div>
-                        <div class="notice-desc">
-                            Trabalho de mapa conceitual sobre Geometria Plana (destinado para quem ainda não fez).
-                        </div>
-                        <div class="notice-footer-info">
-                            <span class="notice-date">⏰ Entrega: 29/07 às 13:00</span>
-                            <div class="timer-box countdown">Carregando...</div>
-                        </div>
-                    </div>
-
-                    <!-- 3. INGLÊS -->
-                    <div class="notice-card" data-deadline="2026-07-30T13:00:00">
-                        <div class="notice-header">
-                            <span class="badge badge-subject">Inglês</span>
-                            <span class="badge badge-status">--</span>
-                        </div>
-                        <div class="notice-title">Trabalho sobre a Copa do Mundo</div>
-                        <div class="notice-desc">
-                            Elaboração e entrega do trabalho sobre a Copa do Mundo.
-                        </div>
-                        <div class="notice-footer-info">
-                            <span class="notice-date">📅 Entrega: Quinta-feira (30/07) às 13:00</span>
-                            <div class="timer-box countdown">Carregando...</div>
-                        </div>
-                    </div>
-
-                    <!-- 4. QUÍMICA -->
-                    <div class="notice-card" data-deadline="2026-07-31T13:00:00">
-                        <div class="notice-header">
-                            <span class="badge badge-subject">Química</span>
-                            <span class="badge badge-status">--</span>
-                        </div>
-                        <div class="notice-title">Avaliação de Química</div>
-                        <div class="notice-desc">
-                            Avaliação/Prova da disciplina de Química.
-                        </div>
-                        <div class="notice-footer-info">
-                            <span class="notice-date">📅 Data: Sexta-feira (31/07) às 13:00</span>
-                            <div class="timer-box countdown">Carregando...</div>
-                        </div>
-                    </div>
-
-                    <!-- 5. LINGUAGENS E CULTURA -->
-                    <div class="notice-card" data-deadline="2026-08-03T13:00:00">
-                        <div class="notice-header">
-                            <span class="badge badge-subject">Linguagens e Cultura</span>
-                            <span class="badge badge-status">--</span>
-                        </div>
-                        <div class="notice-title">Avaliação do Livro "Torto Arado"</div>
-                        <div class="notice-desc">
-                            Avaliação sobre a leitura e análise do livro "Torto Arado".
-                        </div>
-                        <div class="notice-footer-info">
-                            <span class="notice-date">📅 Data: Próxima segunda (03/08) às 13:00</span>
-                            <div class="timer-box countdown">Carregando...</div>
-                        </div>
-                    </div>
-
-                    <!-- 6. BIOLOGIA -->
-                    <div class="notice-card" data-deadline="2026-08-04T13:00:00">
-                        <div class="notice-header">
-                            <span class="badge badge-subject">Biologia</span>
-                            <span class="badge badge-status">--</span>
-                        </div>
-                        <div class="notice-title">Avaliação de Biologia</div>
-                        <div class="notice-desc">
-                            Avaliação/Prova da disciplina de Biologia.
-                        </div>
-                        <div class="notice-footer-info">
-                            <span class="notice-date">📅 Data: Terça-feira (04/08) às 13:00</span>
-                            <div class="timer-box countdown">Carregando...</div>
-                        </div>
-                    </div>
-
+            <!-- INGLÊS -->
+            <div class="wanted-poster" data-deadline="2026-07-30T13:00:00">
+                <div class="wanted-header">WANTED</div>
+                <div class="wanted-status">--</div>
+                <div class="photo-area">
+                    <div class="subject-name">INGLÊS</div>
+                    <div class="subject-teacher">Prof. Joacy</div>
+                </div>
+                <div class="wanted-desc">Trabalho sobre a Copa do Mundo.</div>
+                <div class="reward-box">
+                    <div class="reward-label">ENTREGA: Quinta (30/07) às 13:00</div>
+                    <div class="timer-val countdown">00d 00h 00m 00s</div>
                 </div>
             </div>
 
-            <!-- ABA 2: HORÁRIO DAS AULAS -->
-            <div class="tab-content tab-content-horario">
-                <div class="card">
-                    <div class="card-title">
-                        <span>📅 Horário Semanal</span>
-                    </div>
-
-                    <!-- SEGUNDA-FEIRA -->
-                    <div class="day-block">
-                        <div class="day-header">
-                            <span>Segunda-feira</span>
-                            <span style="font-size:0.8rem; font-weight:normal; color:var(--text-muted);">5 Aulas</span>
-                        </div>
-                        <table>
-                            <tr>
-                                <td class="slot-num">1ª</td>
-                                <td><span class="subject">Educação Sóciocientífica e Ambiental</span> <span class="teacher">(Prof. Ray)</span></td>
-                            </tr>
-                            <tr>
-                                <td class="slot-num">2ª</td>
-                                <td><span class="subject">Linguagens</span> <span class="teacher">(Profª. Rafaela)</span></td>
-                            </tr>
-                            <tr>
-                                <td class="slot-num">3ª</td>
-                                <td><span class="subject">Etnomatemática</span> <span class="teacher">(Profª. Thainara)</span></td>
-                            </tr>
-                            <tr>
-                                <td class="slot-num">4ª</td>
-                                <td><span class="subject">Matemática</span> <span class="teacher">(Profª. Thainara)</span></td>
-                            </tr>
-                            <tr>
-                                <td class="slot-num">5ª</td>
-                                <td><span class="subject">Matemática</span> <span class="teacher">(Profª. Thainara)</span></td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <!-- TERÇA-FEIRA -->
-                    <div class="day-block">
-                        <div class="day-header">
-                            <span>Terça-feira</span>
-                            <span style="font-size:0.8rem; font-weight:normal; color:var(--text-muted);">5 Aulas</span>
-                        </div>
-                        <table>
-                            <tr>
-                                <td class="slot-num">1ª</td>
-                                <td><span class="subject">Química</span> <span class="teacher">(Prof. Antonio Carlos)</span></td>
-                            </tr>
-                            <tr>
-                                <td class="slot-num">2ª</td>
-                                <td><span class="subject">Biologia</span> <span class="teacher">(Profª. Fernanda Ramos)</span></td>
-                            </tr>
-                            <tr>
-                                <td class="slot-num">3ª</td>
-                                <td><span class="subject">Biologia</span> <span class="teacher">(Profª. Fernanda Ramos)</span></td>
-                            </tr>
-                            <tr>
-                                <td class="slot-num">4ª</td>
-                                <td><span class="subject">Língua Portuguesa</span> <span class="teacher">(Profª. Edjane)</span></td>
-                            </tr>
-                            <tr>
-                                <td class="slot-num">5ª</td>
-                                <td><span class="subject">Língua Portuguesa</span> <span class="teacher">(Profª. Edjane)</span></td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <!-- QUARTA-FEIRA -->
-                    <div class="day-block">
-                        <div class="day-header">
-                            <span>Quarta-feira</span>
-                            <span style="font-size:0.8rem; font-weight:normal; color:var(--text-muted);">5 Aulas</span>
-                        </div>
-                        <table>
-                            <tr>
-                                <td class="slot-num">1ª</td>
-                                <td><span class="subject">Física</span> <span class="teacher">(Prof. Daniel)</span></td>
-                            </tr>
-                            <tr>
-                                <td class="slot-num">2ª</td>
-                                <td><span class="subject">Física</span> <span class="teacher">(Prof. Daniel)</span></td>
-                            </tr>
-                            <tr>
-                                <td class="slot-num">3ª</td>
-                                <td><span class="subject">História da Bahia</span> <span class="teacher">(Prof. Edson)</span></td>
-                            </tr>
-                            <tr>
-                                <td class="slot-num">4ª</td>
-                                <td><span class="subject">Educação Sóciocientífica e Ambiental</span> <span class="teacher">(Prof. Ray)</span></td>
-                            </tr>
-                            <tr>
-                                <td class="slot-num">5ª</td>
-                                <td><span class="subject">Sociologia</span> <span class="teacher">(Profª. Akatia)</span></td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <!-- QUINTA-FEIRA -->
-                    <div class="day-block">
-                        <div class="day-header">
-                            <span>Quinta-feira</span>
-                            <span style="font-size:0.8rem; font-weight:normal; color:var(--text-muted);">5 Aulas</span>
-                        </div>
-                        <table>
-                            <tr>
-                                <td class="slot-num">1ª</td>
-                                <td><span class="subject">Inglês</span> <span class="teacher">(Prof. Joacy)</span></td>
-                            </tr>
-                            <tr>
-                                <td class="slot-num">2ª</td>
-                                <td><span class="subject">Arte</span> <span class="teacher">(Profª. Fernanda Oliveira)</span></td>
-                            </tr>
-                            <tr>
-                                <td class="slot-num">3ª</td>
-                                <td><span class="subject">Filosofia</span> <span class="teacher">(Profª. Fernanda Oliveira)</span></td>
-                            </tr>
-                            <tr>
-                                <td class="slot-num">4ª</td>
-                                <td><span class="subject">História</span> <span class="teacher">(Profª. Sandra)</span></td>
-                            </tr>
-                            <tr>
-                                <td class="slot-num">5ª</td>
-                                <td><span class="subject">História</span> <span class="teacher">(Profª. Sandra)</span></td>
-                            </tr>
-                        </table>
-                    </div>
-
-                    <!-- SEXTA-FEIRA -->
-                    <div class="day-block">
-                        <div class="day-header">
-                            <span>Sexta-feira</span>
-                            <span style="font-size:0.8rem; font-weight:normal; color:var(--text-muted);">5 Aulas</span>
-                        </div>
-                        <table>
-                            <tr>
-                                <td class="slot-num">1ª</td>
-                                <td><span class="subject">Geografia</span> <span class="teacher">(Prof. Marcos Antonio)</span></td>
-                            </tr>
-                            <tr>
-                                <td class="slot-num">2ª</td>
-                                <td><span class="subject">Geografia</span> <span class="teacher">(Prof. Marcos Antonio)</span></td>
-                            </tr>
-                            <tr>
-                                <td class="slot-num">3ª</td>
-                                <td><span class="subject">Química</span> <span class="teacher">(Prof. Antonio Carlos)</span></td>
-                            </tr>
-                            <tr>
-                                <td class="slot-num">4ª</td>
-                                <td><span class="subject">Educação Física</span> <span class="teacher">(Profª. Telma)</span></td>
-                            </tr>
-                            <tr>
-                                <td class="slot-num">5ª</td>
-                                <td><span class="subject">Educação Física</span> <span class="teacher">(Profª. Telma)</span></td>
-                            </tr>
-                        </table>
-                    </div>
+            <!-- QUÍMICA -->
+            <div class="wanted-poster" data-deadline="2026-07-31T13:00:00">
+                <div class="wanted-header">WANTED</div>
+                <div class="wanted-status">--</div>
+                <div class="photo-area">
+                    <div class="subject-name">QUÍMICA</div>
+                    <div class="subject-teacher">Prof. Antonio Carlos</div>
+                </div>
+                <div class="wanted-desc">Avaliação/Prova de Química.</div>
+                <div class="reward-box">
+                    <div class="reward-label">DATA: Sexta (31/07) às 13:00</div>
+                    <div class="timer-val countdown">00d 00h 00m 00s</div>
                 </div>
             </div>
 
+            <!-- LINGUAGENS E CULTURA -->
+            <div class="wanted-poster" data-deadline="2026-08-03T13:00:00">
+                <div class="wanted-header">WANTED</div>
+                <div class="wanted-status">--</div>
+                <div class="photo-area">
+                    <div class="subject-name">LINGUAGENS</div>
+                    <div class="subject-teacher">Profª. Rafaela</div>
+                </div>
+                <div class="wanted-desc">Avaliação do livro "Torto Arado".</div>
+                <div class="reward-box">
+                    <div class="reward-label">DATA: Segunda (03/08) às 13:00</div>
+                    <div class="timer-val countdown">00d 00h 00m 00s</div>
+                </div>
+            </div>
+
+            <!-- BIOLOGIA -->
+            <div class="wanted-poster" data-deadline="2026-08-04T13:00:00">
+                <div class="wanted-header">WANTED</div>
+                <div class="wanted-status">--</div>
+                <div class="photo-area">
+                    <div class="subject-name">BIOLOGIA</div>
+                    <div class="subject-teacher">Profª. Fernanda Ramos</div>
+                </div>
+                <div class="wanted-desc">Avaliação/Prova de Biologia.</div>
+                <div class="reward-box">
+                    <div class="reward-label">DATA: Terça (04/08) às 13:00</div>
+                    <div class="timer-val countdown">00d 00h 00m 00s</div>
+                </div>
+            </div>
+
+            <!-- FÍSICA -->
+            <div class="wanted-poster" data-deadline="2026-08-05T13:00:00">
+                <div class="wanted-header">WANTED</div>
+                <div class="wanted-status">--</div>
+                <div class="photo-area">
+                    <div class="subject-name">FÍSICA</div>
+                    <div class="subject-teacher">Prof. Daniel</div>
+                </div>
+                <div class="wanted-desc">Avaliação (Com consulta e calculadora).</div>
+                <div class="reward-box">
+                    <div class="reward-label">DATA: Quarta (05/08) às 13:00</div>
+                    <div class="timer-val countdown">00d 00h 00m 00s</div>
+                </div>
+            </div>
+
+            <!-- SOCIOLOGIA -->
+            <div class="wanted-poster" data-deadline="2026-08-05T13:00:00">
+                <div class="wanted-header">WANTED</div>
+                <div class="wanted-status">--</div>
+                <div class="photo-area">
+                    <div class="subject-name">SOCIOLOGIA</div>
+                    <div class="subject-teacher">Profª. Akatia</div>
+                </div>
+                <div class="wanted-desc">Avaliação/Prova de Sociologia.</div>
+                <div class="reward-box">
+                    <div class="reward-label">DATA: Quarta (05/08) às 13:00</div>
+                    <div class="timer-val countdown">00d 00h 00m 00s</div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ABA 2: HORÁRIO DAS AULAS (COMPLETO) -->
+        <div class="tab-content tab-content-horario">
+            <div class="horario-card">
+                
+                <!-- SEGUNDA-FEIRA -->
+                <div class="day-block">
+                    <div class="day-header">
+                        <span>Segunda-feira</span>
+                        <span style="font-size:0.85rem; font-weight:normal; color:var(--text-muted);">5 Aulas</span>
+                    </div>
+                    <table>
+                        <tr><td class="slot-num">1ª</td><td><span class="subject">Educação Sóciocientífica e Ambiental</span> <span class="teacher">(Prof. Ray)</span></td></tr>
+                        <tr><td class="slot-num">2ª</td><td><span class="subject">Linguagens</span> <span class="teacher">(Profª. Rafaela)</span></td></tr>
+                        <tr><td class="slot-num">3ª</td><td><span class="subject">Etnomatemática</span> <span class="teacher">(Profª. Thainara)</span></td></tr>
+                        <tr><td class="slot-num">4ª</td><td><span class="subject">Matemática</span> <span class="teacher">(Profª. Thainara)</span></td></tr>
+                        <tr><td class="slot-num">5ª</td><td><span class="subject">Matemática</span> <span class="teacher">(Profª. Thainara)</span></td></tr>
+                    </table>
+                </div>
+
+                <!-- TERÇA-FEIRA -->
+                <div class="day-block">
+                    <div class="day-header">
+                        <span>Terça-feira</span>
+                        <span style="font-size:0.85rem; font-weight:normal; color:var(--text-muted);">5 Aulas</span>
+                    </div>
+                    <table>
+                        <tr><td class="slot-num">1ª</td><td><span class="subject">Química</span> <span class="teacher">(Prof. Antonio Carlos)</span></td></tr>
+                        <tr><td class="slot-num">2ª</td><td><span class="subject">Biologia</span> <span class="teacher">(Profª. Fernanda Ramos)</span></td></tr>
+                        <tr><td class="slot-num">3ª</td><td><span class="subject">Biologia</span> <span class="teacher">(Profª. Fernanda Ramos)</span></td></tr>
+                        <tr><td class="slot-num">4ª</td><td><span class="subject">Língua Portuguesa</span> <span class="teacher">(Profª. Edjane)</span></td></tr>
+                        <tr><td class="slot-num">5ª</td><td><span class="subject">Língua Portuguesa</span> <span class="teacher">(Profª. Edjane)</span></td></tr>
+                    </table>
+                </div>
+
+                <!-- QUARTA-FEIRA -->
+                <div class="day-block">
+                    <div class="day-header">
+                        <span>Quarta-feira</span>
+                        <span style="font-size:0.85rem; font-weight:normal; color:var(--text-muted);">5 Aulas</span>
+                    </div>
+                    <table>
+                        <tr><td class="slot-num">1ª</td><td><span class="subject">Física</span> <span class="teacher">(Prof. Daniel)</span></td></tr>
+                        <tr><td class="slot-num">2ª</td><td><span class="subject">Física</span> <span class="teacher">(Prof. Daniel)</span></td></tr>
+                        <tr><td class="slot-num">3ª</td><td><span class="subject">História da Bahia</span> <span class="teacher">(Prof. Edson)</span></td></tr>
+                        <tr><td class="slot-num">4ª</td><td><span class="subject">Educação Sóciocientífica e Ambiental</span> <span class="teacher">(Prof. Ray)</span></td></tr>
+                        <tr><td class="slot-num">5ª</td><td><span class="subject">Sociologia</span> <span class="teacher">(Profª. Akatia)</span></td></tr>
+                    </table>
+                </div>
+
+                <!-- QUINTA-FEIRA -->
+                <div class="day-block">
+                    <div class="day-header">
+                        <span>Quinta-feira</span>
+                        <span style="font-size:0.85rem; font-weight:normal; color:var(--text-muted);">5 Aulas</span>
+                    </div>
+                    <table>
+                        <tr><td class="slot-num">1ª</td><td><span class="subject">Inglês</span> <span class="teacher">(Prof. Joacy)</span></td></tr>
+                        <tr><td class="slot-num">2ª</td><td><span class="subject">Arte</span> <span class="teacher">(Profª. Fernanda Oliveira)</span></td></tr>
+                        <tr><td class="slot-num">3ª</td><td><span class="subject">Filosofia</span> <span class="teacher">(Profª. Fernanda Oliveira)</span></td></tr>
+                        <tr><td class="slot-num">4ª</td><td><span class="subject">História</span> <span class="teacher">(Profª. Sandra)</span></td></tr>
+                        <tr><td class="slot-num">5ª</td><td><span class="subject">História</span> <span class="teacher">(Profª. Sandra)</span></td></tr>
+                    </table>
+                </div>
+
+                <!-- SEXTA-FEIRA -->
+                <div class="day-block">
+                    <div class="day-header">
+                        <span>Sexta-feira</span>
+                        <span style="font-size:0.85rem; font-weight:normal; color:var(--text-muted);">5 Aulas</span>
+                    </div>
+                    <table>
+                        <tr><td class="slot-num">1ª</td><td><span class="subject">Geografia</span> <span class="teacher">(Prof. Marcos Antonio)</span></td></tr>
+                        <tr><td class="slot-num">2ª</td><td><span class="subject">Geografia</span> <span class="teacher">(Prof. Marcos Antonio)</span></td></tr>
+                        <tr><td class="slot-num">3ª</td><td><span class="subject">Química</span> <span class="teacher">(Prof. Antonio Carlos)</span></td></tr>
+                        <tr><td class="slot-num">4ª</td><td><span class="subject">Educação Física</span> <span class="teacher">(Profª. Telma)</span></td></tr>
+                        <tr><td class="slot-num">5ª</td><td><span class="subject">Educação Física</span> <span class="teacher">(Profª. Telma)</span></td></tr>
+                    </table>
+                </div>
+
+            </div>
         </div>
     </div>
 
@@ -646,69 +487,56 @@
         <p style="margin-top: 4px; font-size: 0.8rem;">Feito por <strong>Antenor Neto</strong></p>
     </footer>
 
-    <!-- SCRIPT DINÂMICO DE CONTAGEM REGRESSIVA E STATUS DE URGÊNCIA (V6) -->
+    <!-- SCRIPT DA V7.5 -->
     <script>
-        function updateCountdowns() {
-            const cards = document.querySelectorAll('.notice-card[data-deadline]');
+        function updateTimers() {
             const now = new Date().getTime();
+            const posters = document.querySelectorAll('.wanted-poster[data-deadline]');
 
-            cards.forEach(card => {
-                const deadlineStr = card.getAttribute('data-deadline');
+            posters.forEach(poster => {
+                const deadlineStr = poster.getAttribute('data-deadline');
                 const deadline = new Date(deadlineStr).getTime();
                 const diff = deadline - now;
                 
-                const timerElement = card.querySelector('.countdown');
-                const badgeElement = card.querySelector('.badge-status');
+                const timerText = poster.querySelector('.countdown');
+                const statusBadge = poster.querySelector('.wanted-status');
 
-                // Limpar classes de estado anteriores
-                card.classList.remove('status-urgent', 'status-warning', 'status-info', 'status-expired');
-                badgeElement.classList.remove('bg-urgent', 'bg-warning', 'bg-info', 'bg-expired');
+                poster.classList.remove('status-urgent', 'status-warning', 'status-info', 'status-expired');
 
                 if (diff <= 0) {
-                    // CASO O TEMPO TENHA SE ESGOTADO:
-                    card.classList.add('status-expired');
-                    badgeElement.classList.add('bg-expired');
-                    badgeElement.innerText = "EXPIRADO";
-                    timerElement.innerText = "⏳ Tempo Esgotado";
+                    poster.classList.add('status-expired');
+                    statusBadge.innerText = "CAPTURADO";
+                    if (timerText) timerText.innerText = "⏳ Finalizado";
                     return;
                 }
 
-                const hoursTotal = diff / (1000 * 60 * 60);
                 const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hoursTotal = diff / (1000 * 60 * 60);
                 const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-                // ATUALIZAR ETANQUETA E APARÊNCIA DE ACORDO COM O TEMPO RESTANTE
                 if (hoursTotal <= 24) {
-                    // Menos de 24 horas -> URGENTE
-                    card.classList.add('status-urgent');
-                    badgeElement.classList.add('bg-urgent');
-                    badgeElement.innerText = "URGENTE";
+                    poster.classList.add('status-urgent');
+                    statusBadge.innerText = "URGENTE";
                 } else if (days <= 4) {
-                    // Entre 24h e 4 dias -> ESSA SEMANA
-                    card.classList.add('status-warning');
-                    badgeElement.classList.add('bg-warning');
-                    badgeElement.innerText = "ESSA SEMANA";
+                    poster.classList.add('status-warning');
+                    statusBadge.innerText = "ESSA SEMANA";
                 } else {
-                    // Mais de 4 dias -> PREPARE-SE
-                    card.classList.add('status-info');
-                    badgeElement.classList.add('bg-info');
-                    badgeElement.innerText = "PREPARE-SE";
+                    poster.classList.add('status-info');
+                    statusBadge.innerText = "PREPARE-SE";
                 }
 
-                // FORMATAR O RELÓGIO DIGITAL
-                let text = "⏳ ";
+                let text = "";
                 if (days > 0) text += `${days}d `;
                 text += `${hours.toString().padStart(2, '0')}h ${minutes.toString().padStart(2, '0')}m ${seconds.toString().padStart(2, '0')}s`;
 
-                timerElement.innerText = text;
+                if (timerText) timerText.innerText = text;
             });
         }
 
-        updateCountdowns();
-        setInterval(updateCountdowns, 1000);
+        updateTimers();
+        setInterval(updateTimers, 1000);
     </script>
-
 </body>
 </html>
