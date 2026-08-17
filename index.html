@@ -3,19 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel 2º B-V - Parchment Wanted Edition V9.9</title>
+    <title>Painel 2º B-V - Parchment Wanted Edition V10.0</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rye&family=MedievalSharp&family=Cinzel:wght@700&display=swap" rel="stylesheet">
+
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
         body {
             font-family: 'MedievalSharp', serif, cursive;
             background-color: #d2b48c;
-            background-image: 
+            background-image:
                 radial-gradient(circle, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.3) 100%),
-                repeating-linear-gradient(45deg, #c3a276 0px, #c3a276 2px, #cca97c 2px, #cca97c 4px);
+                repeating-linear-gradient(
+                    45deg,
+                    #c3a276 0px,
+                    #c3a276 2px,
+                    #cca97c 2px,
+                    #cca97c 4px
+                );
             color: #2b1a09;
             padding: 20px;
             max-width: 950px;
@@ -25,7 +37,8 @@
             flex-direction: column;
         }
 
-        /* HEADER CENTRAL (2º BV) */
+        /* HEADER */
+
         header {
             text-align: center;
             margin-bottom: 30px;
@@ -36,7 +49,7 @@
             background-color: #e2c9a2;
             border: 4px solid #5c3a21;
             padding: 10px 40px;
-            box-shadow: 
+            box-shadow:
                 inset 0 0 15px rgba(92, 58, 33, 0.4),
                 3px 5px 10px rgba(0,0,0,0.4);
             border-radius: 4px;
@@ -48,20 +61,29 @@
             font-size: 3.5rem;
             color: #1a0f07;
             letter-spacing: 4px;
-            text-shadow: 1px 1px 0px #e2c9a2, 3px 3px 0px #5c3a21;
+            text-shadow:
+                1px 1px 0px #e2c9a2,
+                3px 3px 0px #5c3a21;
             line-height: 1;
         }
 
-        /* TABS (BOTÕES PARCHMENT) */
-        .tab-container { display: flex; flex-direction: column; }
-        .tab-nav { 
-            display: flex; 
-            justify-content: space-around; 
-            gap: 20px; 
-            margin-bottom: 30px; 
+        /* TABS */
+
+        .tab-container {
+            display: flex;
+            flex-direction: column;
         }
 
-        input[type="radio"] { display: none; }
+        .tab-nav {
+            display: flex;
+            justify-content: space-around;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        input[type="radio"] {
+            display: none;
+        }
 
         .tab-btn {
             flex: 1;
@@ -94,19 +116,35 @@
         }
 
         #tab-trabalhos:checked ~ .tab-nav label[for="tab-trabalhos"],
-        #tab-horario:checked ~ .tab-nav label[for="tab-horario"] {
+        #tab-horario:checked ~ .tab-nav label[for="tab-horario"],
+        #tab-atividades:checked ~ .tab-nav label[for="tab-atividades"] {
             background-color: #be9b68;
             border-style: solid;
             border-color: #3a2211;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.5), 2px 4px 10px rgba(0,0,0,0.4);
+            box-shadow:
+                inset 0 0 10px rgba(0,0,0,0.5),
+                2px 4px 10px rgba(0,0,0,0.4);
             color: #000;
         }
 
-        .tab-content { display: none; }
-        #tab-trabalhos:checked ~ .tab-content-trabalhos { display: grid; }
-        #tab-horario:checked ~ .tab-content-horario { display: block; }
+        .tab-content {
+            display: none;
+        }
 
-        /* GRID DE PROCURADOS (WANTED PARCHMENT) */
+        #tab-trabalhos:checked ~ .tab-content-trabalhos {
+            display: grid;
+        }
+
+        #tab-horario:checked ~ .tab-content-horario {
+            display: block;
+        }
+
+        #tab-atividades:checked ~ .tab-content-atividades {
+            display: grid;
+        }
+
+        /* GRID DOS CARTÕES */
+
         .poster-grid {
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
             gap: 25px;
@@ -120,7 +158,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            box-shadow: 
+            box-shadow:
                 inset 0 0 20px rgba(110, 71, 39, 0.3),
                 5px 8px 15px rgba(0,0,0,0.4);
             position: relative;
@@ -134,7 +172,10 @@
         .wanted-poster::after {
             content: '';
             position: absolute;
-            top: -2px; left: -2px; right: -2px; bottom: -2px;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
             border: 1px solid #3a2211;
             pointer-events: none;
         }
@@ -216,26 +257,49 @@
             margin-top: 2px;
         }
 
-        /* STATUS CORES NO ESTILO PERGAMINHO */
-        .status-urgent .wanted-status { background-color: #a72626; color: #fff; }
-        .status-warning .wanted-status { background-color: #d97706; color: #fff; }
-        .status-info .wanted-status { background-color: #2563eb; color: #fff; }
+        /* STATUS */
+
+        .status-urgent .wanted-status {
+            background-color: #a72626;
+            color: #fff;
+        }
+
+        .status-warning .wanted-status {
+            background-color: #d97706;
+            color: #fff;
+        }
+
+        .status-info .wanted-status {
+            background-color: #2563eb;
+            color: #fff;
+        }
 
         .status-expired {
             background-color: #c2b097 !important;
             opacity: 0.75;
             filter: grayscale(0.6);
         }
-        .status-expired .wanted-header { color: #555; text-decoration: line-through; }
-        .status-expired .wanted-status { background-color: #555; color: #fff; }
 
-        /* ABA HORÁRIO - PERGAMINHO ESTILO TABELA */
+        .status-expired .wanted-header {
+            color: #555;
+            text-decoration: line-through;
+        }
+
+        .status-expired .wanted-status {
+            background-color: #555;
+            color: #fff;
+        }
+
+        /* HORÁRIO */
+
         .horario-card {
             background: #dfc8a4;
             border-radius: 6px;
             padding: 20px;
             border: 3px solid #6e4727;
-            box-shadow: inset 0 0 20px rgba(110, 71, 39, 0.3), 5px 8px 15px rgba(0,0,0,0.4);
+            box-shadow:
+                inset 0 0 20px rgba(110, 71, 39, 0.3),
+                5px 8px 15px rgba(0,0,0,0.4);
         }
 
         .day-block {
@@ -270,8 +334,13 @@
             color: #2b1a09;
         }
 
-        tr:last-child td { border-bottom: none; }
-        tr:hover { background-color: #d3be9e; }
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background-color: #d3be9e;
+        }
 
         .slot-num {
             width: 45px;
@@ -279,10 +348,19 @@
             color: #8b0000;
         }
 
-        .subject { font-weight: 700; color: #1a0f07; }
-        .teacher { color: #5c3a21; font-size: 0.85rem; margin-left: 6px; }
+        .subject {
+            font-weight: 700;
+            color: #1a0f07;
+        }
 
-        /* FOOTER ESTILO IMAGEM */
+        .teacher {
+            color: #5c3a21;
+            font-size: 0.85rem;
+            margin-left: 6px;
+        }
+
+        /* FOOTER */
+
         footer {
             text-align: center;
             padding: 25px 0 10px 0;
@@ -292,9 +370,37 @@
             font-weight: bold;
         }
 
-        footer p { margin-top: 4px; }
+        footer p {
+            margin-top: 4px;
+        }
+
+        /* RESPONSIVO */
+
+        @media (max-width: 700px) {
+            .tab-nav {
+                gap: 8px;
+            }
+
+            .tab-btn {
+                padding: 10px 5px;
+                font-size: 0.9rem;
+            }
+
+            .tab-btn span {
+                font-size: 0.72rem;
+            }
+
+            .header-title-box h1 {
+                font-size: 2.7rem;
+            }
+
+            .header-title-box {
+                padding: 10px 25px;
+            }
+        }
     </style>
 </head>
+
 <body>
 
     <header>
@@ -304,220 +410,815 @@
     </header>
 
     <div class="tab-container">
+
+        <!-- BOTÕES DAS ABAS -->
+
         <input type="radio" id="tab-trabalhos" name="main-tabs" checked>
         <input type="radio" id="tab-horario" name="main-tabs">
+        <input type="radio" id="tab-atividades" name="main-tabs">
 
         <div class="tab-nav">
+
             <label for="tab-trabalhos" class="tab-btn">
                 Missões
                 <span>(Trabalhos)</span>
             </label>
+
             <label for="tab-horario" class="tab-btn">
                 Calendário
                 <span>(horários)</span>
             </label>
+
+            <label for="tab-atividades" class="tab-btn">
+                Side Quests
+                <span>(Atividades)</span>
+            </label>
+
         </div>
 
-        <!-- ABA 1: TRABALHOS (APENAS OS ATIVOS) -->
+
+        <!-- ===================================================== -->
+        <!-- ABA 1: MISSÕES -->
+        <!-- ===================================================== -->
+
         <div class="tab-content tab-content-trabalhos poster-grid">
 
-            <!-- prova de matematica (17/08) -->
+            <!-- PROVA DE MATEMÁTICA -->
+
             <div class="wanted-poster" data-deadline="2026-08-17T13:00:00">
-                <div class="wanted-header">Procurado</div>
-                <div class="wanted-status">--</div>
+
+                <div class="wanted-header">
+                    Procurado
+                </div>
+
+                <div class="wanted-status">
+                    --
+                </div>
+
                 <div class="photo-area">
-                    <div class="subject-name">Prova</div>
-                    <div class="subject-teacher">---</div>
+
+                    <div class="subject-name">
+                        Prova
+                    </div>
+
+                    <div class="subject-teacher">
+                        ---
+                    </div>
+
                 </div>
-                <div class="wanted-desc">Avaliação de matematica.</div>
+
+                <div class="wanted-desc">
+                    Avaliação de matemática.
+                </div>
+
                 <div class="reward-box">
-                    <div class="reward-label">DATA: segunda (17/08) às ?</div>
-                    <div class="timer-val countdown">00d 00h 00m 00s</div>
+
+                    <div class="reward-label">
+                        DATA: segunda (17/08) às ?
+                    </div>
+
+                    <div class="timer-val countdown">
+                        00d 00h 00m 00s
+                    </div>
+
                 </div>
+
             </div>
-               <!-- CIENCIAS HUMANAS (18/08) -->
+
+
+            <!-- CIÊNCIAS HUMANAS -->
+
             <div class="wanted-poster" data-deadline="2026-08-18T13:00:00">
-                <div class="wanted-header">Procurado</div>
-                <div class="wanted-status">--</div>
+
+                <div class="wanted-header">
+                    Procurado
+                </div>
+
+                <div class="wanted-status">
+                    --
+                </div>
+
                 <div class="photo-area">
-                    <div class="subject-name">Prova</div>
-                    <div class="subject-teacher">---</div>
+
+                    <div class="subject-name">
+                        Prova
+                    </div>
+
+                    <div class="subject-teacher">
+                        ---
+                    </div>
+
                 </div>
-                <div class="wanted-desc">Avaliação de ciencias humanas.</div>
+
+                <div class="wanted-desc">
+                    Avaliação de ciências humanas.
+                </div>
+
                 <div class="reward-box">
-                    <div class="reward-label">DATA: Quarta (18/08) às ?</div>
-                    <div class="timer-val countdown">00d 00h 00m 00s</div>
+
+                    <div class="reward-label">
+                        DATA: terça (18/08) às ?
+                    </div>
+
+                    <div class="timer-val countdown">
+                        00d 00h 00m 00s
+                    </div>
+
                 </div>
+
             </div>
-               <!-- Linguagens (19/08) -->
+
+
+            <!-- LINGUAGENS -->
+
             <div class="wanted-poster" data-deadline="2026-08-19T13:00:00">
-                <div class="wanted-header">Procurado</div>
-                <div class="wanted-status">--</div>
+
+                <div class="wanted-header">
+                    Procurado
+                </div>
+
+                <div class="wanted-status">
+                    --
+                </div>
+
                 <div class="photo-area">
-                    <div class="subject-name">Prova</div>
-                    <div class="subject-teacher">---</div>
+
+                    <div class="subject-name">
+                        Prova
+                    </div>
+
+                    <div class="subject-teacher">
+                        ---
+                    </div>
+
                 </div>
-                <div class="wanted-desc">Avaliação de linguagens</div>
+
+                <div class="wanted-desc">
+                    Avaliação de linguagens.
+                </div>
+
                 <div class="reward-box">
-                    <div class="reward-label">DATA: Quinta (19/08) às ?</div>
-                    <div class="timer-val countdown">00d 00h 00m 00s</div>
+
+                    <div class="reward-label">
+                        DATA: quarta (19/08) às ?
+                    </div>
+
+                    <div class="timer-val countdown">
+                        00d 00h 00m 00s
+                    </div>
+
                 </div>
+
             </div>
-            <!-- CIENCIAS DA NATUREZA (20/08) -->
+
+
+            <!-- CIÊNCIAS DA NATUREZA -->
+
             <div class="wanted-poster" data-deadline="2026-08-20T13:00:00">
-                <div class="wanted-header">Procurado</div>
-                <div class="wanted-status">--</div>
+
+                <div class="wanted-header">
+                    Procurado
+                </div>
+
+                <div class="wanted-status">
+                    --
+                </div>
+
                 <div class="photo-area">
-                    <div class="subject-name">Prova</div>
-                    <div class="subject-teacher">---</div>
+
+                    <div class="subject-name">
+                        Prova
+                    </div>
+
+                    <div class="subject-teacher">
+                        ---
+                    </div>
+
                 </div>
-                <div class="wanted-desc">Avaliação de Ciências da natureza</div>
+
+                <div class="wanted-desc">
+                    Avaliação de Ciências da Natureza.
+                </div>
+
                 <div class="reward-box">
-                    <div class="reward-label">DATA: Quinta (20/08) às ?</div>
-                    <div class="timer-val countdown">00d 00h 00m 00s</div>
+
+                    <div class="reward-label">
+                        DATA: quinta (20/08) às ?
+                    </div>
+
+                    <div class="timer-val countdown">
+                        00d 00h 00m 00s
+                    </div>
+
                 </div>
+
             </div>
 
         </div>
 
-        <!-- ABA 2: HORÁRIO DAS AULAS -->
+
+        <!-- ===================================================== -->
+        <!-- ABA 2: SIDE QUESTS / ATIVIDADES -->
+        <!-- ===================================================== -->
+
+        <div class="tab-content tab-content-atividades poster-grid">
+
+            <!-- ================================================= -->
+            <!-- MODELO DE ATIVIDADE -->
+            <!-- COPIE ESTE CARTÃO PARA CRIAR NOVAS ATIVIDADES -->
+            <!-- ================================================= -->
+
+            <div class="wanted-poster" data-deadline="2999-12-31T23:59:00">
+
+                <div class="wanted-header">
+                    Side Quest
+                </div>
+
+                <div class="wanted-status">
+                    --
+                </div>
+
+                <div class="photo-area">
+
+                    <div class="subject-name">
+                        Exemplo
+                    </div>
+
+                    <div class="subject-teacher">
+                        ---
+                    </div>
+
+                </div>
+
+                <div class="wanted-desc">
+                    Atividade de exemplo para servir como modelo.
+                </div>
+
+                <div class="reward-box">
+
+                    <div class="reward-label">
+                        DATA: 31/12/2999 às 23:59
+                    </div>
+
+                    <div class="timer-val countdown">
+                        00d 00h 00m 00s
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ===================================================== -->
+        <!-- ABA 3: CALENDÁRIO -->
+        <!-- ===================================================== -->
+
         <div class="tab-content tab-content-horario">
+
             <div class="horario-card">
-                
+
+
                 <!-- SEGUNDA-FEIRA -->
+
                 <div class="day-block">
+
                     <div class="day-header">
                         <span>Segunda-feira</span>
-                        <span style="font-size:0.85rem; font-weight:normal;">5 Aulas</span>
+                        <span style="font-size:0.85rem; font-weight:normal;">
+                            5 Aulas
+                        </span>
                     </div>
+
                     <table>
-                        <tr><td class="slot-num">1ª</td><td><span class="subject">Educação Sóciocientífica e Ambiental</span> <span class="teacher">(Prof. Ray)</span></td></tr>
-                        <tr><td class="slot-num">2ª</td><td><span class="subject">Linguagens</span> <span class="teacher">(Profª. Rafaela)</span></td></tr>
-                        <tr><td class="slot-num">3ª</td><td><span class="subject">Etnomatemática</span> <span class="teacher">(Profª. Thainara)</span></td></tr>
-                        <tr><td class="slot-num">4ª</td><td><span class="subject">Matemática</span> <span class="teacher">(Profª. Thainara)</span></td></tr>
-                        <tr><td class="slot-num">5ª</td><td><span class="subject">Matemática</span> <span class="teacher">(Profª. Thainara)</span></td></tr>
+
+                        <tr>
+                            <td class="slot-num">1ª</td>
+                            <td>
+                                <span class="subject">
+                                    Educação Sóciocientífica e Ambiental
+                                </span>
+                                <span class="teacher">
+                                    (Prof. Ray)
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="slot-num">2ª</td>
+                            <td>
+                                <span class="subject">
+                                    Linguagens
+                                </span>
+                                <span class="teacher">
+                                    (Profª. Rafaela)
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="slot-num">3ª</td>
+                            <td>
+                                <span class="subject">
+                                    Etnomatemática
+                                </span>
+                                <span class="teacher">
+                                    (Profª. Thainara)
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="slot-num">4ª</td>
+                            <td>
+                                <span class="subject">
+                                    Matemática
+                                </span>
+                                <span class="teacher">
+                                    (Profª. Thainara)
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="slot-num">5ª</td>
+                            <td>
+                                <span class="subject">
+                                    Matemática
+                                </span>
+                                <span class="teacher">
+                                    (Profª. Thainara)
+                                </span>
+                            </td>
+                        </tr>
+
                     </table>
+
                 </div>
+
 
                 <!-- TERÇA-FEIRA -->
+
                 <div class="day-block">
+
                     <div class="day-header">
                         <span>Terça-feira</span>
-                        <span style="font-size:0.85rem; font-weight:normal;">5 Aulas</span>
+                        <span style="font-size:0.85rem; font-weight:normal;">
+                            5 Aulas
+                        </span>
                     </div>
+
                     <table>
-                        <tr><td class="slot-num">1ª</td><td><span class="subject">Química</span> <span class="teacher">(Prof. Antonio Carlos)</span></td></tr>
-                        <tr><td class="slot-num">2ª</td><td><span class="subject">Biologia</span> <span class="teacher">(Profª. Fernanda Ramos)</span></td></tr>
-                        <tr><td class="slot-num">3ª</td><td><span class="subject">Biologia</span> <span class="teacher">(Profª. Fernanda Ramos)</span></td></tr>
-                        <tr><td class="slot-num">4ª</td><td><span class="subject">Língua Portuguesa</span> <span class="teacher">(Profª. Edjane)</span></td></tr>
-                        <tr><td class="slot-num">5ª</td><td><span class="subject">Língua Portuguesa</span> <span class="teacher">(Profª. Edjane)</span></td></tr>
+
+                        <tr>
+                            <td class="slot-num">1ª</td>
+                            <td>
+                                <span class="subject">Química</span>
+                                <span class="teacher">
+                                    (Prof. Antonio Carlos)
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="slot-num">2ª</td>
+                            <td>
+                                <span class="subject">Biologia</span>
+                                <span class="teacher">
+                                    (Profª. Fernanda Ramos)
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="slot-num">3ª</td>
+                            <td>
+                                <span class="subject">Biologia</span>
+                                <span class="teacher">
+                                    (Profª. Fernanda Ramos)
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="slot-num">4ª</td>
+                            <td>
+                                <span class="subject">Língua Portuguesa</span>
+                                <span class="teacher">
+                                    (Profª. Edjane)
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="slot-num">5ª</td>
+                            <td>
+                                <span class="subject">Língua Portuguesa</span>
+                                <span class="teacher">
+                                    (Profª. Edjane)
+                                </span>
+                            </td>
+                        </tr>
+
                     </table>
+
                 </div>
+
 
                 <!-- QUARTA-FEIRA -->
+
                 <div class="day-block">
+
                     <div class="day-header">
                         <span>Quarta-feira</span>
-                        <span style="font-size:0.85rem; font-weight:normal;">5 Aulas</span>
+                        <span style="font-size:0.85rem; font-weight:normal;">
+                            5 Aulas
+                        </span>
                     </div>
+
                     <table>
-                        <tr><td class="slot-num">1ª</td><td><span class="subject">Física</span> <span class="teacher">(Prof. Daniel)</span></td></tr>
-                        <tr><td class="slot-num">2ª</td><td><span class="subject">Física</span> <span class="teacher">(Prof. Daniel)</span></td></tr>
-                        <tr><td class="slot-num">3ª</td><td><span class="subject">História da Bahia</span> <span class="teacher">(Prof. Edson)</span></td></tr>
-                        <tr><td class="slot-num">4ª</td><td><span class="subject">Educação Sóciocientífica e Ambiental</span> <span class="teacher">(Prof. Ray)</span></td></tr>
-                        <tr><td class="slot-num">5ª</td><td><span class="subject">Sociologia</span> <span class="teacher">(Profª. Akatia)</span></td></tr>
+
+                        <tr>
+                            <td class="slot-num">1ª</td>
+                            <td>
+                                <span class="subject">Física</span>
+                                <span class="teacher">
+                                    (Prof. Daniel)
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="slot-num">2ª</td>
+                            <td>
+                                <span class="subject">Física</span>
+                                <span class="teacher">
+                                    (Prof. Daniel)
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="slot-num">3ª</td>
+                            <td>
+                                <span class="subject">História da Bahia</span>
+                                <span class="teacher">
+                                    (Prof. Edson)
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="slot-num">4ª</td>
+                            <td>
+                                <span class="subject">
+                                    Educação Sóciocientífica e Ambiental
+                                </span>
+                                <span class="teacher">
+                                    (Prof. Ray)
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="slot-num">5ª</td>
+                            <td>
+                                <span class="subject">Sociologia</span>
+                                <span class="teacher">
+                                    (Profª. Akatia)
+                                </span>
+                            </td>
+                        </tr>
+
                     </table>
+
                 </div>
+
 
                 <!-- QUINTA-FEIRA -->
+
                 <div class="day-block">
+
                     <div class="day-header">
                         <span>Quinta-feira</span>
-                        <span style="font-size:0.85rem; font-weight:normal;">5 Aulas</span>
+                        <span style="font-size:0.85rem; font-weight:normal;">
+                            5 Aulas
+                        </span>
                     </div>
+
                     <table>
-                        <tr><td class="slot-num">1ª</td><td><span class="subject">Inglês</span> <span class="teacher">(Prof. Joacy)</span></td></tr>
-                        <tr><td class="slot-num">2ª</td><td><span class="subject">Arte</span> <span class="teacher">(Profª. Fernanda Oliveira)</span></td></tr>
-                        <tr><td class="slot-num">3ª</td><td><span class="subject">Filosofia</span> <span class="teacher">(Profª. Fernanda Oliveira)</span></td></tr>
-                        <tr><td class="slot-num">4ª</td><td><span class="subject">História</span> <span class="teacher">(Profª. Sandra)</span></td></tr>
-                        <tr><td class="slot-num">5ª</td><td><span class="subject">História</span> <span class="teacher">(Profª. Sandra)</span></td></tr>
+
+                        <tr>
+                            <td class="slot-num">1ª</td>
+                            <td>
+                                <span class="subject">Inglês</span>
+                                <span class="teacher">
+                                    (Prof. Joacy)
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="slot-num">2ª</td>
+                            <td>
+                                <span class="subject">Arte</span>
+                                <span class="teacher">
+                                    (Profª. Fernanda Oliveira)
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="slot-num">3ª</td>
+                            <td>
+                                <span class="subject">Filosofia</span>
+                                <span class="teacher">
+                                    (Profª. Fernanda Oliveira)
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="slot-num">4ª</td>
+                            <td>
+                                <span class="subject">História</span>
+                                <span class="teacher">
+                                    (Profª. Sandra)
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="slot-num">5ª</td>
+                            <td>
+                                <span class="subject">História</span>
+                                <span class="teacher">
+                                    (Profª. Sandra)
+                                </span>
+                            </td>
+                        </tr>
+
                     </table>
+
                 </div>
 
+
                 <!-- SEXTA-FEIRA -->
+
                 <div class="day-block">
+
                     <div class="day-header">
                         <span>Sexta-feira</span>
-                        <span style="font-size:0.85rem; font-weight:normal;">5 Aulas</span>
+                        <span style="font-size:0.85rem; font-weight:normal;">
+                            5 Aulas
+                        </span>
                     </div>
+
                     <table>
-                        <tr><td class="slot-num">1ª</td><td><span class="subject">Geografia</span> <span class="teacher">(Prof. Marcos Antonio)</span></td></tr>
-                        <tr><td class="slot-num">2ª</td><td><span class="subject">Geografia</span> <span class="teacher">(Prof. Marcos Antonio)</span></td></tr>
-                        <tr><td class="slot-num">3ª</td><td><span class="subject">Química</span> <span class="teacher">(Prof. Antonio Carlos)</span></td></tr>
-                        <tr><td class="slot-num">4ª</td><td><span class="subject">Educação Física</span> <span class="teacher">(Profª. Telma)</span></td></tr>
-                        <tr><td class="slot-num">5ª</td><td><span class="subject">Educação Física</span> <span class="teacher">(Profª. Telma)</span></td></tr>
+
+                        <tr>
+                            <td class="slot-num">1ª</td>
+                            <td>
+                                <span class="subject">Geografia</span>
+                                <span class="teacher">
+                                    (Prof. Marcos Antonio)
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="slot-num">2ª</td>
+                            <td>
+                                <span class="subject">Geografia</span>
+                                <span class="teacher">
+                                    (Prof. Marcos Antonio)
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="slot-num">3ª</td>
+                            <td>
+                                <span class="subject">Química</span>
+                                <span class="teacher">
+                                    (Prof. Antonio Carlos)
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="slot-num">4ª</td>
+                            <td>
+                                <span class="subject">Educação Física</span>
+                                <span class="teacher">
+                                    (Profª. Telma)
+                                </span>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="slot-num">5ª</td>
+                            <td>
+                                <span class="subject">Educação Física</span>
+                                <span class="teacher">
+                                    (Profª. Telma)
+                                </span>
+                            </td>
+                        </tr>
+
                     </table>
+
                 </div>
 
             </div>
+
         </div>
+
     </div>
+
+
+    <!-- FOOTER -->
 
     <footer>
         <p>Site da turma do 2ºBV</p>
         <p>Feito por: Antenor Neto</p>
     </footer>
 
-    <!-- SCRIPT DE CONTAGEM E STATUS (V8) -->
+
+    <!-- ========================================================= -->
+    <!-- SCRIPT DOS CONTADORES -->
+    <!-- ========================================================= -->
+
     <script>
+
         function updateTimers() {
+
             const now = new Date().getTime();
-            const posters = document.querySelectorAll('.wanted-poster[data-deadline]');
+
+            const posters =
+                document.querySelectorAll(
+                    '.wanted-poster[data-deadline]'
+                );
+
 
             posters.forEach(poster => {
-                const deadlineStr = poster.getAttribute('data-deadline');
-                const deadline = new Date(deadlineStr).getTime();
-                const diff = deadline - now;
-                
-                const timerText = poster.querySelector('.countdown');
-                const statusBadge = poster.querySelector('.wanted-status');
 
-                poster.classList.remove('status-urgent', 'status-warning', 'status-info', 'status-expired');
+                const deadlineStr =
+                    poster.getAttribute('data-deadline');
+
+                const deadline =
+                    new Date(deadlineStr).getTime();
+
+                const diff =
+                    deadline - now;
+
+
+                const timerText =
+                    poster.querySelector('.countdown');
+
+                const statusBadge =
+                    poster.querySelector('.wanted-status');
+
+
+                poster.classList.remove(
+                    'status-urgent',
+                    'status-warning',
+                    'status-info',
+                    'status-expired'
+                );
+
+
+                /* ATIVIDADE ENCERRADA */
 
                 if (diff <= 0) {
-                    poster.classList.add('status-expired');
-                    statusBadge.innerText = "CAPTURADO";
-                    if (timerText) timerText.innerText = "⏳ Finalizado";
+
+                    poster.classList.add(
+                        'status-expired'
+                    );
+
+                    statusBadge.innerText =
+                        "CAPTURADO";
+
+                    if (timerText) {
+                        timerText.innerText =
+                            "⏳ Finalizado";
+                    }
+
                     return;
                 }
 
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const hoursTotal = diff / (1000 * 60 * 60);
-                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+                /* TEMPO */
+
+                const days =
+                    Math.floor(
+                        diff /
+                        (1000 * 60 * 60 * 24)
+                    );
+
+
+                const hoursTotal =
+                    diff /
+                    (1000 * 60 * 60);
+
+
+                const hours =
+                    Math.floor(
+                        (diff %
+                            (1000 * 60 * 60 * 24)
+                        ) /
+                        (1000 * 60 * 60)
+                    );
+
+
+                const minutes =
+                    Math.floor(
+                        (diff %
+                            (1000 * 60 * 60)
+                        ) /
+                        (1000 * 60)
+                    );
+
+
+                const seconds =
+                    Math.floor(
+                        (diff %
+                            (1000 * 60)
+                        ) /
+                        1000
+                    );
+
+
+                /* STATUS */
 
                 if (hoursTotal <= 24) {
-                    poster.classList.add('status-urgent');
-                    statusBadge.innerText = "URGENTE";
-                } else if (days <= 4) {
-                    poster.classList.add('status-warning');
-                    statusBadge.innerText = "QUASE";
-                } else {
-                    poster.classList.add('status-info');
-                    statusBadge.innerText = "PREPARE-SE";
+
+                    poster.classList.add(
+                        'status-urgent'
+                    );
+
+                    statusBadge.innerText =
+                        "URGENTE";
+
                 }
 
-                let text = "";
-                if (days > 0) text += `${days}d `;
-                text += `${hours.toString().padStart(2, '0')}h ${minutes.toString().padStart(2, '0')}m ${seconds.toString().padStart(2, '0')}s`;
+                else if (days <= 4) {
 
-                if (timerText) timerText.innerText = text;
+                    poster.classList.add(
+                        'status-warning'
+                    );
+
+                    statusBadge.innerText =
+                        "QUASE";
+
+                }
+
+                else {
+
+                    poster.classList.add(
+                        'status-info'
+                    );
+
+                    statusBadge.innerText =
+                        "PREPARE-SE";
+                }
+
+
+                /* TEXTO DO CONTADOR */
+
+                let text = "";
+
+
+                if (days > 0) {
+                    text += `${days}d `;
+                }
+
+
+                text +=
+                    `${hours.toString().padStart(2, '0')}h ` +
+                    `${minutes.toString().padStart(2, '0')}m ` +
+                    `${seconds.toString().padStart(2, '0')}s`;
+
+
+                if (timerText) {
+                    timerText.innerText =
+                        text;
+                }
+
             });
+
         }
 
+
         updateTimers();
-        setInterval(updateTimers, 1000);
+
+        setInterval(
+            updateTimers,
+            1000
+        );
+
     </script>
+
 </body>
 </html>
