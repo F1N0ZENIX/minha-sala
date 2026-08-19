@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel 2º B-V - Parchment Wanted Edition V11.0</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rye&family=MedievalSharp&family=Cinzel:wght@700&display=swap" rel="stylesheet">
+<style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'MedievalSharp', serif, cursive;
+            background-color: #d2b48c;
+            background-image:
+                radial-gradient(circle, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.3) 100%),
+                repeating-linear-gradient(
+                    45deg,
+                    #c3a276 0px,
+                    #c3a276 2px,
+                    #cca97c 2px,
+                    #cca97c 4px
+                );
+            color: #2b1a09;
+            padding: 20px;
+            max-width: 950px;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* HEADER */
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header-title-box {
+            display: inline-block;
+            background-color: #e2c9a2;
+            border: 4px solid #5c3a21;
+            padding: 10px 40px;
+            box-shadow:
+                inset 0 0 15px rgba(92, 58, 33, 0.4),
+                3px 5px 10px rgba(0,0,0,0.4);
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .header-title-box h1 {
+            font-family: 'Rye', cursive;
+            font-size: 3.5rem;
+            color: #1a0f07;
+            letter-spacing: 4px;
+            text-shadow:
+                1px 1px 0px #e2c9a2,
+                3px 3px 0px #5c3a21;
+            line-height: 1;
+        }
+
+        /* TABS */
+
+        .tab-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tab-nav {
+            display: flex;
+            justify-content: space-around;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        input[type="radio"] {
+            display: none;
+        }
+
+        .tab-btn {
+            flex: 1;
+            max-width: 380px;
+            padding: 12px 15px;
+            background-color: #d0b082;
+            border: 3px dashed #5c3a21;
+            color: #2b1a09;
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 2px 3px 8px rgba(0,0,0,0.3);
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .tab-btn span {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: normal;
+            font-style: italic;
+        }
+
+        .tab-btn:hover {
+            background-color: #dcbe90;
+            transform: translateY(-2px);
+        }
+
+        #tab-trabalhos:checked ~ .tab-nav label[for="tab-trabalhos"],
+        #tab-horario:checked ~ .tab-nav label[for="tab-horario"],
+        #tab-atividades:checked ~ .tab-nav label[for="tab-atividades"] {
+            background-color: #be9b68;
+            border-style: solid;
+            border-color: #3a2211;
+            box-shadow:
+                inset 0 0 10px rgba(0,0,0,0.5),
+                2px 4px 10px rgba(0,0,0,0.4);
+            color: #000;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        #tab-trabalhos:checked ~ .tab-content-trabalhos {
+            display: grid;
+        }
+
+        #tab-horario:checked ~ .tab-content-horario {
+            display: block;
+        }
+
+        #tab-atividades:checked ~ .tab-content-atividades {
+            display: grid;
+        }
+
+        /* GRID DOS CARTÕES */
+
+        .poster-grid {
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 25px;
+        }
+
+        .wanted-poster {
+            background-color: #dfc8a4;
+            border: 3px solid #6e4727;
+            border-radius: 4px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            box-shadow:
+                inset 0 0 20px rgba(110, 71, 39, 0.3),
+                5px 8px 15px rgba(0,0,0,0.4);
+            position: relative;
+            transition: transform 0.2s ease;
+        }
+
+        .wanted-poster:hover {
+            transform: scale(1.02);
+        }
+
+        .wanted-poster::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            border: 1px solid #3a2211;
+            pointer-events: none;
+        }
+
+        .wanted-header {
+            font-family: 'Rye', cursive;
+            font-size: 2.2rem;
+            color: #3a2211;
+            letter-spacing: 3px;
+            line-height: 1;
+            margin-bottom: 8px;
+            text-shadow: 1px 1px 0px rgba(255,255,255,0.4);
+        }
+
+        .wanted-status {
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            font-weight: bold;
+            padding: 3px 10px;
+            border-radius: 3px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            border: 1px solid #3a2211;
+        }
+
+        .photo-area {
+            width: 100%;
+            background-color: #cca97c;
+            border: 2px solid #5c3a21;
+            padding: 10px 6px;
+            text-align: center;
+            margin-bottom: 12px;
+            box-shadow: inset 0 0 8px rgba(0,0,0,0.2);
+        }
+
+        .subject-name {
+            font-family: 'Rye', cursive;
+            font-size: 1.4rem;
+            color: #2b1a09;
+            line-height: 1.1;
+        }
+
+        .subject-teacher {
+            font-size: 0.85rem;
+            color: #5c3a21;
+            margin-top: 4px;
+        }
+
+        .wanted-desc {
+            font-size: 0.9rem;
+            color: #2b1a09;
+            text-align: center;
+            min-height: 42px;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .reward-box {
+            width: 100%;
+            background-color: rgba(92, 58, 33, 0.15);
+            border: 1px dashed #5c3a21;
+            border-radius: 4px;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .reward-label {
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            font-weight: bold;
+            color: #422915;
+        }
+
+        .timer-val {
+            font-family: monospace;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #8b0000;
+            margin-top: 2px;
+        }
+
+        /* STATUS */
+
+        .status-urgent .wanted-status {
+            background-color: #a72626;
+            color: #fff;
+        }
+
+        .status-warning .wanted-status {
+            background-color: #d97706;
+            color: #fff;
+        }
+
+        .status-info .wanted-status {
+            background-color: #2563eb;
+            color: #fff;
+        }
+
+        .status-expired {
+            background-color: #c2b097 !important;
+            opacity: 0.75;
+            filter: grayscale(0.6);
+        }
+
+        .status-expired .wanted-header {
+            color: #555;
+            text-decoration: line-through;
+        }
+
+        .status-expired .wanted-status {
+            background-color: #555;
+            color: #fff;
+        }
+
+        /* HORÁRIO */
+
+        .horario-card {
+            background: #dfc8a4;
+            border-radius: 6px;
+            padding: 20px;
+            border: 3px solid #6e4727;
+            box-shadow:
+                inset 0 0 20px rgba(110, 71, 39, 0.3),
+                5px 8px 15px rgba(0,0,0,0.4);
+        }
+
+        .day-block {
+            margin-bottom: 20px;
+            border: 2px solid #5c3a21;
+            border-radius: 4px;
+            overflow: hidden;
+            background-color: #e5d2b3;
+        }
+
+        .day-header {
+            background-color: #5c3a21;
+            color: #f3e5ab;
+            font-family: 'Rye', cursive;
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+            padding: 8px 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+        }
+
+        td {
+            padding: 10px 14px;
+            border-bottom: 1px solid #c0a37e;
+            color: #2b1a09;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover {
+            background-color: #d3be9e;
+        }
+
+        .slot-num {
+            width: 45px;
+            font-weight: bold;
+            color: #8b0000;
+        }
+
+        .subject {
+            font-weight: 700;
+            color: #1a0f07;
+        }
+
+        .teacher {
+            color: #5c3a21;
+            font-size: 0.85rem;
+            margin-left: 6px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            text-align: center;
+            padding: 25px 0 10px 0;
+            font-size: 0.95rem;
+            color: #3a2211;
+            margin-top: auto;
+            font-weight: bold;
+        }
+
+        footer p {
+            margin-top: 4px;
+        }
+
+        /* RESPONSIVO */
+
+        @media (max-width: 700px) {
+            .tab-nav {
+                gap: 8px;
+            }
+
+            .tab-btn {
+                padding: 10px 5px;
+                font-size: 0.9rem;
+            }
+
+            .tab-btn span {
+                font-size: 0.72rem;
+            }
+
+            .header-title-box h1 {
+                font-size: 2.7rem;
+            }
+
+            .header-title-box {
+                padding: 10px 25px;
+            }
+        }
+    </style>
+<style>
+/* ===== EDITOR ADMIN ===== */
+.admin-top {
+    display:flex; justify-content:flex-end; margin-bottom:12px;
+}
+.admin-btn {
+    background:#5c3a21; color:#f3e5ab; border:2px solid #2b1a09;
+    border-radius:5px; padding:9px 14px; cursor:pointer;
+    font-family:'Cinzel',serif; font-weight:bold;
+}
+.admin-btn:hover { transform:translateY(-1px); background:#3a2211; }
+.modal {
+    position:fixed; inset:0; background:rgba(0,0,0,.72); z-index:9999;
+    display:none; align-items:center; justify-content:center; padding:18px;
+}
+.modal.show { display:flex; }
+.modal-box {
+    width:min(900px,100%); max-height:92vh; overflow:auto;
+    background:#dfc8a4; border:4px solid #5c3a21; border-radius:6px;
+    padding:22px; box-shadow:0 10px 40px rgba(0,0,0,.6);
+}
+.modal-box h2,.modal-box h3 { font-family:'Rye',cursive; color:#3a2211; margin-bottom:12px; }
+.form-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+.form-grid .full { grid-column:1/-1; }
+.field { display:flex; flex-direction:column; gap:4px; }
+.field label { font-weight:bold; font-family:'Cinzel',serif; }
+.field input,.field textarea,.field select {
+    padding:9px; border:2px solid #6e4727; background:#f3e5c7;
+    color:#2b1a09; border-radius:4px; font:inherit;
+}
+.field textarea { min-height:80px; resize:vertical; }
+.editor-section { border-top:2px dashed #6e4727; margin-top:18px; padding-top:16px; }
+.editor-item {
+    background:#e5d2b3; border:2px solid #6e4727; border-radius:5px;
+    padding:12px; margin-bottom:12px;
+}
+.editor-actions { display:flex; gap:8px; flex-wrap:wrap; margin-top:10px; }
+.action-btn {
+    padding:8px 12px; border:2px solid #5c3a21; background:#d0b082;
+    color:#2b1a09; border-radius:4px; cursor:pointer; font-weight:bold;
+}
+.action-btn.primary { background:#5c3a21; color:#f3e5ab; }
+.action-btn.danger { background:#8b0000; color:#fff; }
+.notice { padding:10px; border:1px dashed #5c3a21; margin:10px 0; background:rgba(92,58,33,.1); }
+.login-error { color:#8b0000; font-weight:bold; display:none; margin-top:8px; }
+.token-note { font-size:.88rem; margin-top:8px; }
+@media(max-width:700px) { .form-grid { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+<header>
+        <div class="header-title-box">
+            <h1>2º BV</h1>
+        </div>
+    </header>
+
+<div class="admin-top">
+    <button class="admin-btn" onclick="openAdmin()">⚙️ Editar site</button>
+</div>
+
+<div class="tab-container">
+    <input type="radio" id="tab-trabalhos" name="main-tabs" checked>
+    <input type="radio" id="tab-horario" name="main-tabs">
+    <input type="radio" id="tab-atividades" name="main-tabs">
+
+    <div class="tab-nav">
+        <label for="tab-trabalhos" class="tab-btn">Missões<span>(Trabalhos)</span></label>
+        <label for="tab-horario" class="tab-btn">Calendário<span>(horários)</span></label>
+        <label for="tab-atividades" class="tab-btn">Side Quests<span>(Atividades)</span></label>
+    </div>
+
+    <div class="tab-content tab-content-trabalhos poster-grid" id="missions-container"></div>
+    <div class="tab-content tab-content-atividades poster-grid" id="activities-container"></div>
+    <div class="tab-content tab-content-horario" id="schedule-container"></div>
+</div>
+
+<footer>
+        <p>Site da turma do 2ºBV</p>
+        <p>Feito por: Antenor Neto</p>
+    </footer>
+
+<!-- LOGIN -->
+<div class="modal" id="loginModal">
+  <div class="modal-box" style="max-width:480px">
+    <h2>🔐 Área do Administrador</h2>
+    <div class="field">
+      <label>Senha do administrador</label>
+      <input type="password" id="adminPassword" placeholder="Digite a senha">
+    </div>
+    <div class="login-error" id="loginError">Senha incorreta.</div>
+    <div class="editor-actions">
+      <button class="action-btn primary" onclick="loginAdmin()">Entrar</button>
+      <button class="action-btn" onclick="closeModal('loginModal')">Cancelar</button>
+    </div>
+    <div class="notice">
+      <b>Importante:</b> a senha deste painel é uma barreira de interface. Como o GitHub Pages é um site estático,
+      uma senha escrita no JavaScript pode ser descoberta por alguém que inspecione o código.
+      A proteção real das alterações no GitHub é feita pelo <b>token de acesso do GitHub</b>, usado somente no navegador do administrador.
+    </div>
+  </div>
+</div>
+
+<!-- EDITOR -->
+<div class="modal" id="editorModal">
+  <div class="modal-box">
+    <h2>⚙️ Editor do site</h2>
+    <div class="notice">
+      As edições podem ser salvas localmente para teste ou publicadas diretamente no repositório GitHub.
+      Para publicar, informe os dados do repositório e um token GitHub com acesso <b>Contents: Read and write</b> somente ao repositório deste site.
+    </div>
+
+    <div class="editor-section">
+      <h3>GitHub</h3>
+      <div class="form-grid">
+        <div class="field"><label>Usuário/organização</label><input id="ghOwner" placeholder="ex.: AntenorNeto"></div>
+        <div class="field"><label>Repositório</label><input id="ghRepo" placeholder="ex.: site-2bv"></div>
+        <div class="field full"><label>Token GitHub</label><input id="ghToken" type="password" placeholder="github_pat_..."></div>
+      </div>
+      <div class="token-note">O token não é gravado no código. Ele fica apenas nesta sessão do navegador.</div>
+    </div>
+
+    <div class="editor-section">
+      <h3>Informações gerais</h3>
+      <div class="form-grid">
+        <div class="field"><label>Título da turma</label><input id="editTitle"></div>
+        <div class="field"><label>Rodapé - linha 1</label><input id="editFooter1"></div>
+        <div class="field"><label>Rodapé - linha 2</label><input id="editFooter2"></div>
+      </div>
+    </div>
+
+    <div class="editor-section">
+      <h3>Missões</h3>
+      <div id="missions-editor"></div>
+      <button class="action-btn" onclick="addMission()">+ Nova missão</button>
+    </div>
+
+    <div class="editor-section">
+      <h3>Side Quests</h3>
+      <div id="activities-editor"></div>
+      <button class="action-btn" onclick="addActivity()">+ Nova Side Quest</button>
+    </div>
+
+    <div class="editor-section">
+      <h3>Calendário</h3>
+      <div id="schedule-editor"></div>
+      <button class="action-btn" onclick="addDay()">+ Novo dia</button>
+    </div>
+
+    <div class="editor-actions">
+      <button class="action-btn primary" onclick="saveLocal()">💾 Salvar neste navegador</button>
+      <button class="action-btn primary" onclick="publishToGitHub()">🚀 Publicar no GitHub</button>
+      <button class="action-btn" onclick="downloadData()">⬇️ Baixar dados.json</button>
+      <button class="action-btn" onclick="logoutAdmin()">Sair</button>
+      <button class="action-btn" onclick="closeModal('editorModal')">Fechar</button>
+    </div>
+    <div class="notice" id="saveStatus"></div>
+  </div>
+</div>
+
+<script>
+const DEFAULT_DATA = {
+
+  settings: {
+    title: "2º BV",
+    footer1: "Site da turma do 2ºBV",
+    footer2: "Feito por: Antenor Neto"
+  },
+
+  missions: [
+    {name:"Prova", teacher:"---", description:"Avaliação de matemática.", deadline:"2026-08-17T13:00", dateLabel:"segunda (17/08) às ?"},
+    {name:"Prova", teacher:"---", description:"Avaliação de ciências humanas.", deadline:"2026-08-18T13:00", dateLabel:"terça (18/08) às ?"},
+    {name:"Prova", teacher:"---", description:"Avaliação de linguagens.", deadline:"2026-08-19T13:00", dateLabel:"quarta (19/08) às ?"},
+    {name:"Prova", teacher:"---", description:"Avaliação de Ciências da Natureza.", deadline:"2026-08-20T13:00", dateLabel:"quinta (20/08) às ?"}
+  ],
+
+  activities: [
+    {name:"Exemplo", teacher:"---", description:"Atividade de exemplo para servir como modelo.", deadline:"2999-12-31T23:59", dateLabel:"31/12/2999 às 23:59"}
+  ],
+
+  schedule: [
+    {day:"Segunda-feira", lessons:[
+      ["Educação Sóciocientífica e Ambiental","Prof. Ray"],
+      ["Linguagens","Profª. Rafaela"],
+      ["Etnomatemática","Profª. Thainara"],
+      ["Matemática","Profª. Thainara"],
+      ["Matemática","Profª. Thainara"]
+    ]},
+    {day:"Terça-feira", lessons:[
+      ["Química","Prof. Antonio Carlos"],
+      ["Biologia","Profª. Fernanda Ramos"],
+      ["Biologia","Profª. Fernanda Ramos"],
+      ["Língua Portuguesa","Profª. Edjane"],
+      ["Língua Portuguesa","Profª. Edjane"]
+    ]},
+    {day:"Quarta-feira", lessons:[
+      ["Física","Prof. Daniel"],
+      ["Física","Prof. Daniel"],
+      ["História da Bahia","Prof. Edson"],
+      ["Educação Sóciocientífica e Ambiental","Prof. Ray"],
+      ["Sociologia","Profª. Akatia"]
+    ]},
+    {day:"Quinta-feira", lessons:[
+      ["Inglês","Prof. Joacy"],
+      ["Arte","Profª. Fernanda Oliveira"],
+      ["Filosofia","Profª. Fernanda Oliveira"],
+      ["História","Profª. Sandra"],
+      ["História","Profª. Sandra"]
+    ]},
+    {day:"Sexta-feira", lessons:[
+      ["Geografia","Prof. Marcos Antonio"],
+      ["Geografia","Prof. Marcos Antonio"],
+      ["Química","Prof. Antonio Carlos"],
+      ["Educação Física","Profª. Telma"],
+      ["Educação Física","Profª. Telma"]
+    ]}
+  ]
+};
+
+// ============================================================
+// IMPORTANTE: troque esta senha antes de publicar.
+// Ela protege a interface, não substitui a segurança do GitHub.
+// ============================================================
+const ADMIN_PASSWORD = "TROQUE-ESTA-SENHA";
+
+let data = loadData();
+
+function loadData(){
+  try {
+    const saved = localStorage.getItem("painel2bvData");
+    return saved ? JSON.parse(saved) : structuredClone(DEFAULT_DATA);
+  } catch(e) {
+    return structuredClone(DEFAULT_DATA);
+  }
+}
+
+function esc(value) {
+  return String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
+}
+
+function renderAll(){
+  document.querySelector(".header-title-box h1").textContent = data.settings.title;
+  const ps = document.querySelectorAll("footer p");
+  if(ps[0]) ps[0].textContent = data.settings.footer1;
+  if(ps[1]) ps[1].textContent = data.settings.footer2;
+
+  document.getElementById("missions-container").innerHTML = data.missions.map((x,i)=>poster(x,"Procurado",i,"mission")).join("");
+  document.getElementById("activities-container").innerHTML = data.activities.map((x,i)=>poster(x,"Side Quest",i,"activity")).join("");
+
+  document.getElementById("schedule-container").innerHTML = `
+    <div class="horario-card">
+      ${data.schedule.map(day => `
+        <div class="day-block">
+          <div class="day-header">
+            <span>${esc(day.day)}</span>
+            <span style="font-size:.85rem;font-weight:normal">${day.lessons.length} Aulas</span>
+          </div>
+          <table>
+            ${day.lessons.map((l,i)=>`<tr><td class="slot-num">${i+1}ª</td><td><span class="subject">${esc(l[0])}</span><span class="teacher">(${esc(l[1])})</span></td></tr>`).join("")}
+          </table>
+        </div>`).join("")}
+    </div>`;
+  updateTimers();
+}
+
+function poster(x, heading, index, type){
+  return `<div class="wanted-poster" data-deadline="${esc(x.deadline)}">
+    <div class="wanted-header">${heading}</div>
+    <div class="wanted-status">--</div>
+    <div class="photo-area">
+      <div class="subject-name">${esc(x.name)}</div>
+      <div class="subject-teacher">${esc(x.teacher)}</div>
+    </div>
+    <div class="wanted-desc">${esc(x.description)}</div>
+    <div class="reward-box">
+      <div class="reward-label">DATA: ${esc(x.dateLabel)}</div>
+      <div class="timer-val countdown">00d 00h 00m 00s</div>
+    </div>
+  </div>`;
+}
+
+function updateTimers(){
+  const now = Date.now();
+  document.querySelectorAll(".wanted-poster[data-deadline]").forEach(poster=>{
+    const diff = new Date(poster.dataset.deadline).getTime()-now;
+    const timer = poster.querySelector(".countdown");
+    const badge = poster.querySelector(".wanted-status");
+    poster.classList.remove("status-urgent","status-warning","status-info","status-expired");
+    if(diff<=0){
+      poster.classList.add("status-expired");
+      badge.textContent="CAPTURADO";
+      timer.textContent="⏳ Finalizado";
+      return;
+    }
+    const days=Math.floor(diff/86400000);
+    const hours=Math.floor((diff%86400000)/3600000);
+    const minutes=Math.floor((diff%3600000)/60000);
+    const seconds=Math.floor((diff%60000)/1000);
+    const totalHours=diff/3600000;
+    if(totalHours<=24){ poster.classList.add("status-urgent"); badge.textContent="URGENTE"; }
+    else if(days<=4){ poster.classList.add("status-warning"); badge.textContent="QUASE"; }
+    else { poster.classList.add("status-info"); badge.textContent="PREPARE-SE"; }
+    timer.textContent=(days>0?days+"d ":"")+String(hours).padStart(2,"0")+"h "+String(minutes).padStart(2,"0")+"m "+String(seconds).padStart(2,"0")+"s";
+  });
+}
+
+setInterval(updateTimers,1000);
+renderAll();
+
+function openAdmin() {
+  document.getElementById("adminPassword").value="";
+  document.getElementById("loginError").style.display="none";
+  document.getElementById("loginModal").classList.add("show");
+}
+function closeModal(id) { document.getElementById(id).classList.remove("show"); }
+function loginAdmin(){
+  if(document.getElementById("adminPassword").value === ADMIN_PASSWORD){
+    closeModal("loginModal");
+    openEditor();
+  } else {
+    document.getElementById("loginError").style.display="block";
+  }
+}
+function logoutAdmin() { closeModal("editorModal"); }
+
+function openEditor(){
+  document.getElementById("editorModal").classList.add("show");
+  document.getElementById("editTitle").value=data.settings.title;
+  document.getElementById("editFooter1").value=data.settings.footer1;
+  document.getElementById("editFooter2").value=data.settings.footer2;
+  document.getElementById("ghOwner").value=sessionStorage.getItem("ghOwner")||"";
+  document.getElementById("ghRepo").value=sessionStorage.getItem("ghRepo")||"";
+  document.getElementById("ghToken").value="";
+  renderEditors();
+}
+
+function field(value,label,oninput) {
+  return `<div class="field"><label>${label}</label><input value="${esc(value)}" oninput="${oninput}"></div>`;
+}
+
+function renderEditors(){
+  document.getElementById("missions-editor").innerHTML=data.missions.map((x,i)=>`
+    <div class="editor-item">
+      <div class="form-grid">
+        ${field(x.name,"Nome",`data.missions[${i}].name=this.value`)}
+        ${field(x.teacher,"Professor",`data.missions[${i}].teacher=this.value`)}
+        <div class="field full"><label>Descrição</label><textarea oninput="data.missions[${i}].description=this.value">${esc(x.description)}</textarea></div>
+        ${field(x.deadline,"Data/hora (YYYY-MM-DDTHH:mm)",`data.missions[${i}].deadline=this.value`)}
+        ${field(x.dateLabel,"Texto da data",`data.missions[${i}].dateLabel=this.value`)}
+      </div>
+      <div class="editor-actions"><button class="action-btn danger" onclick="removeMission(${i})">Excluir</button></div>
+    </div>`).join("");
+
+  document.getElementById("activities-editor").innerHTML=data.activities.map((x,i)=>`
+    <div class="editor-item">
+      <div class="form-grid">
+        ${field(x.name,"Nome",`data.activities[${i}].name=this.value`)}
+        ${field(x.teacher,"Professor",`data.activities[${i}].teacher=this.value`)}
+        <div class="field full"><label>Descrição</label><textarea oninput="data.activities[${i}].description=this.value">${esc(x.description)}</textarea></div>
+        ${field(x.deadline,"Data/hora (YYYY-MM-DDTHH:mm)",`data.activities[${i}].deadline=this.value`)}
+        ${field(x.dateLabel,"Texto da data",`data.activities[${i}].dateLabel=this.value`)}
+      </div>
+      <div class="editor-actions"><button class="action-btn danger" onclick="removeActivity(${i})">Excluir</button></div>
+    </div>`).join("");
+
+  document.getElementById("schedule-editor").innerHTML=data.schedule.map((day,di)=>`
+    <div class="editor-item">
+      ${field(day.day,"Dia",`data.schedule[${di}].day=this.value`)}
+      <div style="margin-top:10px">
+        ${day.lessons.map((l,li)=>`
+          <div class="form-grid" style="margin-bottom:8px">
+            ${field(l[0],`${li+1}ª matéria`,`data.schedule[${di}].lessons[${li}][0]=this.value`)}
+            ${field(l[1],`Professor`,`data.schedule[${di}].lessons[${li}][1]=this.value`)}
+          </div>`).join("")}
+      </div>
+      <div class="editor-actions">
+        <button class="action-btn" onclick="addLesson(${di})">+ Aula</button>
+        <button class="action-btn danger" onclick="removeDay(${di})">Excluir dia</button>
+      </div>
+    </div>`).join("");
+}
+
+function addMission(){ data.missions.push({name:"Nova missão",teacher:"---",description:"Descrição",deadline:"2999-12-31T23:59",dateLabel:"31/12/2999 às 23:59"}); renderEditors(); }
+function removeMission(i){ data.missions.splice(i,1); renderEditors(); }
+function addActivity(){ data.activities.push({name:"Nova Side Quest",teacher:"---",description:"Descrição",deadline:"2999-12-31T23:59",dateLabel:"31/12/2999 às 23:59"}); renderEditors(); }
+function removeActivity(i){ data.activities.splice(i,1); renderEditors(); }
+function addDay(){ data.schedule.push({day:"Novo dia",lessons:[]}); renderEditors(); }
+function removeDay(i){ data.schedule.splice(i,1); renderEditors(); }
+function addLesson(di){ data.schedule[di].lessons.push(["Nova matéria","Professor"]); renderEditors(); }
+
+function collectSettings(){
+  data.settings.title=document.getElementById("editTitle").value;
+  data.settings.footer1=document.getElementById("editFooter1").value;
+  data.settings.footer2=document.getElementById("editFooter2").value;
+}
+
+function saveLocal(){
+  collectSettings();
+  localStorage.setItem("painel2bvData",JSON.stringify(data));
+  renderAll();
+  document.getElementById("saveStatus").textContent="✅ Salvo neste navegador.";
+}
+
+function downloadData(){
+  collectSettings();
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob); a.download="dados.json"; a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+async function publishToGitHub(){
+  collectSettings();
+  const owner=document.getElementById("ghOwner").value.trim();
+  const repo=document.getElementById("ghRepo").value.trim();
+  const token=document.getElementById("ghToken").value.trim();
+  const status=document.getElementById("saveStatus");
+  if(!owner||!repo||!token){ status.textContent="❌ Informe usuário, repositório e token GitHub."; return; }
+
+  sessionStorage.setItem("ghOwner",owner);
+  sessionStorage.setItem("ghRepo",repo);
+
+  try {
+    status.textContent="⏳ Lendo o arquivo atual no GitHub...";
+    const url=`https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/contents/dados.json`;
+    const get=await fetch(url,{headers:{Authorization:`Bearer ${token}`,Accept:"application/vnd.github+json"}});
+    let sha=null;
+    if(get.ok) {
+      const obj=await get.json(); sha=obj.sha;
+    } else if(get.status!==404) {
+      throw new Error("GitHub respondeu HTTP "+get.status);
+    }
+
+    const content=btoa(unescape(encodeURIComponent(JSON.stringify(data,null,2))));
+    const payload={
+      message:"Atualizar dados do site pelo painel",
+      content,
+      ...(sha?{sha}:{})
+    };
+
+    status.textContent="⏳ Publicando...";
+    const put=await fetch(url,{
+      method:"PUT",
+      headers:{
+        Authorization:`Bearer ${token}`,
+        Accept:"application/vnd.github+json",
+        "Content-Type":"application/json"
+      },
+      body:JSON.stringify(payload)
+    });
+
+    if(!put.ok) {
+      const err=await put.json().catch(()=>({}));
+      throw new Error(err.message||"HTTP "+put.status);
+    }
+
+    status.textContent="✅ Publicado no GitHub! O GitHub Pages pode levar alguns instantes para refletir a alteração.";
+    localStorage.setItem("painel2bvData",JSON.stringify(data));
+    renderAll();
+    document.getElementById("ghToken").value="";
+  } catch(e) {
+    status.textContent="❌ Erro ao publicar: "+e.message;
+  }
+}
+</script>
+</body>
+</html>
