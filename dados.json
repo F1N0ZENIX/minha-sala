@@ -1,0 +1,152 @@
+{
+  "settings": {
+    "title": "2º BV",
+    "footer1": "Site da turma do 2ºBV",
+    "footer2": "Feito por: Antenor Neto"
+  },
+  "missions": [
+    {
+      "name": "Prova",
+      "teacher": "---",
+      "description": "Avaliação de Ciências da Natureza.",
+      "deadline": "2026-08-20T14:50",
+      "dateLabel": "quinta (20/08) às 14:50"
+    }
+  ],
+  "activities": [
+    {
+      "name": "Exemplo",
+      "teacher": "---",
+      "description": "Atividade de exemplo para servir como modelo.",
+      "deadline": "2999-12-31T23:59",
+      "dateLabel": "31/12/2999 às 23:59"
+    }
+  ],
+  "schedule": [
+    {
+      "day": "Segunda-feira",
+      "lessons": [
+        [
+          "Educação Sóciocientífica e Ambiental",
+          "Prof. Ray"
+        ],
+        [
+          "Linguagens",
+          "Profª. Rafaela"
+        ],
+        [
+          "Etnomatemática",
+          "Profª. Thainara"
+        ],
+        [
+          "Matemática",
+          "Profª. Thainara"
+        ],
+        [
+          "Matemática",
+          "Profª. Thainara"
+        ]
+      ]
+    },
+    {
+      "day": "Terça-feira",
+      "lessons": [
+        [
+          "Química",
+          "Prof. Antonio Carlos"
+        ],
+        [
+          "Biologia",
+          "Profª. Fernanda Ramos"
+        ],
+        [
+          "Biologia",
+          "Profª. Fernanda Ramos"
+        ],
+        [
+          "Língua Portuguesa",
+          "Profª. Edjane"
+        ],
+        [
+          "Língua Portuguesa",
+          "Profª. Edjane"
+        ]
+      ]
+    },
+    {
+      "day": "Quarta-feira",
+      "lessons": [
+        [
+          "Física",
+          "Prof. Daniel"
+        ],
+        [
+          "Física",
+          "Prof. Daniel"
+        ],
+        [
+          "História da Bahia",
+          "Prof. Edson"
+        ],
+        [
+          "Educação Sóciocientífica e Ambiental",
+          "Prof. Ray"
+        ],
+        [
+          "Sociologia",
+          "Profª. Akatia"
+        ]
+      ]
+    },
+    {
+      "day": "Quinta-feira",
+      "lessons": [
+        [
+          "Inglês",
+          "Prof. Joacy"
+        ],
+        [
+          "Arte",
+          "Profª. Fernanda Oliveira"
+        ],
+        [
+          "Filosofia",
+          "Profª. Fernanda Oliveira"
+        ],
+        [
+          "História",
+          "Profª. Sandra"
+        ],
+        [
+          "História",
+          "Profª. Sandra"
+        ]
+      ]
+    },
+    {
+      "day": "Sexta-feira",
+      "lessons": [
+        [
+          "Geografia",
+          "Prof. Marcos Antonio"
+        ],
+        [
+          "Geografia",
+          "Prof. Marcos Antonio"
+        ],
+        [
+          "Química",
+          "Prof. Antonio Carlos"
+        ],
+        [
+          "Educação Física",
+          "Profª. Telma"
+        ],
+        [
+          "Educação Física",
+          "Profª. Telma"
+        ]
+      ]
+    }
+  ]
+}
