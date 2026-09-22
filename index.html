@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel 2º B-V - Parchment Wanted Edition V10.2</title>
+    <title>Painel 2º B-V - Parchment Wanted Edition V10.3</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -374,7 +374,695 @@
             margin-top: 4px;
         }
 
-        /* RESPONSIVO */
+        /* =====================================================
+           EASTER EGG: TRANSIÇÃO DO 2º BV PARA O TEMA FUTURISTA
+           ===================================================== */
+
+        .header-title-box {
+            cursor: pointer;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .header-title-box h1 {
+            transition: transform 0.18s ease, letter-spacing 0.18s ease,
+                        color 0.4s ease, text-shadow 0.4s ease;
+        }
+
+        body.crack-1::before,
+        body.crack-2::before,
+        body.crack-3::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: 9998;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            background-repeat: no-repeat;
+        }
+
+        body.crack-1::before {
+            opacity: 0.35;
+            background:
+                linear-gradient(122deg, transparent 49%, #8d45c7 49.3%, transparent 50%),
+                linear-gradient(72deg, transparent 58%, #8d45c7 58.3%, transparent 59%),
+                linear-gradient(165deg, transparent 32%, #8d45c7 32.3%, transparent 33%);
+        }
+
+        body.crack-2::before {
+            opacity: 0.55;
+            background:
+                linear-gradient(122deg, transparent 49%, #8d45c7 49.25%, transparent 49.8%),
+                linear-gradient(72deg, transparent 58%, #8d45c7 58.25%, transparent 58.8%),
+                linear-gradient(165deg, transparent 32%, #8d45c7 32.25%, transparent 32.8%),
+                linear-gradient(25deg, transparent 72%, #8d45c7 72.25%, transparent 72.8%),
+                linear-gradient(145deg, transparent 76%, #8d45c7 76.2%, transparent 76.7%);
+        }
+
+        body.crack-3::before {
+            opacity: 0.8;
+            background:
+                linear-gradient(122deg, transparent 49%, #4f2378 49.15%, transparent 49.6%),
+                linear-gradient(72deg, transparent 58%, #4f2378 58.15%, transparent 58.6%),
+                linear-gradient(165deg, transparent 32%, #4f2378 32.15%, transparent 32.6%),
+                linear-gradient(25deg, transparent 72%, #4f2378 72.15%, transparent 72.6%),
+                linear-gradient(145deg, transparent 76%, #4f2378 76.15%, transparent 76.6%),
+                linear-gradient(92deg, transparent 18%, #4f2378 18.15%, transparent 18.55%),
+                linear-gradient(12deg, transparent 87%, #4f2378 87.15%, transparent 87.55%);
+        }
+
+        body.future-mode {
+            background: #05070d;
+            color: #d8f7ff;
+            background-image:
+                linear-gradient(rgba(0, 225, 255, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 225, 255, 0.035) 1px, transparent 1px),
+                radial-gradient(circle at 50% 0%, rgba(0, 183, 255, 0.20), transparent 42%),
+                radial-gradient(circle at 50% 100%, rgba(138, 43, 226, 0.12), transparent 45%);
+            background-size: 34px 34px, 34px 34px, auto, auto;
+            transition: background 1s ease, color 0.7s ease;
+        }
+
+        body.future-mode::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9997;
+            background:
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(255,255,255,0.018) 0px,
+                    rgba(255,255,255,0.018) 1px,
+                    transparent 1px,
+                    transparent 4px
+                );
+            animation: scanline 5s linear infinite;
+        }
+
+        @keyframes scanline {
+            from { transform: translateY(-4px); }
+            to { transform: translateY(4px); }
+        }
+
+        body.future-mode .header-title-box,
+        body.future-mode .wanted-poster,
+        body.future-mode .horario-card,
+        body.future-mode .day-block,
+        body.future-mode .tab-btn {
+            background: rgba(7, 17, 30, 0.88);
+            border-color: #00d9ff;
+            color: #d8f7ff;
+            box-shadow:
+                0 0 8px rgba(0, 217, 255, 0.35),
+                inset 0 0 18px rgba(0, 217, 255, 0.06);
+        }
+
+        body.future-mode .header-title-box h1,
+        body.future-mode .wanted-header {
+            color: #7eeaff;
+            text-shadow:
+                0 0 5px rgba(0, 217, 255, 0.9),
+                0 0 16px rgba(0, 217, 255, 0.45);
+        }
+
+        body.future-mode .tab-btn {
+            border-style: solid;
+            background: rgba(8, 24, 39, 0.92);
+        }
+
+        body.future-mode .tab-btn:hover {
+            background: rgba(0, 96, 125, 0.38);
+            transform: translateY(-3px);
+            box-shadow: 0 0 16px rgba(0, 217, 255, 0.5);
+        }
+
+        body.future-mode .photo-area {
+            background: rgba(0, 48, 70, 0.35);
+            border-color: #00a8cc;
+        }
+
+        body.future-mode .wanted-desc,
+        body.future-mode td,
+        body.future-mode .subject,
+        body.future-mode .teacher,
+        body.future-mode footer,
+        body.future-mode .subject-teacher {
+            color: #c7eff7;
+        }
+
+        body.future-mode .reward-box {
+            background: rgba(0, 217, 255, 0.06);
+            border-color: #00a8cc;
+        }
+
+        body.future-mode .day-header {
+            background: #071d2b;
+            color: #7eeaff;
+        }
+
+        body.future-mode .slot-num {
+            color: #ff4fd8;
+        }
+
+        body.future-mode .timer-val {
+            color: #ff5d7a;
+            text-shadow: 0 0 7px rgba(255, 93, 122, 0.65);
+        }
+
+        body.future-mode .status-info .wanted-status {
+            background: #075985;
+        }
+
+        body.future-mode .status-warning .wanted-status {
+            background: #9a3412;
+        }
+
+        body.future-mode .status-urgent .wanted-status {
+            background: #be123c;
+        }
+
+        body.future-mode .status-expired {
+            background: #111827 !important;
+        }
+
+        body.future-mode .tab-btn span {
+            color: #91d9e8;
+        }
+
+        body.future-mode .header-title-box h1 {
+            transform: scale(1.04);
+            letter-spacing: 6px;
+        }
+
+
+
+        /* =====================================================
+           TEMA PADRÃO — PERGAMINHO
+           ===================================================== */
+
+        body:not(.future-mode) {
+            background-color: #d2b48c;
+            background-image:
+                radial-gradient(circle, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.3) 100%),
+                repeating-linear-gradient(
+                    45deg,
+                    #c3a276 0px,
+                    #c3a276 2px,
+                    #cca97c 2px,
+                    #cca97c 4px
+                );
+            color: #2b1a09;
+        }
+
+        body:not(.future-mode) .tab-btn.active {
+            background-color: #be9b68;
+            border-style: solid;
+            border-color: #3a2211;
+            box-shadow:
+                inset 0 0 10px rgba(0,0,0,0.5),
+                2px 4px 10px rgba(0,0,0,0.4);
+            color: #000;
+        }
+
+        body:not(.future-mode) .tab-content {
+            color: #2b1a09;
+        }
+
+
+        /* =====================================================
+           LEITURA NO FRAME BREAK
+           ===================================================== */
+
+        body.future-mode .wanted-poster,
+        body.future-mode .horario-card,
+        body.future-mode .day-block {
+            background: #100b18;
+            color: #f8f1ff;
+            text-shadow: none;
+            opacity: 1;
+        }
+
+        body.future-mode .wanted-desc,
+        body.future-mode .subject-name,
+        body.future-mode .subject-teacher,
+        body.future-mode .subject,
+        body.future-mode .teacher,
+        body.future-mode td,
+        body.future-mode .reward-label,
+        body.future-mode footer,
+        body.future-mode .day-header,
+        body.future-mode .tab-btn span {
+            color: #f4eaff !important;
+            text-shadow: none !important;
+        }
+
+        body.future-mode .wanted-header {
+            color: #e8bfff !important;
+            text-shadow:
+                0 0 5px rgba(204, 93, 255, .7) !important;
+        }
+
+        body.future-mode .photo-area {
+            color: #fff;
+            background: #21102f;
+        }
+
+        body.future-mode .reward-box {
+            background: #1a0e25;
+            border-color: #8e4bc2;
+        }
+
+        body.future-mode .day-block table {
+            background: #120b1a;
+        }
+
+        body.future-mode .day-block tr:hover {
+            background: #251335;
+        }
+
+        body.future-mode .tab-btn.active {
+            color: #fff !important;
+            background: linear-gradient(135deg, #6926a0, #35105f 55%, #8e2676);
+            border-color: #e4b0ff;
+        }
+
+        /* =====================================================
+           FRAME BREAK — TRANSIÇÃO FUTURISTA ROXA
+           ===================================================== */
+
+        body.future-mode {
+            background-color: #05030b;
+            background-image:
+                radial-gradient(circle at 50% 18%, rgba(166, 73, 255, 0.24), transparent 35%),
+                radial-gradient(circle at 20% 80%, rgba(83, 30, 160, 0.20), transparent 32%),
+                radial-gradient(circle at 85% 25%, rgba(255, 45, 193, 0.12), transparent 28%),
+                linear-gradient(rgba(170, 70, 255, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(170, 70, 255, 0.035) 1px, transparent 1px);
+            background-size: auto, auto, auto, 34px 34px, 34px 34px;
+            color: #f7edff;
+            overflow-x: hidden;
+        }
+
+        body.future-mode::before {
+            content: "";
+            position: fixed;
+            inset: -20%;
+            pointer-events: none;
+            z-index: 9996;
+            background:
+                linear-gradient(17deg, transparent 48%, rgba(207, 115, 255, 0.25) 48.2%, transparent 48.5%),
+                linear-gradient(143deg, transparent 52%, rgba(116, 54, 255, 0.22) 52.2%, transparent 52.5%),
+                linear-gradient(76deg, transparent 31%, rgba(255, 72, 206, 0.18) 31.2%, transparent 31.5%),
+                radial-gradient(circle, transparent 0 46%, rgba(158, 71, 255, 0.07) 47%, transparent 49%);
+            animation: frameBreakPulse 2.4s ease-in-out infinite;
+            mix-blend-mode: screen;
+        }
+
+        @keyframes frameBreakPulse {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: .55; }
+            50% { transform: scale(1.025) rotate(-0.25deg); opacity: .9; }
+        }
+
+        body.future-mode::after {
+            background:
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(255,255,255,0.028) 0px,
+                    rgba(255,255,255,0.028) 1px,
+                    transparent 1px,
+                    transparent 4px
+                ),
+                linear-gradient(90deg, transparent 0 48%, rgba(196, 90, 255, .025) 50%, transparent 52%);
+            animation: futureScan 0.18s steps(2) infinite;
+        }
+
+        @keyframes futureScan {
+            0% { transform: translateY(-5px); }
+            50% { transform: translateY(2px); }
+            100% { transform: translateY(5px); }
+        }
+
+        body.future-mode .header-title-box,
+        body.future-mode .wanted-poster,
+        body.future-mode .horario-card,
+        body.future-mode .day-block,
+        body.future-mode .tab-btn {
+            background: linear-gradient(145deg, rgba(23, 9, 39, .94), rgba(9, 7, 18, .96));
+            border-color: #a855f7;
+            color: #f5eaff;
+            box-shadow:
+                0 0 8px rgba(168, 85, 247, .34),
+                0 0 28px rgba(168, 85, 247, .10),
+                inset 0 0 20px rgba(199, 79, 255, .08);
+        }
+
+        body.future-mode .header-title-box {
+            position: relative;
+            transform: perspective(700px) rotateX(2deg);
+        }
+
+        body.future-mode .header-title-box::after {
+            content: "FRAME BREAK";
+            position: absolute;
+            left: 8px;
+            right: 8px;
+            bottom: -11px;
+            padding: 2px 6px;
+            font: 700 .55rem/1 monospace;
+            letter-spacing: 3px;
+            color: #ff7be5;
+            text-align: center;
+            background: #100719;
+            border: 1px solid #8b3fc7;
+            box-shadow: 0 0 10px rgba(255, 73, 211, .28);
+        }
+
+        body.future-mode .header-title-box h1,
+        body.future-mode .wanted-header {
+            color: #dfb5ff;
+            text-shadow:
+                0 0 4px #c45cff,
+                0 0 13px rgba(196, 92, 255, .9),
+                3px 0 #ff43c8,
+                -3px 0 #693cff;
+        }
+
+        body.future-mode .tab-btn {
+            border-style: solid;
+            cursor: pointer;
+        }
+
+        body.future-mode .tab-btn:hover {
+            transform: translateY(-3px) skewX(-1deg);
+            border-color: #f0a1ff;
+            box-shadow:
+                0 0 12px rgba(215, 117, 255, .55),
+                0 0 30px rgba(153, 60, 255, .20);
+        }
+
+        body.future-mode .tab-btn.active {
+            background: linear-gradient(135deg, #6d25a8, #35105f 55%, #a42d86);
+            border-color: #f0b4ff;
+            color: #ffffff;
+            box-shadow:
+                0 0 8px #cf65ff,
+                0 0 24px rgba(207, 101, 255, .55),
+                inset 0 0 16px rgba(255, 255, 255, .08);
+            text-shadow: 0 0 7px rgba(255,255,255,.5);
+        }
+
+        body.future-mode .photo-area {
+            background:
+                linear-gradient(135deg, rgba(132, 40, 189, .22), rgba(25, 8, 48, .5)),
+                repeating-linear-gradient(90deg, transparent 0 9px, rgba(255,255,255,.018) 10px);
+            border-color: #963fe1;
+        }
+
+        body.future-mode .wanted-desc,
+        body.future-mode td,
+        body.future-mode .subject,
+        body.future-mode .teacher,
+        body.future-mode footer,
+        body.future-mode .subject-teacher {
+            color: #ead9fa;
+        }
+
+        body.future-mode .reward-box {
+            background: rgba(178, 66, 255, .07);
+            border-color: #873bc4;
+        }
+
+        body.future-mode .day-header {
+            background: linear-gradient(90deg, #25103d, #5a2180, #28103f);
+            color: #e9c6ff;
+        }
+
+        body.future-mode .slot-num {
+            color: #ff73df;
+            text-shadow: 0 0 7px rgba(255, 90, 211, .7);
+        }
+
+        body.future-mode .timer-val {
+            color: #ff73d9;
+            text-shadow: 0 0 8px rgba(255, 75, 209, .75);
+        }
+
+
+        .frame-break-impact {
+            animation: frameBreakImpact .65s steps(2, end);
+        }
+
+        @keyframes frameBreakImpact {
+            0%, 100% { transform: translate(0, 0); }
+            12% { transform: translate(-4px, 2px) skewX(-.4deg); }
+            25% { transform: translate(5px, -3px) skewX(.5deg); }
+            42% { transform: translate(-6px, 1px); }
+            58% { transform: translate(4px, 3px); }
+            75% { transform: translate(-2px, -2px); }
+        }
+
+
+        /* =====================================================
+           FRAME BREAK — TRANSIÇÃO FUTURISTA ROXA
+           ===================================================== */
+
+        body.future-mode {
+            background-color: #05030b;
+            background-image:
+                radial-gradient(circle at 50% 18%, rgba(166, 73, 255, 0.24), transparent 35%),
+                radial-gradient(circle at 20% 80%, rgba(83, 30, 160, 0.20), transparent 32%),
+                radial-gradient(circle at 85% 25%, rgba(255, 45, 193, 0.12), transparent 28%),
+                linear-gradient(rgba(170, 70, 255, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(170, 70, 255, 0.035) 1px, transparent 1px);
+            background-size: auto, auto, auto, 34px 34px, 34px 34px;
+            color: #f7edff;
+            overflow-x: hidden;
+        }
+
+        body.future-mode::before {
+            content: "";
+            position: fixed;
+            inset: -20%;
+            pointer-events: none;
+            z-index: 9996;
+            background:
+                linear-gradient(17deg, transparent 48%, rgba(207, 115, 255, 0.25) 48.2%, transparent 48.5%),
+                linear-gradient(143deg, transparent 52%, rgba(116, 54, 255, 0.22) 52.2%, transparent 52.5%),
+                linear-gradient(76deg, transparent 31%, rgba(255, 72, 206, 0.18) 31.2%, transparent 31.5%),
+                radial-gradient(circle, transparent 0 46%, rgba(158, 71, 255, 0.07) 47%, transparent 49%);
+            animation: frameBreakPulse 2.4s ease-in-out infinite;
+            mix-blend-mode: screen;
+        }
+
+        @keyframes frameBreakPulse {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: .55; }
+            50% { transform: scale(1.025) rotate(-0.25deg); opacity: .9; }
+        }
+
+        body.future-mode::after {
+            background:
+                repeating-linear-gradient(
+                    0deg,
+                    rgba(255,255,255,0.028) 0px,
+                    rgba(255,255,255,0.028) 1px,
+                    transparent 1px,
+                    transparent 4px
+                ),
+                linear-gradient(90deg, transparent 0 48%, rgba(196, 90, 255, .025) 50%, transparent 52%);
+            animation: futureScan 0.18s steps(2) infinite;
+        }
+
+        @keyframes futureScan {
+            0% { transform: translateY(-5px); }
+            50% { transform: translateY(2px); }
+            100% { transform: translateY(5px); }
+        }
+
+        body.future-mode .header-title-box,
+        body.future-mode .wanted-poster,
+        body.future-mode .horario-card,
+        body.future-mode .day-block,
+        body.future-mode .tab-btn {
+            background: linear-gradient(145deg, rgba(23, 9, 39, .94), rgba(9, 7, 18, .96));
+            border-color: #a855f7;
+            color: #f5eaff;
+            box-shadow:
+                0 0 8px rgba(168, 85, 247, .34),
+                0 0 28px rgba(168, 85, 247, .10),
+                inset 0 0 20px rgba(199, 79, 255, .08);
+        }
+
+        body.future-mode .header-title-box {
+            position: relative;
+            transform: perspective(700px) rotateX(2deg);
+        }
+
+        body.future-mode .header-title-box::after {
+            content: "FRAME BREAK";
+            position: absolute;
+            left: 8px;
+            right: 8px;
+            bottom: -11px;
+            padding: 2px 6px;
+            font: 700 .55rem/1 monospace;
+            letter-spacing: 3px;
+            color: #ff7be5;
+            text-align: center;
+            background: #100719;
+            border: 1px solid #8b3fc7;
+            box-shadow: 0 0 10px rgba(255, 73, 211, .28);
+        }
+
+        body.future-mode .header-title-box h1,
+        body.future-mode .wanted-header {
+            color: #dfb5ff;
+            text-shadow:
+                0 0 4px #c45cff,
+                0 0 13px rgba(196, 92, 255, .9),
+                3px 0 #ff43c8,
+                -3px 0 #693cff;
+        }
+
+        body.future-mode .tab-btn {
+            border-style: solid;
+            cursor: pointer;
+        }
+
+        body.future-mode .tab-btn:hover {
+            transform: translateY(-3px) skewX(-1deg);
+            border-color: #f0a1ff;
+            box-shadow:
+                0 0 12px rgba(215, 117, 255, .55),
+                0 0 30px rgba(153, 60, 255, .20);
+        }
+
+        body.future-mode .tab-btn.active {
+            background: linear-gradient(135deg, #6d25a8, #35105f 55%, #a42d86);
+            border-color: #f0b4ff;
+            color: #ffffff;
+            box-shadow:
+                0 0 8px #cf65ff,
+                0 0 24px rgba(207, 101, 255, .55),
+                inset 0 0 16px rgba(255, 255, 255, .08);
+            text-shadow: 0 0 7px rgba(255,255,255,.5);
+        }
+
+        body.future-mode .photo-area {
+            background:
+                linear-gradient(135deg, rgba(132, 40, 189, .22), rgba(25, 8, 48, .5)),
+                repeating-linear-gradient(90deg, transparent 0 9px, rgba(255,255,255,.018) 10px);
+            border-color: #963fe1;
+        }
+
+        body.future-mode .wanted-desc,
+        body.future-mode td,
+        body.future-mode .subject,
+        body.future-mode .teacher,
+        body.future-mode footer,
+        body.future-mode .subject-teacher {
+            color: #ead9fa;
+        }
+
+        body.future-mode .reward-box {
+            background: rgba(178, 66, 255, .07);
+            border-color: #873bc4;
+        }
+
+        body.future-mode .day-header {
+            background: linear-gradient(90deg, #25103d, #5a2180, #28103f);
+            color: #e9c6ff;
+        }
+
+        body.future-mode .slot-num {
+            color: #ff73df;
+            text-shadow: 0 0 7px rgba(255, 90, 211, .7);
+        }
+
+        body.future-mode .timer-val {
+            color: #ff73d9;
+            text-shadow: 0 0 8px rgba(255, 75, 209, .75);
+        }
+
+
+
+        /* =====================================================
+           FRAME BREAK — QUEBRA REAL / SHATTER
+           ===================================================== */
+
+        .frame-break-impact {
+            animation: fbCameraShake 1.15s cubic-bezier(.15,.8,.2,1) both;
+            transform-origin: 50% 50%;
+        }
+
+        .frame-break-impact::before {
+            content: "";
+            position: fixed;
+            inset: -12%;
+            z-index: 9998;
+            pointer-events: none;
+            background:
+                conic-gradient(from 12deg at 50% 50%,
+                    transparent 0 8deg,
+                    rgba(255,255,255,.95) 8.3deg 8.8deg,
+                    transparent 9deg 31deg,
+                    rgba(190,86,255,.9) 31.3deg 31.8deg,
+                    transparent 32deg 67deg,
+                    rgba(255,68,208,.85) 67.3deg 67.8deg,
+                    transparent 68deg 113deg,
+                    rgba(255,255,255,.85) 113.3deg 113.8deg,
+                    transparent 114deg 181deg,
+                    rgba(143,68,255,.9) 181.3deg 181.8deg,
+                    transparent 182deg 360deg),
+                linear-gradient(28deg, transparent 0 48.5%, rgba(255,255,255,.95) 48.7% 49%, transparent 49.2%),
+                linear-gradient(151deg, transparent 0 51%, rgba(221,117,255,.95) 51.2% 51.45%, transparent 51.7%);
+            mix-blend-mode: screen;
+            animation: fbShatterOverlay 1.15s cubic-bezier(.2,.7,.2,1) both;
+        }
+
+        .frame-break-impact::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            z-index: 9997;
+            pointer-events: none;
+            background:
+                radial-gradient(circle at 50% 50%, rgba(255,255,255,.95) 0 2%, rgba(207,100,255,.55) 9%, transparent 38%),
+                repeating-conic-gradient(from 0deg at 50% 50%, transparent 0 9deg, rgba(255,255,255,.28) 9.2deg 9.7deg, transparent 10deg 24deg);
+            animation: fbFlash 1.15s ease-out both;
+        }
+
+        @keyframes fbCameraShake {
+            0% { transform: scale(1) translate(0,0) rotate(0); filter: none; }
+            18% { transform: scale(1.015) translate(-5px,3px) rotate(-.3deg); filter: contrast(1.25); }
+            35% { transform: scale(1.03) translate(7px,-4px) rotate(.4deg); filter: contrast(1.6) saturate(1.5); }
+            52% { transform: scale(1.06) translate(-10px,5px) rotate(-.6deg); filter: blur(.5px) contrast(1.8); }
+            70% { transform: scale(1.10) translate(9px,-3px) rotate(.5deg); filter: blur(1px) contrast(1.4); }
+            86% { transform: scale(1.16) translate(-4px,2px); filter: blur(.2px); }
+            100% { transform: scale(1) translate(0,0) rotate(0); filter: none; }
+        }
+
+        @keyframes fbShatterOverlay {
+            0% { opacity: 0; transform: scale(.7) rotate(-8deg); clip-path: polygon(0 0,100% 0,100% 100%,0 100%); }
+            18% { opacity: 1; transform: scale(.9) rotate(2deg); }
+            40% { clip-path: polygon(0 0,42% 0,50% 18%,58% 0,100% 0,100% 42%,82% 50%,100% 58%,100% 100%,58% 100%,50% 82%,42% 100%,0 100%,0 58%,18% 50%,0 42%); transform: scale(1.02) rotate(-2deg); }
+            63% { opacity: 1; transform: scale(1.12) rotate(4deg); clip-path: polygon(0 0,34% 0,50% 30%,66% 0,100% 0,100% 34%,70% 50%,100% 66%,100% 100%,66% 100%,50% 70%,34% 100%,0 100%,0 66%,30% 50%,0 34%); }
+            82% { opacity: .65; transform: scale(1.3) rotate(-7deg); }
+            100% { opacity: 0; transform: scale(1.65) rotate(12deg); }
+        }
+
+        @keyframes fbFlash {
+            0%, 100% { opacity: 0; }
+            22% { opacity: .85; }
+            38% { opacity: .15; }
+            55% { opacity: .75; }
+            75% { opacity: .2; }
+        }
+
+        /* =====================================================
+           RESPONSIVO
+           ===================================================== */
 
         @media (max-width: 700px) {
             .tab-nav {
@@ -398,13 +1086,90 @@
                 padding: 10px 25px;
             }
         }
-    </style>
+    
+        /* =====================================================
+           OVERRIDE FINAL — PADRÃO PERGAMINHO
+           ===================================================== */
+
+        body:not(.future-mode) {
+            background-color: #cbb083 !important;
+            background-image:
+                radial-gradient(circle, rgba(80, 45, 15, .07) 0%, rgba(70, 35, 10, .24) 100%),
+                repeating-linear-gradient(
+                    45deg,
+                    #c9ad7e 0px,
+                    #c9ad7e 2px,
+                    #d4ba8d 2px,
+                    #d4ba8d 4px
+                ) !important;
+            color: #2b1a09 !important;
+        }
+
+        body:not(.future-mode) .tab-btn {
+            background: #d8bf95 !important;
+            border: 3px dashed #5c3a20 !important;
+            color: #2b1a09 !important;
+            box-shadow: 0 3px 7px rgba(50, 25, 5, .25) !important;
+        }
+
+        body:not(.future-mode) .tab-btn.active {
+            background: #b89563 !important;
+            border: 3px solid #4b2b13 !important;
+            color: #1d1007 !important;
+            box-shadow: inset 0 0 10px rgba(50, 25, 5, .35), 2px 4px 10px rgba(50, 25, 5, .3) !important;
+        }
+
+        body:not(.future-mode) .header-title-box,
+        body:not(.future-mode) .wanted-poster,
+        body:not(.future-mode) .horario-card,
+        body:not(.future-mode) .day-block {
+            background: #e1cba5 !important;
+            border-color: #6b4526 !important;
+            color: #2b1a09 !important;
+            box-shadow: 0 4px 12px rgba(60, 30, 10, .25) !important;
+        }
+
+        body:not(.future-mode) .wanted-header,
+        body:not(.future-mode) .header-title-box h1,
+        body:not(.future-mode) .wanted-desc,
+        body:not(.future-mode) .subject-name,
+        body:not(.future-mode) .subject-teacher,
+        body:not(.future-mode) .subject,
+        body:not(.future-mode) .teacher,
+        body:not(.future-mode) td,
+        body:not(.future-mode) footer {
+            color: #2b1a09 !important;
+            text-shadow: none !important;
+        }
+
+        body:not(.future-mode) .photo-area {
+            background: #c7a979 !important;
+            border-color: #6b4526 !important;
+        }
+
+        body:not(.future-mode) .reward-box {
+            background: #d4ba8d !important;
+            border-color: #6b4526 !important;
+        }
+
+        body:not(.future-mode) .day-header {
+            background: #b89563 !important;
+            color: #2b1a09 !important;
+        }
+
+        body:not(.future-mode) .timer-val,
+        body:not(.future-mode) .slot-num {
+            color: #8b1e1e !important;
+            text-shadow: none !important;
+        }
+
+</style>
 </head>
 
 <body>
 
     <header>
-        <div class="header-title-box">
+        <div class="header-title-box" id="bv-easter-egg" title="...">
             <h1>2º BV</h1>
         </div>
     </header>
@@ -480,6 +1245,8 @@
                     <div class="timer-val countdown">
                         00d 00h 00m 00s
                     </div>
+                </div>
+            </div>
                 
             <!-- linguagens e cultura -->
 
@@ -518,6 +1285,8 @@
                     <div class="timer-val countdown">
                         00d 00h 00m 00s
                     </div>
+                </div>
+            </div>
                     
        <!-- linguagens e cultura -->
 
@@ -556,6 +1325,8 @@
                     <div class="timer-val countdown">
                         00d 00h 00m 00s
                     </div>
+                </div>
+            </div>
 
                            <!-- ESA -->
 
@@ -647,6 +1418,8 @@
                     <div class="timer-val countdown">
                         00d 00h 00m 00s
                     </div>
+                </div>
+            </div>
 
             <!-- ================================================= -->
             <!-- geografia -->
@@ -687,6 +1460,8 @@
                     <div class="timer-val countdown">
                         00d 00h 00m 00s
                     </div>
+                </div>
+            </div>
 
             <!-- ================================================= -->
             <!-- filosofia -->
@@ -727,6 +1502,8 @@
                     <div class="timer-val countdown">
                         00d 00h 00m 00s
                     </div>
+                </div>
+            </div>
             <!-- ================================================= -->
             <!-- sociologia -->
             <!-- ================================================= -->
@@ -766,6 +1543,8 @@
                     <div class="timer-val countdown">
                         00d 00h 00m 00s
                     </div>
+                </div>
+            </div>
             <!-- ================================================= -->
             <!-- historia da bahia -->
             <!-- ================================================= -->
@@ -1193,6 +1972,95 @@
     <!-- ========================================================= -->
 
     <script>
+
+        /* =====================================================
+           EASTER EGG — CLIQUES NO "2º BV"
+           1-3 cliques: normal
+           4-5: primeira fissura
+           6-7: fissuras mais fortes
+           8: quebra completa + tema futurista
+           ===================================================== */
+
+        (() => {
+            const trigger = document.getElementById('bv-easter-egg');
+            let clicks = 0;
+            let resetTimer = null;
+
+            if (!trigger) return;
+
+            trigger.addEventListener('click', () => {
+                if (document.body.classList.contains('future-mode')) return;
+
+                clicks++;
+                document.body.classList.remove('crack-1', 'crack-2', 'crack-3');
+
+                if (clicks >= 4 && clicks < 6) {
+                    document.body.classList.add('crack-1');
+                } else if (clicks >= 6 && clicks < 8) {
+                    document.body.classList.add('crack-2');
+                } else if (clicks >= 8) {
+                    document.body.classList.add('crack-3');
+                    document.body.classList.add('frame-break-impact');
+
+                    setTimeout(() => {
+                        document.body.classList.add('future-mode');
+                        document.body.classList.remove('crack-1', 'crack-2', 'crack-3', 'frame-break-impact');
+                    }, 1180);
+                }
+
+                clearTimeout(resetTimer);
+                resetTimer = setTimeout(() => {
+                    if (!document.body.classList.contains('future-mode')) {
+                        clicks = 0;
+                        document.body.classList.remove('crack-1', 'crack-2', 'crack-3');
+                    }
+                }, 2200);
+            });
+        })();
+
+
+
+        /* =====================================================
+           CONTROLE DAS ABAS
+           ===================================================== */
+
+        (() => {
+            const tabs = [
+                { radio: 'tab-trabalhos', content: '.tab-content-trabalhos' },
+                { radio: 'tab-horario', content: '.tab-content-horario' },
+                { radio: 'tab-atividades', content: '.tab-content-atividades' }
+            ];
+
+            function activateTab(radioId) {
+                tabs.forEach(tab => {
+                    const radio = document.getElementById(tab.radio);
+                    const content = document.querySelector(tab.content);
+                    const button = document.querySelector(`label[for="${tab.radio}"]`);
+                    const active = tab.radio === radioId;
+
+                    if (radio) radio.checked = active;
+                    if (content) content.classList.toggle('tab-visible', active);
+                    if (button) button.classList.toggle('active', active);
+                });
+            }
+
+            tabs.forEach(tab => {
+                const radio = document.getElementById(tab.radio);
+                if (radio) {
+                    radio.addEventListener('change', () => activateTab(tab.radio));
+                }
+            });
+
+            document.querySelectorAll('.tab-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const id = button.getAttribute('for');
+                    activateTab(id);
+                });
+            });
+
+            activateTab('tab-trabalhos');
+        })();
+
 
         function updateTimers() {
 
