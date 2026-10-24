@@ -1224,6 +1224,149 @@
                 animation: none;
             }
         }
+
+        /* =====================================================
+           TEMA HACKER — CHUVA DE CÓDIGOS BINÁRIOS
+           ===================================================== */
+        #matrix-bg {
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity .35s ease, visibility .35s ease;
+        }
+
+        body.theme-hacker {
+            background: #020704;
+            color: #b8ffc8;
+            isolation: isolate;
+        }
+
+        body.theme-hacker #matrix-bg {
+            opacity: .78;
+            visibility: visible;
+        }
+
+        body.theme-hacker > header,
+        body.theme-hacker > .tab-container,
+        body.theme-hacker > footer {
+            position: relative;
+            z-index: 1;
+        }
+
+        body.theme-hacker .header-title-box,
+        body.theme-hacker .wanted-poster,
+        body.theme-hacker .horario-card,
+        body.theme-hacker .day-block,
+        body.theme-hacker .tab-btn {
+            background: rgba(2, 13, 7, .91);
+            border-color: #00ff66;
+            color: #c6ffd6;
+            box-shadow: 0 0 8px rgba(0,255,102,.22), inset 0 0 18px rgba(0,255,102,.045);
+        }
+
+        body.theme-hacker .header-title-box h1,
+        body.theme-hacker .wanted-header {
+            color: #39ff83;
+            text-shadow: 0 0 5px rgba(0,255,102,.75), 0 0 16px rgba(0,255,102,.28);
+        }
+
+        body.theme-hacker .tab-btn {
+            border-style: solid;
+        }
+
+        body.theme-hacker .tab-btn:hover,
+        body.theme-hacker .tab-btn.active {
+            background: rgba(0, 68, 29, .95);
+            border-color: #a4ffb9;
+            color: #ffffff;
+            box-shadow: 0 0 14px rgba(0,255,102,.35);
+        }
+
+        body.theme-hacker .photo-area {
+            background: rgba(0, 40, 17, .8);
+            border-color: #00a844;
+        }
+
+        body.theme-hacker .subject-name,
+        body.theme-hacker .subject,
+        body.theme-hacker .slot-num,
+        body.theme-hacker .timer-val {
+            color: #54ff91 !important;
+            text-shadow: 0 0 5px rgba(0,255,102,.25);
+        }
+
+        body.theme-hacker .wanted-desc,
+        body.theme-hacker .subject-teacher,
+        body.theme-hacker .teacher,
+        body.theme-hacker td,
+        body.theme-hacker footer,
+        body.theme-hacker .reward-label {
+            color: #c2f8d0 !important;
+        }
+
+        body.theme-hacker .reward-box {
+            background: rgba(0,255,102,.055);
+            border-color: #087b38;
+        }
+
+        body.theme-hacker .day-header {
+            background: #003d1b;
+            color: #9dffb8;
+        }
+
+        body.theme-hacker table { background: rgba(0,8,3,.9); }
+        body.theme-hacker td { border-bottom-color: #075326; }
+        body.theme-hacker tr:hover { background: rgba(0,255,102,.08); }
+
+        body.theme-hacker #settings-btn {
+            background: #02170a;
+            border-color: #00ff66;
+            color: #65ff9b;
+            box-shadow: 0 0 12px rgba(0,255,102,.3);
+        }
+
+        body.theme-hacker #settings-btn:hover {
+            background: #06371a;
+            border-color: #b0ffc4;
+        }
+
+        body.theme-hacker .modal-content {
+            background: #03140a;
+            border-color: #00ff66;
+            color: #c2f8d0;
+            box-shadow: 0 0 30px rgba(0,255,102,.2);
+        }
+
+        body.theme-hacker .modal-content h2 {
+            color: #54ff91;
+            border-bottom-color: #087b38;
+        }
+
+        body.theme-hacker .modal-close,
+        body.theme-hacker .setting-group label {
+            color: #9dffb8;
+        }
+
+        body.theme-hacker .theme-option {
+            background: #041f0d;
+            border-color: #087b38;
+        }
+
+        body.theme-hacker .theme-option:hover,
+        body.theme-hacker .theme-option.selected {
+            background: #06421b;
+            border-color: #00ff66;
+        }
+
+        body.theme-hacker .theme-option .theme-name { color: #c2f8d0; }
+        body.theme-hacker .theme-option .theme-desc { color: #82d99b; }
+        body.theme-hacker .theme-option input[type="radio"] { accent-color: #00ff66; }
+
     </style>
 </head>
 
@@ -1237,6 +1380,8 @@
         <div class="palms"></div>
         <div class="grid"></div>
     </div>
+
+    <canvas id="matrix-bg" aria-hidden="true"></canvas>
 
     <header>
         <div class="header-title-box">
@@ -1269,30 +1414,30 @@
         <!-- ABA 1: MISSÕES -->
         <div class="tab-content tab-content-trabalhos poster-grid">
 
-            <div class="wanted-poster" data-deadline="2026-09-28T13:45:00">
+            <div class="wanted-poster" data-deadline="2026-10-29T13:45:00">
                 <div class="wanted-header">Procurado</div>
                 <div class="wanted-status">--</div>
                 <div class="photo-area">
-                    <div class="subject-name">Trabalho de Linguagens e cultura</div>
-                    <div class="subject-teacher">Rafaela</div>
+                    <div class="subject-name">Fichamento</div>
+                    <div class="subject-teacher">Filosofia</div>
                 </div>
-                <div class="wanted-desc">parte 1 do trabalho (fio de corte)</div>
+                <div class="wanted-desc">Fazer o fichamento solicitado</div>
                 <div class="reward-box">
-                    <div class="reward-label">DATA: 28/09 segunda</div>
+                    <div class="reward-label">DATA: 29/10 quinta-feira</div>
                     <div class="timer-val countdown">00d 00h 00m 00s</div>
                 </div>
             </div>
 
-            <div class="wanted-poster" data-deadline="2026-10-19T13:45:00">
+            <div class="wanted-poster" data-deadline="2026-11-05T13:45:00">
                 <div class="wanted-header">Procurado</div>
                 <div class="wanted-status">--</div>
                 <div class="photo-area">
-                    <div class="subject-name">Trabalho de Linguagens e cultura</div>
-                    <div class="subject-teacher">Rafaela</div>
+                    <div class="subject-name">Feira de Ciências</div>
+                    <div class="subject-teacher">Física</div>
                 </div>
-                <div class="wanted-desc">parte 2 do trabalho (torto arado)</div>
+                <div class="wanted-desc">Trabalho de Física</div>
                 <div class="reward-box">
-                    <div class="reward-label">DATA: 19/10 segunda</div>
+                    <div class="reward-label">DATA: 05/11 quinta-feira</div>
                     <div class="timer-val countdown">00d 00h 00m 00s</div>
                 </div>
             </div>
@@ -1306,21 +1451,21 @@
                 </div>
                 <div class="wanted-desc">parte 3 do trabalho (rio de sangue)</div>
                 <div class="reward-box">
-                    <div class="reward-label">DATA: 09/11 segunda</div>
+                    <div class="reward-label">DATA: 09/11 segunda-feira</div>
                     <div class="timer-val countdown">00d 00h 00m 00s</div>
                 </div>
             </div>
 
-            <div class="wanted-poster" data-deadline="2026-12-31T13:00:00">
+            <div class="wanted-poster" data-deadline="2026-11-18T13:45:00">
                 <div class="wanted-header">Procurado</div>
                 <div class="wanted-status">--</div>
                 <div class="photo-area">
-                    <div class="subject-name">Trabalho de Educação sociocientifica e cultural</div>
-                    <div class="subject-teacher">Ray</div>
+                    <div class="subject-name">Desfile Sustentável</div>
+                    <div class="subject-teacher">ESA</div>
                 </div>
-                <div class="wanted-desc">desfile sustentável</div>
+                <div class="wanted-desc">Desfile sustentável após o ENEM</div>
                 <div class="reward-box">
-                    <div class="reward-label">DATA: ??/?? ????</div>
+                    <div class="reward-label">DATA: 18/11 quarta-feira</div>
                     <div class="timer-val countdown">00d 00h 00m 00s</div>
                 </div>
             </div>
@@ -1329,48 +1474,19 @@
         <!-- ABA 2: SIDE QUESTS -->
         <div class="tab-content tab-content-atividades poster-grid">
 
-            <div class="wanted-poster" data-deadline="2026-09-24T13:00:00">
+            <div class="wanted-poster" data-deadline="2026-10-27T13:45:00">
                 <div class="wanted-header">Side Quest</div>
                 <div class="wanted-status">--</div>
                 <div class="photo-area">
-                    <div class="subject-name">Atividade de inglês</div>
-                    <div class="subject-teacher">Joacyr</div>
+                    <div class="subject-name">Atividade avaliativa</div>
+                    <div class="subject-teacher">Química</div>
                 </div>
-                <div class="wanted-desc">Traduzir o texto do caderno</div>
+                <div class="wanted-desc">Cinética química</div>
                 <div class="reward-box">
-                    <div class="reward-label">DATA: 24/09/2026</div>
+                    <div class="reward-label">DATA: 27/10 terça-feira</div>
                     <div class="timer-val countdown">00d 00h 00m 00s</div>
                 </div>
             </div>
-
-            <div class="wanted-poster" data-deadline="2026-09-24T14:30:00">
-                <div class="wanted-header">Side Quest</div>
-                <div class="wanted-status">--</div>
-                <div class="photo-area">
-                    <div class="subject-name">Atividade de filosofia</div>
-                    <div class="subject-teacher">Joana</div>
-                </div>
-                <div class="wanted-desc">fazer um mapa conceitual sobre o antropocentrismo (para quem ainda n fez)</div>
-                <div class="reward-box">
-                    <div class="reward-label">DATA: 24/09/2026</div>
-                    <div class="timer-val countdown">00d 00h 00m 00s</div>
-                </div>
-            </div>
-
-            <div class="wanted-poster" data-deadline="2026-09-25T13:00:00">
-                <div class="wanted-header">Side Quest</div>
-                <div class="wanted-status">--</div>
-                <div class="photo-area">
-                    <div class="subject-name">Atividade de geografia</div>
-                    <div class="subject-teacher">Marcos Antônio</div>
-                </div>
-                <div class="wanted-desc">continuação da atividade da 8 a 17</div>
-                <div class="reward-box">
-                    <div class="reward-label">DATA: 25/09/2026</div>
-                    <div class="timer-val countdown">00d 00h 00m 00s</div>
-                </div>
-            </div>
-        
         </div>
 
         <!-- ABA 3: CALENDÁRIO -->
@@ -1487,12 +1603,88 @@
                             <span class="theme-desc">Futurista roxo com efeitos neon</span>
                         </div>
                     </label>
+
+                    <label class="theme-option" data-theme="hacker">
+                        <input type="radio" name="theme" value="hacker">
+                        <div class="theme-info">
+                            <span class="theme-name">Hacker</span>
+                            <span class="theme-desc">Chuva de números binários em verde neon</span>
+                        </div>
+                    </label>
                 </div>
             </div>
         </div>
     </div>
 
     <script>
+
+        /* =====================================================
+           CHUVA BINÁRIA DO TEMA HACKER
+           ===================================================== */
+        const matrixCanvas = document.getElementById('matrix-bg');
+        const matrixContext = matrixCanvas.getContext('2d');
+        let matrixDrops = [];
+        let matrixWidth = 0;
+        let matrixHeight = 0;
+        let matrixFrame = null;
+        const matrixFontSize = 16;
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        function resizeMatrix() {
+            const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+            matrixWidth = window.innerWidth;
+            matrixHeight = window.innerHeight;
+            matrixCanvas.width = Math.floor(matrixWidth * dpr);
+            matrixCanvas.height = Math.floor(matrixHeight * dpr);
+            matrixContext.setTransform(dpr, 0, 0, dpr, 0, 0);
+            matrixDrops = Array.from(
+                { length: Math.ceil(matrixWidth / matrixFontSize) },
+                () => Math.random() * (matrixHeight / matrixFontSize)
+            );
+        }
+
+        function drawMatrix() {
+            if (!document.body.classList.contains('theme-hacker') || document.hidden) {
+                matrixFrame = null;
+                return;
+            }
+
+            matrixContext.fillStyle = 'rgba(0, 5, 2, 0.12)';
+            matrixContext.fillRect(0, 0, matrixWidth, matrixHeight);
+            matrixContext.font = matrixFontSize + 'px monospace';
+            matrixContext.fillStyle = '#00ff66';
+            matrixContext.shadowColor = '#00ff66';
+            matrixContext.shadowBlur = 5;
+
+            for (let i = 0; i < matrixDrops.length; i++) {
+                const digit = Math.random() > 0.5 ? '1' : '0';
+                const x = i * matrixFontSize;
+                const y = matrixDrops[i] * matrixFontSize;
+                matrixContext.fillText(digit, x, y);
+                if (y > matrixHeight && Math.random() > 0.975) matrixDrops[i] = 0;
+                else matrixDrops[i] += 0.42 + Math.random() * 0.48;
+            }
+
+            matrixContext.shadowBlur = 0;
+            matrixFrame = window.requestAnimationFrame(drawMatrix);
+        }
+
+        function setMatrixActive(active) {
+            if (active && !reducedMotion && !document.hidden) {
+                if (!matrixCanvas.width) resizeMatrix();
+                if (matrixFrame === null) matrixFrame = window.requestAnimationFrame(drawMatrix);
+            } else if (matrixFrame !== null) {
+                window.cancelAnimationFrame(matrixFrame);
+                matrixFrame = null;
+            }
+        }
+
+        resizeMatrix();
+        window.addEventListener('resize', resizeMatrix);
+        document.addEventListener('visibilitychange', () => {
+            setMatrixActive(document.body.classList.contains('theme-hacker'));
+        });
+
         /* =====================================================
            SISTEMA DE TEMAS
            ===================================================== */
@@ -1507,8 +1699,9 @@
             const savedTheme = localStorage.getItem('2bv-theme') || 'padrao';
 
             function applyTheme(theme) {
-                body.classList.remove('theme-padrao', 'theme-vibes', 'theme-legacy');
+                body.classList.remove('theme-padrao', 'theme-vibes', 'theme-legacy', 'theme-hacker');
                 body.classList.add('theme-' + theme);
+                setMatrixActive(theme === 'hacker');
 
                 themeOptions.forEach(opt => {
                     opt.classList.toggle('selected', opt.dataset.theme === theme);
