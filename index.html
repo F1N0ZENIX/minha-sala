@@ -1367,6 +1367,253 @@
         body.theme-hacker .theme-option .theme-desc { color: #82d99b; }
         body.theme-hacker .theme-option input[type="radio"] { accent-color: #00ff66; }
 
+
+        /* =====================================================
+           SELETOR DE TEMAS — CARTÕES VISUAIS
+           ===================================================== */
+        .modal-content {
+            max-width: 650px;
+            max-height: min(88vh, 760px);
+            overflow-y: auto;
+            border-radius: 18px;
+            padding: 28px;
+            scrollbar-width: thin;
+        }
+
+        .modal-content h2 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.55rem, 4vw, 2rem);
+            letter-spacing: .04em;
+            margin: 0 34px 8px;
+            padding-bottom: 14px;
+        }
+
+        .theme-intro {
+            margin: 0 auto 22px;
+            max-width: 430px;
+            text-align: center;
+            font-size: .95rem;
+            line-height: 1.55;
+            opacity: .82;
+        }
+
+        .setting-group > label {
+            display: block;
+            margin: 0 0 12px;
+            font-size: .78rem;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            opacity: .8;
+        }
+
+        .theme-options {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .theme-option {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            min-width: 0;
+            min-height: 104px;
+            padding: 15px 38px 15px 14px;
+            border: 1px solid rgba(80, 70, 50, .42);
+            border-radius: 13px;
+            background: rgba(255,255,255,.18);
+            box-shadow: 0 3px 12px rgba(0,0,0,.07);
+            transform: none;
+            transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease, background .18s ease;
+            overflow: hidden;
+        }
+
+        .theme-option::before {
+            content: "";
+            display: block;
+            flex: 0 0 58px;
+            width: 58px;
+            height: 62px;
+            border-radius: 10px;
+            border: 1px solid rgba(255,255,255,.24);
+            background: linear-gradient(145deg, #e6cfaa, #8b6039);
+            box-shadow: inset 0 0 0 1px rgba(0,0,0,.08);
+        }
+
+        .theme-option[data-theme="padrao"]::before {
+            background:
+                radial-gradient(circle at 75% 22%, #fff4cf 0 7%, transparent 8%),
+                repeating-linear-gradient(0deg, transparent 0 8px, rgba(88,54,25,.17) 9px 10px),
+                linear-gradient(145deg, #f4dfb7, #b78b55);
+        }
+
+        .theme-option[data-theme="vibes"]::before {
+            background:
+                linear-gradient(0deg, rgba(255,0,127,.45), transparent 50%),
+                linear-gradient(180deg, #24104b 0 43%, #ff4c9a 44% 46%, #140b2c 47%),
+                repeating-linear-gradient(90deg, transparent 0 8px, rgba(255,204,0,.6) 9px 10px);
+            background-color: #180c35;
+        }
+
+        .theme-option[data-theme="legacy"]::before {
+            background:
+                linear-gradient(135deg, transparent 42%, #ff43c8 43% 45%, transparent 46%),
+                linear-gradient(45deg, transparent 50%, #c45cff 51% 53%, transparent 54%),
+                radial-gradient(circle at 50% 50%, #6929a2, #10071f 75%);
+        }
+
+        .theme-option[data-theme="hacker"]::before {
+            content: "01\A 10\A 01";
+            white-space: pre;
+            line-height: 1.15;
+            text-align: center;
+            padding-top: 7px;
+            box-sizing: border-box;
+            font: 700 14px/1.15 monospace;
+            letter-spacing: 3px;
+            color: #4dff8b;
+            text-shadow: 0 0 7px #00ff66;
+            background: repeating-linear-gradient(0deg, #021008 0 7px, #062514 8px 9px);
+            border-color: #087b38;
+        }
+
+        .theme-option .theme-info {
+            display: flex;
+            flex: 1;
+            flex-direction: column;
+            gap: 5px;
+            min-width: 0;
+            margin: 0;
+        }
+
+        .theme-option .theme-name {
+            display: block;
+            margin: 0;
+            font-size: 1rem;
+            font-weight: 800;
+            line-height: 1.2;
+        }
+
+        .theme-option .theme-desc {
+            display: block;
+            margin: 0;
+            font-size: .78rem;
+            line-height: 1.4;
+            opacity: .8;
+            font-family: Arial, sans-serif;
+            font-weight: 400;
+        }
+
+        .theme-option input[type="radio"] {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 17px;
+            height: 17px;
+            margin: 0;
+            accent-color: currentColor;
+        }
+
+        .theme-option::after {
+            content: "";
+            position: absolute;
+            right: 12px;
+            bottom: 12px;
+            width: 20px;
+            height: 20px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: 900;
+            opacity: 0;
+            transform: scale(.7);
+            transition: opacity .18s ease, transform .18s ease;
+        }
+
+        .theme-option.selected {
+            transform: translateY(-2px);
+            box-shadow: 0 7px 22px rgba(0,0,0,.16);
+        }
+
+        .theme-option.selected::after {
+            content: "✓";
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .theme-option:focus-within {
+            outline: 3px solid #3b82f6;
+            outline-offset: 3px;
+        }
+
+        body.theme-padrao .theme-option.selected {
+            background: #f0d9ae;
+            border-color: #704522;
+        }
+        body.theme-padrao .theme-option.selected::after {
+            color: #fff;
+            background: #704522;
+        }
+
+        body.theme-vibes .theme-option.selected {
+            background: linear-gradient(135deg, #39134c, #170c2e);
+            border-color: #ffcc00;
+            box-shadow: 0 0 17px rgba(255,0,127,.25);
+        }
+        body.theme-vibes .theme-option.selected::after {
+            color: #180c2b;
+            background: #ffcc00;
+        }
+
+        body.theme-legacy .theme-option.selected {
+            background: linear-gradient(135deg, #35105f, #160923);
+            border-color: #f0b4ff;
+            box-shadow: 0 0 17px rgba(207,101,255,.28);
+        }
+        body.theme-legacy .theme-option.selected::after {
+            color: #210a32;
+            background: #f0b4ff;
+        }
+
+        body.theme-hacker .theme-option.selected {
+            background: linear-gradient(135deg, #06371a, #021008);
+            border-color: #00ff66;
+            box-shadow: 0 0 17px rgba(0,255,102,.22);
+        }
+        body.theme-hacker .theme-option.selected::after {
+            color: #001b09;
+            background: #4dff8b;
+        }
+
+        @media (hover: hover) {
+            .theme-option:hover {
+                transform: translateY(-2px);
+                filter: brightness(1.04);
+            }
+        }
+
+        @media (max-width: 560px) {
+            .modal-overlay { padding: 12px; }
+            .modal-content {
+                max-height: 90dvh;
+                padding: 22px 16px 18px;
+                border-radius: 16px;
+            }
+            .modal-content h2 { margin: 0 24px 8px; }
+            .theme-intro { font-size: .85rem; margin-bottom: 18px; }
+            .theme-options { grid-template-columns: 1fr; gap: 9px; }
+            .theme-option { min-height: 86px; padding: 11px 38px 11px 11px; }
+            .theme-option::before { flex-basis: 50px; width: 50px; height: 54px; }
+            .theme-option .theme-name { font-size: .95rem; }
+            .theme-option .theme-desc { font-size: .75rem; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .theme-option, .theme-option::after { transition: none !important; }
+        }
+
     </style>
 </head>
 
@@ -1576,6 +1823,7 @@
         <div class="modal-content">
             <button class="modal-close" id="modal-close">×</button>
             <h2>Configurações</h2>
+            <p class="theme-intro">Personalize o visual da sua sala. Escolha um tema para ver a mudança imediatamente.</p>
 
             <div class="setting-group">
                 <label>Temas</label>
